@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <TextView
+        android:id="@+id/text_floor"
+        android:layout_width="86dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/editText_comment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Ваш этаж">
+
+    </TextView>
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_floor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp">
+
+    </EditText>
+
+    <CheckBox
+        android:id="@+id/autodown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Спускать меня вниз с моего этажа"
+        android:layout_below="@+id/floor"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true">
+
+    </CheckBox>
+
+    <Button
+        android:id="@+id/btn_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Применить"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="applySettings">
+    </Button>
+
+    <TextView
+        android:id="@+id/current_address"
+        android:layout_width="196dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_set_address"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_toRightOf="@+id/current_address"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Установить домашним"
+        android:textSize="9dp"
+        android:onClick="setAddress"/>
+    <TextView
+        android:id="@+id/text_home_address"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/current_address"
+        android:layout_margin="10dp"
+        android:padding="4dp"
+        android:editable="false"
+        android:text="Домашний адресс " />
+
+    <EditText
+        android:id="@+id/home_address"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/text_home_address"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:text="" />
+
+    <EditText
+        android:id="@+id/editText_comment"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/textView_comment"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textView_comment"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/home_address"
+        android:layout_marginTop="16dp"
+        android:text="Описание" />
+
+</RelativeLayout>
