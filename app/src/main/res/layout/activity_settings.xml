@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/text_floor"
-        android:layout_width="86dp"
-        android:layout_height="25dp"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:layout_below="@id/editText_comment"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -85,7 +85,7 @@
     <EditText
         android:id="@+id/home_address"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/text_home_address"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="8dp"

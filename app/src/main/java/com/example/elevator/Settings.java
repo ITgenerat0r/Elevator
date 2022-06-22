@@ -28,6 +28,7 @@ import com.example.elevator.adapter.SetAddressInPreferences;
 import static android.widget.Toast.LENGTH_LONG;
 
 public class Settings extends AppCompatActivity {
+    final static String TAG = "Settings";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private SetAddressInPreferences storage;
     private CheckBox checkBox_autodown;
@@ -47,7 +48,7 @@ public class Settings extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Settings", "onCreate()");
+        Log.d(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -61,8 +62,8 @@ public class Settings extends AppCompatActivity {
         btn_set_addr = findViewById(R.id.btn_set_address);
         editText_comment = findViewById(R.id.editText_comment);
 
-        String cur_addr = preferences.getString(BtConsts.CURRENT_ADDRESS, "none");
-        if (cur_addr.length() > 3) current_address.setText(cur_addr.substring(0, cur_addr.length()-3));
+        String cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
+        current_address.setText(cur_addr);
 
         itemAddress = storage.getItemAddress(preferences.getString(BtConsts.MY_ADDRESS, "none"));
         home_address.setText(itemAddress.getAddress());
@@ -86,7 +87,7 @@ public class Settings extends AppCompatActivity {
 //                Log.d("TEXT_CHANGED_LISTENER", "onTextChanged");
 //                Log.d("TEXT_CHANGED_LISTENER", s.toString());
 //                Log.d("TEXT_CHANGED_LISTENER", String.format("start = %d, before = %d, count = %d", start, before, count));
-                if(count > 14) home_address.setText(home_address.getText().toString().substring(0, 13));
+                if(count > 14) home_address.setText(home_address.getText().toString().substring(0, 13).toUpperCase());
             }
 
             @Override
@@ -116,12 +117,12 @@ public class Settings extends AppCompatActivity {
             case '7':
             case '8':
             case '9':
-            case 'a':
-            case 'b':
-            case 'c':
-            case 'd':
-            case 'e':
-            case 'f':
+            case 'A':
+            case 'B':
+            case 'C':
+            case 'D':
+            case 'E':
+            case 'F':
                 return true;
             default:
                 return false;
@@ -129,19 +130,25 @@ public class Settings extends AppCompatActivity {
     }
 
     private boolean check_all(String s){
-        if(s.length() != 14) return false;
+        Log.d(TAG, "check_all(" + s + ");");
+        if(s.length() != 17) return false;
+        Log.d(TAG, "s.length() == 17");
         int shift = 1;
         for(char i : s.toCharArray()){
-            if(shift > 3) shift = 1;
+//            Log.d(TAG, "i = " + i);
             if(shift == 3){
                 if(i != ':'){
+                    Log.d(TAG, "Caution: i != ':'! (i == " + i + ")");
                     return false;
                 }
             } else if(!check(i)) {
+                Log.d(TAG, "Caution: check(i) == false! (i == " + i + ")");
                 return false;
             }
             shift++;
+            if(shift > 3) shift = 1;
         }
+        Log.d(TAG, "check_all() == true");
         return true;
     }
 
@@ -150,7 +157,7 @@ public class Settings extends AppCompatActivity {
         if(!itemAddress.getAddress().equals(string_address)){
             storage.delete(itemAddress.getAddress());
         }
-        itemAddress.setAddress(home_address.getText().toString());
+        itemAddress.setAddress(home_address.getText().toString().toUpperCase());
         itemAddress.setComment(editText_comment.getText().toString());
         itemAddress.setAuto(checkBox_autodown.isChecked());
         itemAddress.setFloor(Byte.parseByte(editText_floor.getText().toString()));
@@ -177,7 +184,13 @@ public class Settings extends AppCompatActivity {
     }
 
     // Функция кнопки "Установить"
+    @SuppressLint("SetTextI18n")
     public void setAddress(View view){
-        home_address.setText(current_address.getText());
+        String addr = current_address.getText().toString().toUpperCase();
+        Log.d("MainLog", "current address = <" + addr + ">, length = " + addr.length());
+        if(addr.length() == 17) {
+            home_address.setText(addr.substring(0, addr.length() - 7));
+            home_address.append(addr.substring(addr.length() - 7 , addr.length()));
+        }
     }
 }
