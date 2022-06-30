@@ -98,8 +98,12 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        viewHolder.Address_field.setText(mainList.get(position).getAddress());
+        String fill = mainList.get(position).getAddress();
+        if(fill != string_address){
+            fill = mainList.get(position).getName() + " (" + fill + ")";
+            Log.d(TAG, "fill = " + fill);
+        }
+        viewHolder.Address_field.setText(fill);
         if(mainList.get(position).getAddress() == string_address) {
             viewHolder.delete_field.setBackground(null);
         } else {
@@ -113,10 +117,10 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
                 return;
             }
             Log.d(TAG, "Pressed 'Delete' button" + position);
-
-            String addres_for_delete = viewHolder.Address_field.getText().toString();
+            int ln = viewHolder.Address_field.getText().toString().length();
+            String addres_for_delete = viewHolder.Address_field.getText().toString().substring(ln-18, ln-1);
             // Удалить везде вручную, в preferences, в mainList и в ListViewHolders
-
+            Log.d(TAG, "Delete " + addres_for_delete);
             storage = new SetAddressInPreferences(this.contextG);
 //            storage.read();
             storage.delete(addres_for_delete);

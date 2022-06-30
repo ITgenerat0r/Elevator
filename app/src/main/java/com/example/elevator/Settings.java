@@ -34,12 +34,16 @@ public class Settings extends AppCompatActivity {
     private CheckBox checkBox_autodown;
     private EditText editText_floor;
     private TextView current_address;
-    private EditText home_address;
+    private EditText editText_address;
+    private EditText editText_name;
     private EditText editText_comment;
     private Button btn_set_addr;
     final static String string_address = "Добавить адрес";
     private ListItemAddress itemAddress;
-    private CharSequence buffer; // для home_address, хранит предыдущее значение
+    private CharSequence buffer; // для editText_address, хранит предыдущее значение
+
+    private String cur_addr;
+    private String cur_name;
 
 
 
@@ -58,21 +62,24 @@ public class Settings extends AppCompatActivity {
         checkBox_autodown = findViewById(R.id.autodown);
         editText_floor = findViewById(R.id.floor);
         current_address = findViewById(R.id.current_address);
-        home_address = findViewById(R.id.home_address);
+        editText_address = findViewById(R.id.home_address);
+        editText_name = findViewById(R.id.editText_name);
         btn_set_addr = findViewById(R.id.btn_set_address);
         editText_comment = findViewById(R.id.editText_comment);
 
-        String cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
+        cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
+        cur_name = preferences.getString(BtConsts.LAST_NAME, "last_name");
         current_address.setText(cur_addr);
 
         itemAddress = storage.getItemAddress(preferences.getString(BtConsts.MY_ADDRESS, "none"));
-        home_address.setText(itemAddress.getAddress());
+        editText_address.setText(itemAddress.getAddress());
+        editText_name.setText(itemAddress.getName());
         editText_comment.setText(itemAddress.getComment());
         editText_floor.setText("" + itemAddress.getFloor());
         checkBox_autodown.setChecked(itemAddress.isAuto());
 
 
-        home_address.addTextChangedListener(new TextWatcher() {
+        editText_address.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 //                Log.d("TEXT_CHANGED_LISTENER", "beforeTextChanged");
@@ -87,7 +94,7 @@ public class Settings extends AppCompatActivity {
 //                Log.d("TEXT_CHANGED_LISTENER", "onTextChanged");
 //                Log.d("TEXT_CHANGED_LISTENER", s.toString());
 //                Log.d("TEXT_CHANGED_LISTENER", String.format("start = %d, before = %d, count = %d", start, before, count));
-                if(count > 14) home_address.setText(home_address.getText().toString().substring(0, 13).toUpperCase());
+                if(count > 14) editText_address.setText(editText_address.getText().toString().substring(0, 13).toUpperCase());
             }
 
             @Override
@@ -157,7 +164,8 @@ public class Settings extends AppCompatActivity {
         if(!itemAddress.getAddress().equals(string_address)){
             storage.delete(itemAddress.getAddress());
         }
-        itemAddress.setAddress(home_address.getText().toString().toUpperCase());
+        itemAddress.setAddress(editText_address.getText().toString().toUpperCase());
+        itemAddress.setName(editText_name.getText().toString());
         itemAddress.setComment(editText_comment.getText().toString());
         itemAddress.setAuto(checkBox_autodown.isChecked());
         itemAddress.setFloor(Byte.parseByte(editText_floor.getText().toString()));
@@ -179,7 +187,7 @@ public class Settings extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(BtConsts.MY_FLOOR, Integer.parseInt(editText_floor.getText().toString()));
         editor.putBoolean(BtConsts.LIFT_ME, checkBox_autodown.isChecked());
-        editor.putString(BtConsts.MY_ADDRESS, home_address.getText().toString());
+        editor.putString(BtConsts.MY_ADDRESS, editText_address.getText().toString());
         editor.apply();
     }
 
@@ -189,8 +197,10 @@ public class Settings extends AppCompatActivity {
         String addr = current_address.getText().toString().toUpperCase();
         Log.d("MainLog", "current address = <" + addr + ">, length = " + addr.length());
         if(addr.length() == 17) {
-            home_address.setText(addr.substring(0, addr.length() - 7));
-            home_address.append(addr.substring(addr.length() - 7 , addr.length()));
+            editText_address.setText(addr.substring(0, addr.length() - 7));
+            editText_address.append(addr.substring(addr.length() - 7 , addr.length()));
         }
+        editText_name.setText(cur_name);
+//        editText_address.setText(cur_addr);
     }
 }

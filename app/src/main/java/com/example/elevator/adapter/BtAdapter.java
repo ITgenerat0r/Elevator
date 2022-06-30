@@ -55,6 +55,7 @@ public class BtAdapter extends ArrayAdapter<ListItem> {
     private void savePref(int position){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(BtConsts.MAC_KEY, mainList.get(position).getBtDevice().getAddress());
+        editor.putString(BtConsts.LAST_NAME, mainList.get(position).getBtDevice().getName());
         editor.apply();
         Log.d("MainLog", "Save MAC " + mainList.get(position).getBtDevice().getAddress() + " in preferences.");
     }

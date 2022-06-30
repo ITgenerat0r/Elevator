@@ -33,10 +33,10 @@
         android:id="@+id/autodown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Спускать меня вниз с моего этажа"
         android:layout_below="@+id/floor"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true">
+        android:text="Автономный режим">
 
     </CheckBox>
 
@@ -80,7 +80,7 @@
         android:layout_margin="10dp"
         android:padding="4dp"
         android:editable="false"
-        android:text="Домашний адресс " />
+        android:text="Адресс " />
 
     <EditText
         android:id="@+id/home_address"
@@ -95,7 +95,7 @@
     <EditText
         android:id="@+id/editText_comment"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:layout_below="@id/textView_comment"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="8dp"
@@ -106,8 +106,25 @@
         android:id="@+id/textView_comment"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_below="@+id/home_address"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/editText_name"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
         android:text="Описание" />
+
+    <TextView
+        android:id="@+id/textView_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/home_address"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:text="Имя" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/editText_name"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView_name"/>
 
 </RelativeLayout>

@@ -3,11 +3,13 @@ package com.example.elevator.adapter;
 public class ListItemAddress {
     private String Address;
     private String Comment;
+    private String Name;
     private byte floor;
     private boolean auto;
 
     public ListItemAddress() {
         Address = "08:64:00:00:ff";
+        Name = "Custom";
         Comment = "Description";
         this.floor = 2;
         this.auto = false;
@@ -35,6 +37,14 @@ public class ListItemAddress {
 
     public void setAddress(String address) {
         Address = address;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 
     public String getComment() {

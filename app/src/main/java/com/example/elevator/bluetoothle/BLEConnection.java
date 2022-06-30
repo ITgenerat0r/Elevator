@@ -24,6 +24,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.elevator.adapter.BtConsts;
+import com.example.elevator.adapter.ListItemAddress;
+import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.bluetooth.ConnectThread;
 
 import java.lang.reflect.Method;
@@ -72,10 +74,12 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     private BluetoothGattCharacteristic character;
     private List<BluetoothGattService> services;
     private String mac;
+    private boolean character_state = false;
 
     private int nrTries = 0;
     private boolean isRetrying = false;
     private List<String> response;
+    private boolean isGetResponse = false; // true if we got data from arduino
 
     private static final int AUTHENTICATION_NONE = 0;
     private static final int MAX_TRIES = 5;
@@ -181,7 +185,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-//            MsgBox("onServicesDiscovered()", "log");
+            MsgBox("onServicesDiscovered()", "log");
             if(status == ERROR){
                 Log.e("MainLog", "Service discovery failed");
                 disconnect();
@@ -201,6 +205,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
 //                }
 //            }
             character = services.get(2).getCharacteristics().get(0);
+            Log.d(TAG, "character = " + character);
+            if(services.size() > 0)  character_state = true;
 //            BluetoothGattService test = services.get(0);
 //            super.onServicesDiscovered(gatt, status);
         }
@@ -234,6 +240,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                     stringBuilder.append(String.format("%c", byteChar));
                 Log.d(TAG,"Read data: " + stringBuilder.toString());
                 response.add(stringBuilder.toString());
+                isGetResponse = true;
             }
             Log.d(TAG, "------------------------------------------------------------");
             super.onCharacteristicChanged(gatt, characteristic);
@@ -284,7 +291,20 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         isConnecting = false;
     }
 
-
+    // подключение к BlueTooth устройству
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean conn(String mac){
+        Log.d(TAG, "conn(" + mac + ")");
+        device = btAdapter.getRemoteDevice(mac);
+        if(device == null) {
+            Log.d(TAG, mac + " is null");
+            return false;
+        }
+        MsgBox("Try connect to " + device.getAddress(), "all");
+        response.add("Try connect to " + device.getAddress());
+        gatt = device.connectGatt(context, true, btGattCallBack, BluetoothDevice.TRANSPORT_LE);
+        return true;
+    }
 
     // подключение к BlueTooth устройству
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -292,14 +312,72 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         isConnecting = true;
         // Достаем из памяти МАС адресс
         mac = preferences.getString(BtConsts.MAC_KEY, "");
-        if(!btAdapter.isEnabled() || mac.isEmpty()) return;
+        if(!btAdapter.isEnabled()) {
+            Log.d(TAG, "BT adapter is off!");
+            return;
+        }
+        if(mac.isEmpty()) {
+            Log.d(TAG, "MAC address is empty!");
+            return;
+        }
+        conn(mac);
+    }
 
-        device = btAdapter.getRemoteDevice(mac);
-        // Если null, то устройство к которому подключаемся недоступно
-        if(device == null) return;
-        MsgBox("Try connect to " + device.getAddress(), "all");
-        response.add("Try connect to " + device.getAddress());
-        gatt = device.connectGatt(context, true, btGattCallBack, BluetoothDevice.TRANSPORT_LE);
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void connect_to_saved(String target){
+        Log.d(TAG, "connect_to_saved()");
+        String target_name = "Elevator_f";
+        if(!target.equals("all")){
+            String f = "";
+            if(target.length() == 1) f ="0";
+            target_name += f + target;
+        }
+        Log.d(TAG, "target_name = " + target_name);
+//        if(!btAdapter.isEnabled() || mac.isEmpty() || isConnecting) return;
+        if(!btAdapter.isEnabled()) {
+            Log.d(TAG, "BT adapter is off!");
+            return;
+        }
+        if(isConnecting) {
+            Log.d(TAG, "State already in connecting!");
+            return;
+        }
+        isConnecting = true;
+        Log.d(TAG, "See what to connect...");
+        SetAddressInPreferences storage = new SetAddressInPreferences(context);
+        List<ListItemAddress> cabins = new ArrayList<>();
+        Log.d(TAG, "" + storage.getLength() + " devices may be to connect");
+        boolean is_was_connected = false;
+        for(int i = 0; i < storage.getLength(); i++){
+            ListItemAddress item = storage.getByIndex(i);
+            Log.d(TAG, " - > " + item.getName() + " (" + item.getAddress() + ")");
+            if(item.getName().equals("Cabine")){
+                ListItemAddress tmp = new ListItemAddress();
+                tmp = item;
+                cabins.add(tmp);
+//                continue;
+            } else if (item.getName().length() >= target_name.length() && item.getName().substring(0, target_name.length()).equals(target_name)){
+               if(conn(item.getAddress())){
+                   boolean res = after_connect(false,"");
+                   Log.d(TAG, "after_connect(false, '') response = " + res);
+                   if(res){
+                       is_was_connected = true;
+                       break;
+                   }
+               }
+            }
+        }
+        if(!is_was_connected){
+            String command = "lift_" + target;
+            for(ListItemAddress item : cabins){
+                if(conn(item.getAddress())){
+                    // do something after connect
+                    boolean res = after_connect(true, command);
+                    Log.d(TAG, "after_connect(true, " + command + ") response = " + res);
+                }
+            }
+        }
+        isConnecting = false;
     }
 
 
@@ -321,11 +399,77 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         MsgBox("Disconnect from " + device.getAddress(), "all");
         response.add("Disconnect from " + device.getAddress());
     }
+
+    // this function sending command and disconnecting after connect_to_saved()
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean after_connect(boolean isSendCmd, String cmd){
+        boolean bg_run = true;
+        boolean res = true;
+//        Runnable bgRunnable = () -> {
+//            int out = 200;
+//            while (connect != 2){
+//                if (out < 1){
+////                    res = false;
+//                    return;
+//                }
+//                sleep(100);
+//            }
+//            if(isSendCmd){
+//                SendMessage(cmd, true);
+//            }
+//            disconnect();
+//        };
+//        Thread connThread = new Thread(bgRunnable);
+//        connThread.start();
+
+        Log.d(TAG, "Waiting for connect and character ...");
+        int out = 10000;
+        while ((connect != 2) || (!character_state)){
+            if (out-- < 1){
+//                    res = false;
+                Log.d(TAG, "Connecting OUT OF TIME!");
+                return false;
+            }
+            sleep(1);
+        }
+        character_state = false;
+        if(isSendCmd){
+            SendMessage(cmd, true);
+            sleep(100);
+            SendMessage("getMaxFloors", true);
+//            SendMessage("getAddress", true);
+            Log.d(TAG, "Waiting for response...");
+            int OUT = 10000;
+            while (!isGetResponse){
+                if(OUT-- < 0){
+                    Log.d(TAG, "Wait response is OUT OF TIME");
+                    break;
+                }
+                sleep(1);
+            }
+            isGetResponse = false;
+        }
+        sleep(100);
+        disconnect();
+
+        return res;
+    }
+
+    private void sleep(int ms){
+        try{
+            Thread.sleep(ms);
+        } catch (Exception e){
+            Log.d("MainLog", "" + e);
+        }
+    }
+
 private int is = 0;
 //    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void SendMessage(String message, boolean end_of_string){
-        if(connect == STATE_CONNECTED) {
+        Log.d(TAG, "SendMessage(" + message + ")");
+        response.add("SendMessage(" + message + ")");
+        if(connect == STATE_CONNECTED) { // ==2
             if(character != null) {
 //            if(ch.getProperties() == PROPERTY_READ) {
 //                gatt.readCharacteristic(ch);
@@ -349,6 +493,7 @@ private int is = 0;
                 }
                 character.setWriteType(WRITE_TYPE_DEFAULT);
                 gatt.writeCharacteristic(character);
+                Log.d(TAG, "Sended!");
                 if (!state_notify) {
                     boolean res = gatt.setCharacteristicNotification(character, true);
                     Log.d(TAG, String.format(" Set notification enabled: %s", res));
@@ -367,6 +512,7 @@ private int is = 0;
         } else {
             is = 0;
         }
+        Log.d(TAG, "");
     }
 
     private boolean clearServiceCache(){

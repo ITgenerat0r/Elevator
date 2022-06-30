@@ -35,6 +35,7 @@ public class SetAddressInPreferences {
         for(String item : storageSet){
             Log.d(TAG, " -> Item = " + item);
             StringBuilder addr = new StringBuilder();
+            StringBuilder nm = new StringBuilder();
             StringBuilder floor = new StringBuilder();
             boolean auto = false;
             StringBuilder comm = new StringBuilder();
@@ -42,13 +43,15 @@ public class SetAddressInPreferences {
             for(char i : item.toCharArray()){
                 if(i == '/') {
                     k++;
-                    if(k < 4) continue;
+                    if(k < 5) continue;
                 }
                 if(k == 0){
                     addr.append(i);
                 } else if (k == 1){
+                    nm.append(i);
+                } else if (k == 2){
                     floor.append(i);
-                } else if (k == 2) {
+                } else if (k == 3) {
                     if( i == '1'){
                         auto = true;
                     }
@@ -57,12 +60,14 @@ public class SetAddressInPreferences {
                 }
             }
             Log.d(TAG, " -> addr = " + addr.toString());
+            Log.d(TAG, " -> name = " + nm.toString());
             Log.d(TAG, " -> floor = " + floor.toString());
             Log.d(TAG, " -> auto = " + auto);
             Log.d(TAG, " -> comm = " + comm.toString());
 
             ListItemAddress ti = new ListItemAddress();
             ti.setAddress(addr.toString());
+            ti.setName(nm.toString());
             ti.setFloor(Byte.parseByte(floor.toString()));
             ti.setAuto(auto);
             ti.setComment(comm.toString());
@@ -82,19 +87,20 @@ public class SetAddressInPreferences {
             if(item.isAuto()){
                 auto = "1";
             }
-            stringSet.add(item.getAddress()+'/'+item.getFloor()+'/'+auto+'/'+item.getComment());
+            stringSet.add(item.getAddress()+'/'+item.getName()+'/'+item.getFloor()+'/'+auto+'/'+item.getComment());
         }
         SharedPreferences.Editor editor = preferences.edit();
         editor.putStringSet(BtConsts.LIST_ADRESS, stringSet);
         editor.apply();
     }
 
-    public void add(String address, byte floor, boolean auto, String comment){
+    public void add(String address, String name, byte floor, boolean auto, String comment){
         ListItemAddress item = new ListItemAddress();
         item.setComment(comment);
         item.setFloor(floor);
         item.setAuto(auto);
         item.setAddress(address);
+        item.setName(name);
         storage.add(item);
     }
 
@@ -114,7 +120,6 @@ public class SetAddressInPreferences {
         Log.d(TAG, "Delete() start");
         for(ListItemAddress item : storage){
             if(item.getAddress().equals(address)){
-                // Проверить!!! Это может быть будет работать
                 storage.remove(item);
                 break;
             }
@@ -143,6 +148,14 @@ public class SetAddressInPreferences {
             Log.d(TAG, i);
         }
         return list;
+    }
+
+    public int getLength(){
+        return storage.size();
+    }
+
+    public ListItemAddress getByIndex(int pos){
+        return storage.get(pos);
     }
 }
 

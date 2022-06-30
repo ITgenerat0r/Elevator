@@ -5,6 +5,7 @@ import java.util.List;
 public class BtConsts {
     public static final String MY_PREF = "my_pref"; // Имя памяти
     public static final String MAC_KEY = "mac_key";
+    public static final String LAST_NAME = "last_name";
     public static final String LIFT_ME = "auto_down_me"; // Управлять лифтом автоматически
     public static final String MY_FLOOR = "my_floor"; // Этаж дома
     public static final String MY_ADDRESS = "my_address"; // МАС адрес дома

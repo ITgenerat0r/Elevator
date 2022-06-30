@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int ENABLE_REQUEST = 15;
     private final static String TAG = "MainActivity";
     private Button btn_send; // Button for send message to HMSoft
+    private Button btn_clear; // Button for clear log (dialog_history)
     private EditText input_text; // Field for input commands
     private TextView current_address;
     private TextView current_floor;
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean background_auto_discover = true;
     private byte position = 0; // Номер нажатой кнопки, хранится здесь для команды вызова и др.
     private boolean call_when_discover_end = false;
+    private boolean auto_call_when_discover_end = false;
     private boolean done = false; // for connect in background
     private boolean isBtConnected = false;
     private final int OVER = 2000;
@@ -275,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             current_address.setText(String.format("isBtConnected = %b", isBtConnected));
             readResponse(btConnection);
             if(currentFloor > 0){
-                current_floor.setText(currentFloor);
+//                current_floor.setText(currentFloor);
             }
         }
     };
@@ -349,12 +351,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void init(){
         BLE_state = false;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
         btn_send.setOnClickListener(this::onClick);
+        btn_clear = findViewById(R.id.button_clear);
+        btn_clear.setOnClickListener(this::onClick);
+
         input_text = findViewById(R.id.input_text);
         current_address = findViewById(R.id.address);
         current_floor = findViewById(R.id.floor);
@@ -377,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gridView.setOnItemClickListener((parent, view, position, id) -> {
 //            Toast.makeText(getApplicationContext(), "Clicked " + (position + 1), Toast.LENGTH_SHORT).show();
             Call(position + 1);
+            dialog_history.append(String.format("Call(%d)\r\n", position + 1));
             // Test for speed
 //            if(btConnection != null && btConnection.getConnectState() == 2){
 //                DateFormat tm = new SimpleDateFormat("KK:mm:ss", Locale.getDefault());
@@ -426,16 +433,81 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backgroundResponse();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("DefaultLocale")
+    private void Call(int pos){
+        Log.d(TAG, String.format("Call(%d)", pos));
+        btConnection.connect_to_saved("" + pos);
+//        if(pos > -100) return;
+//        position = Byte.parseByte("" + pos);
+//        current_address.setText(String.format("Идет вызов на %d этаж...", pos));
+//        Log.d("MainLog", String.format("Идет вызов на %d этаж...", pos));
+//        if(btConnection.getConnectState()==2){
+//            Log.d(TAG, "BT is connected");
+//            background_wait_for_disconnect = true;
+////            List<BluetoothDevice> t = btConnection.getConnectedDevices();
+////            Log.d(TAG, "Connected devices was received.");
+////            for(BluetoothDevice i : t){
+////                Log.d(TAG,"Name: "+i.getName());
+////            }
+////            Log.d(TAG, "_|");
+////            BluetoothDevice d = t.get(0);
+////            Log.d(TAG, "First connected device is received");
+//            if(true){ // d.getName().equals("Cabine")
+//                Log.d(TAG, "BT is Cabine");
+//                background_send_command = true;
+//            } else {
+//                Log.d(TAG, "BT is Floor");
+//                background_send_command = false;
+//            }
+//            return;
+//        }
+//        if(isBtDiscovering){
+//            Log.d(TAG, "BT is discovering");
+//            call_when_discover_end = true;
+//            return;
+//        }
+//        String fl = "Elevator_f";
+//        if(pos < 10) fl += "0";
+//        fl += pos;
+//        Log.d(TAG, "fl = " + fl);
+//        if(!access_to_list_discovered_devices){
+//            Log.d(TAG, "We have access to list of discovered devices");
+//            access_to_list_discovered_devices = true;
+//            for (DiscoveredDevice dvc : listDiscoveredDevices) {
+//                Log.d(TAG, "-> " + dvc.Name + " " + dvc.Address);
+//                if(dvc.Name.equals("Cabine")){
+//                    Log.d(TAG, "find 'Cabine'");
+//                    if(btConnection.getConnectState() == 0 && !btConnection.isConnecting()) btConnection.connect();
+//                    background_wait_for_disconnect = true;
+//                    background_send_command = true;
+//                    break;
+//                } else if(dvc.Name.equals(fl)){
+//                    Log.d(TAG, "find '" + fl + "'");
+//                    background_wait_for_disconnect = true;
+//                    background_send_command = false;
+//                    break;
+//                }
+//            }
+//            Log.d(TAG, "find None");
+//            access_to_list_discovered_devices = false;
+//        }
+
+
+    }
+
+//   Вызов лифта с автоматическим поиском и определением блютуз модуля
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void Call(int pos){
-        Log.d("MainLog", "      ->  Call();");
+    private void Call_auto(int pos){
+
+        Log.d("MainLog", "      ->  Call_auto();");
         position = Byte.parseByte("" + pos);
         current_address.setText(String.format("Идет вызов на %d этаж...", pos));
         Log.d("MainLog", String.format("Идет вызов на %d этаж...", pos));
 
         if(isBtDiscovering){
-            call_when_discover_end = true;
+            auto_call_when_discover_end = true;
             return;
         }
         Log.d("MainLog", "      ->  step");
@@ -494,7 +566,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             access_to_list_discovered_devices = false;
         } else {
             String.format("No access, BT is busy");
-            call_when_discover_end = true;
+            auto_call_when_discover_end = true;
             return;
         }
 
@@ -504,6 +576,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("MainLog", " -> set in preferences dvc.Address " + call_dvc.Address + " from Name: " + call_dvc.Name);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(BtConsts.MAC_KEY, call_dvc.Address);
+                editor.putString(BtConsts.LAST_NAME, call_dvc.Name);
                 editor.apply();
                 // connect
                 Log.d("MainLog", " -> Connect");
@@ -677,6 +750,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String text = input_text.getText().toString();
                 if(text.equals("clear")){
                     dialog_history.setText("");
+
                     input_text.setText("");
                     return;
                 }
@@ -692,6 +766,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toast.setGravity(Gravity.TOP, 10, 20);
                 toast.show();
                 break;
+            case R.id.button_clear:
+                dialog_history.setText("");
             default:
                 break;
         }
@@ -832,7 +908,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d("MainLog", "true address");
                         if(background_send_command){
                             // send command (format: lift_<pos>)
-                            Log.d("MainLog", " -> Send command");
+                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
                             Message msg = autoHandler.obtainMessage();
                             Bundle bndl = new Bundle();
                             bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
@@ -864,6 +940,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     currentFloor = Byte.parseByte(currentName.substring(10));
                 } catch (Exception e) {
                     // Maybe string have not int type
+                    Log.d(TAG, "Maybe string have not int type");
                     currentFloor = 0;
                 }
                 Log.d("MainLog", String.format("Current floor: %d", currentFloor));
@@ -873,6 +950,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    // save in pref
 //                    SharedPreferences.Editor editor = preferences.edit();
 //                    editor.putString(BtConsts.MAC_KEY, currentAddress);
+//                editor.putString(BtConsts.LAST_NAME, currentName);
 //                    editor.apply();
 //                    // send command for connect
 ////                    Log.d("MainLog", "Send msg for connect");
@@ -890,11 +968,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 ///////// AFTER NEW //////////////////////////////////////////////////////
 
-
+            if(!background_auto) return;
             try{
+                Log.d(TAG, "background sleep");
                 Thread.sleep(30000);
             } catch (Exception e){
-                //
+                Log.d(TAG, e.toString());
             }
 //            startConnect();
 
@@ -1062,6 +1141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // check for autoconnect
                 String address = "";
+                String name = "";
                 for(ListItemAddress item : listSavedAddresses){
                     if(item.isAuto()){
 //                        String add = ":";
@@ -1070,12 +1150,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "AutoConnect to " + item.getAddress());
                             // my cabine address, need to connect
                             address = item.getAddress();
+                            name = item.getName();
                             background_send_command = true;
                             break;
                         } else if (device.getAddress().equals(item.getAddress())){
                             Log.d(TAG, "AutoConnect to " + item.getAddress());
                             // my floor address, need to connect
                             address = item.getAddress();
+                            name = item.getName();
                             background_send_command = false;
                             break;
                         }
@@ -1089,6 +1171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("MainLog", " -> set in preferences address: <" + address + ">");
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(BtConsts.MAC_KEY, address);
+                    editor.putString(BtConsts.LAST_NAME, name);
                     editor.apply();
                     // connect
                     Log.d("MainLog", " -> Connect");
@@ -1111,6 +1194,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(call_when_discover_end){
                     call_when_discover_end = false;
                     Call(position);
+                }
+                if(auto_call_when_discover_end){
+                    auto_call_when_discover_end = false;
+                    Call_auto(position);
                 }
             } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(intent.getAction())){
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);

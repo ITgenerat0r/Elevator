@@ -1,5 +1,6 @@
 package com.example.elevator.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,14 @@ import java.util.List;
 
 public class LiftAdapter extends BaseAdapter {
 
+    final String TAG = "Address_adapter() -> Lift_Adapter()";
     private Context context;
     private LayoutInflater inflater;
     private List<String > numberFloor;
 
+    @SuppressLint("LongLogTag")
     public LiftAdapter(Context c, List<String> floors) {
+        Log.d(TAG, "Constructor()");
         context = c;
         numberFloor = floors;
     }

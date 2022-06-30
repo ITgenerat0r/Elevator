@@ -45,10 +45,12 @@
         android:clickable="false"
         android:ems="10"
         android:gravity="start|top"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/checkBox_at"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/list_buttons" />
 
     <GridView
@@ -94,13 +96,28 @@
 
     <CheckBox
         android:id="@+id/checkBox_at"
-        android:layout_width="0dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="Не добавлять конец строки"
+        app:layout_constraintBottom_toTopOf="@+id/input_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_history" />
+
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        android:text="clear"
         app:layout_constraintBottom_toTopOf="@+id/input_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_at"
         app:layout_constraintTop_toBottomOf="@+id/dialog_history" />
 
 
