@@ -178,9 +178,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startConnect();
 //                    menu_bt_connect.setIcon(R.drawable.ic_connected);
                 }
+            } else if (command.equals("connect_to_saved")) {
+                btConnection.connect_to_saved("all");
             } else if (command.equals("disconnect")){
                 btConnection.disconnect();
-                current_address.setText("Лифт вызван.");
             } else {
                 if(isBtConnected){
                     btConnection.SendMessage(command, true);
@@ -277,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             current_address.setText(String.format("isBtConnected = %b", isBtConnected));
             readResponse(btConnection);
             if(currentFloor > 0){
-//                current_floor.setText(currentFloor);
+//                current_floor.setText("" + currentFloor);
             }
         }
     };
@@ -431,6 +432,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
         backgroundResponse();
+//        backgroundAuto();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -824,10 +826,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void backgroundAuto(){
         if(!btAdapter.isEnabled())return;
         background_auto = true;
+        boolean background_auto_version_2 = false;
         background_auto_discover = true;
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             // Discover devices
-            while (background_auto) {
+            while (background_auto){
+                Log.d("MainLog", "  Send msg for connect_to_saved('all')");
+                Message msg = autoHandler.obtainMessage();
+                Bundle bndl = new Bundle();
+                bndl.putString("MSG_COMMAND", "connect_to_saved");
+                msg.setData(bndl);
+                autoHandler.sendMessage(msg);
+                if(!background_auto) return;
+                try{
+                    Log.d(TAG, "background sleep");
+                    Thread.sleep(90 * 1000);
+                } catch (Exception e){
+                    Log.d(TAG, e.toString());
+                }
+
+            }
+            while (background_auto_version_2) {
                 Log.d("MainLog", "Next in backgroundAuto");
                 countDiscover = 0;
                 // Очистка массива listDiscoveredDevices для обновления данных
@@ -968,7 +987,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 ///////// AFTER NEW //////////////////////////////////////////////////////
 
-            if(!background_auto) return;
+            if(!background_auto_version_2) return;
             try{
                 Log.d(TAG, "background sleep");
                 Thread.sleep(30000);

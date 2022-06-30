@@ -324,8 +324,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void connect_to_saved(String target){
-        Log.d(TAG, "connect_to_saved()");
+    public boolean connect_to_saved(String target){
+        Log.d(TAG, "\r\nconnect_to_saved()");
         String target_name = "Elevator_f";
         if(!target.equals("all")){
             String f = "";
@@ -336,11 +336,13 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
 //        if(!btAdapter.isEnabled() || mac.isEmpty() || isConnecting) return;
         if(!btAdapter.isEnabled()) {
             Log.d(TAG, "BT adapter is off!");
-            return;
+            response.add("BT adapter is off!");
+            return false;
         }
         if(isConnecting) {
             Log.d(TAG, "State already in connecting!");
-            return;
+            response.add("State already in connecting!");
+            return false;
         }
         isConnecting = true;
         Log.d(TAG, "See what to connect...");
@@ -373,11 +375,13 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                 if(conn(item.getAddress())){
                     // do something after connect
                     boolean res = after_connect(true, command);
+                    if(res) is_was_connected = true;
                     Log.d(TAG, "after_connect(true, " + command + ") response = " + res);
                 }
             }
         }
         isConnecting = false;
+        return is_was_connected;
     }
 
 
