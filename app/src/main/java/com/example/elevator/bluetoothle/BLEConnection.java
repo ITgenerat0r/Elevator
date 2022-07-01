@@ -387,6 +387,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                     command += target;
                     if(connect_cabine(item, command)) is_was_connected = true;
                 }
+                int test;
             }
         } else {
             Log.d(TAG, "WAS CONNECTED TO FLOOR");
