@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.elevator.adapter.BtConsts;
+import com.example.elevator.adapter.ListItem;
 import com.example.elevator.adapter.ListItemAddress;
 import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.bluetooth.ConnectThread;
@@ -350,6 +351,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         List<ListItemAddress> cabins = new ArrayList<>();
         Log.d(TAG, "" + storage.getLength() + " devices may be to connect");
         boolean is_was_connected = false;
+        byte who_was_connected = 0;
         for(int i = 0; i < storage.getLength(); i++){
             ListItemAddress item = storage.getByIndex(i);
             Log.d(TAG, " - > " + item.getName() + " (" + item.getAddress() + ")");
@@ -364,23 +366,56 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                    Log.d(TAG, "after_connect(false, '') response = " + res);
                    if(res){
                        is_was_connected = true;
+                       who_was_connected = item.getFloor();
                        break;
                    }
                }
             }
         }
         if(!is_was_connected){
-            String command = "lift_" + target;
+            Log.d(TAG, "WAS CONNECTED TO FLOOR");
             for(ListItemAddress item : cabins){
-                if(conn(item.getAddress())){
-                    // do something after connect
-                    boolean res = after_connect(true, command);
-                    if(res) is_was_connected = true;
-                    Log.d(TAG, "after_connect(true, " + command + ") response = " + res);
+                String command = "lift_";
+                if(target.equals("all")){
+                    command += item.getFloor();
+                    if(connect_cabine(item, command)) is_was_connected = true;
+                    command = "lift_1";
+                    if(connect_cabine(item, command)) is_was_connected = true;
+                } else {
+                    command += target;
+                    if(connect_cabine(item, command)) is_was_connected = true;
+                }
+            }
+        } else {
+            if(target.equals("all")){
+                for(ListItemAddress item : cabins){
+                    String cmd_to = "lift_";
+                    String cmd_from = "lift_";
+                    if(item.getFloor() == who_was_connected){
+                        cmd_from += item.getFloor();
+                        cmd_to += "1";
+                    } else {
+                        cmd_from += "1";
+                        cmd_to += item.getFloor();
+                    }
+                    connect_cabine(item, cmd_from);
+                    connect_cabine(item, cmd_to);
                 }
             }
         }
         isConnecting = false;
+        return is_was_connected;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean connect_cabine(ListItemAddress item, String command){
+        boolean is_was_connected = false;
+        if(conn(item.getAddress())){
+            // do something after connect
+            boolean res = after_connect(true, command);
+            if(res) is_was_connected = true;
+            Log.d(TAG, "after_connect(true, " + command + ") response = " + res);
+        }
         return is_was_connected;
     }
 
