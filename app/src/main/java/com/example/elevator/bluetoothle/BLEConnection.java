@@ -412,6 +412,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         return is_was_connected;
     }
 
+    
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean connect_cabine(ListItemAddress item, String command){
         boolean is_was_connected = false;
