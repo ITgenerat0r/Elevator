@@ -352,6 +352,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         Log.d(TAG, "" + storage.getLength() + " devices may be to connect");
         boolean is_was_connected = false;
         byte who_was_connected = 0;
+        boolean key = true;
         for(int i = 0; i < storage.getLength(); i++){
             ListItemAddress item = storage.getByIndex(i);
             Log.d(TAG, " - > " + item.getName() + " (" + item.getAddress() + ")");
@@ -361,20 +362,21 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                 cabins.add(tmp);
 //                continue;
             } else if (item.getName().length() >= target_name.length() && item.getName().substring(0, target_name.length()).equals(target_name)){
-               if(conn(item.getAddress())){
+               if(key && conn(item.getAddress())){
                    boolean res = after_connect(false,"");
                    Log.d(TAG, "after_connect(false, '') response = " + res);
                    if(res){
                        is_was_connected = true;
                        who_was_connected = item.getFloor();
-                       break;
+                       key = false;
                    }
                }
             }
         }
         if(!is_was_connected){
-            Log.d(TAG, "WAS CONNECTED TO FLOOR");
+            Log.d(TAG, "NO ONE WAS CONNECTED TO FLOOR");
             for(ListItemAddress item : cabins){
+                Log.d(TAG, " -> " + item.getAddress());
                 String command = "lift_";
                 if(target.equals("all")){
                     command += item.getFloor();
@@ -387,18 +389,21 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                 }
             }
         } else {
+            Log.d(TAG, "WAS CONNECTED TO FLOOR");
+            Log.d(TAG, "WAS CONNECTED TO " + who_was_connected);
             if(target.equals("all")){
+                Log.d(TAG, "target == all");
                 for(ListItemAddress item : cabins){
                     String cmd_to = "lift_";
-                    String cmd_from = "lift_";
+//                    String cmd_from = "lift_";
                     if(item.getFloor() == who_was_connected){
-                        cmd_from += item.getFloor();
+//                        cmd_from += item.getFloor();
                         cmd_to += "1";
                     } else {
-                        cmd_from += "1";
+//                        cmd_from += "1";
                         cmd_to += item.getFloor();
                     }
-                    connect_cabine(item, cmd_from);
+//                    connect_cabine(item, cmd_from);
                     connect_cabine(item, cmd_to);
                 }
             }
