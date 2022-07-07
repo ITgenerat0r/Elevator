@@ -39,6 +39,9 @@ dependencies {
 
 
 //    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+//    compile 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
+
+//    implemntation 'com.github.tarun0:ZXing-Standalone-library'
 
     
 

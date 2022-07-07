@@ -1,2 +1,4 @@
+include ':zxing_standalone'
+include ':sample_app'
 include ':app'
 rootProject.name = "Elevator"

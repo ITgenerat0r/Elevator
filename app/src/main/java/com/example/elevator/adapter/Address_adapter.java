@@ -24,10 +24,13 @@ import com.example.elevator.ListElevatorsActivity;
 import com.example.elevator.MainActivity;
 import com.example.elevator.R;
 import com.example.elevator.Settings;
+import com.example.elevator.qrcode.QRcode;
+//import tarun0.com.zxing_standalone
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 
 
 public class Address_adapter extends ArrayAdapter<ListItemAddress> {
@@ -136,8 +139,12 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
             editor.apply();
             if(mainList.get(position).getAddress().equals(string_address)){
                 Log.d(TAG, "Pressed 'Add' button");
-                Intent settings_activity = new Intent(contextG, Settings.class);
-                contextG.startActivity(settings_activity);
+//                Intent settings_activity = new Intent(contextG, Settings.class);
+//                contextG.startActivity(settings_activity);
+                Intent intent = new Intent(contextG, CaptureActivity.class);
+                intent.setAction("com.google.zxing.client.android.SCAN");
+                intent.putExtra("SAVE_HISTORY", false);
+                startActivityForResult(intent, 0);
             } else {
                 Log.d(TAG, "Pressed 'Edit' button" + position);
                 Intent settings_activity = new Intent(contextG, Settings.class);
@@ -153,5 +160,18 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
 
     public void setChanged(boolean changed) {
         this.changed = changed;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String contents = data.getStringExtra("SCAN_RESULT");
+                Log.d(TAG, "contents: " + contents);
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.d(TAG, "RESULT_CANCELED");
+            }
+        }
     }
 }
