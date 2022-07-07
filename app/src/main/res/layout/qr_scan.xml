@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
 <!--    <androidx.camera.view.PreviewView-->
 <!--        android:id="@+id/camera"-->
 <!--        android:layout_width = "match_parent"-->
