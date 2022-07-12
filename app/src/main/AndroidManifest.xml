@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListElevatorsActivity"></activity>
+        <activity android:name=".ListElevatorsActivity" />
         <activity android:name=".BtListActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".MainActivity">

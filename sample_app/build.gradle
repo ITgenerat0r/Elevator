@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "tarun0.com.zxing_standalone"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -22,7 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:23.4.0'
+    //noinspection GradleCompatible
     compile 'com.android.support:design:23.4.0'
     compile 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
 }

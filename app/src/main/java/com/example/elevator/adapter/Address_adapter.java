@@ -26,6 +26,7 @@ import com.example.elevator.R;
 import com.example.elevator.Settings;
 import com.example.elevator.qrcode.QRcode;
 //import tarun0.com.zxing_standalone
+import com.google.zxing.client.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ import java.util.Set;
 
 
 public class Address_adapter extends ArrayAdapter<ListItemAddress> {
+
+
 
     final static String TAG = "Address_adapter (class)";
     final static String string_address = "Добавить адрес";
@@ -141,6 +144,7 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
                 Log.d(TAG, "Pressed 'Add' button");
 //                Intent settings_activity = new Intent(contextG, Settings.class);
 //                contextG.startActivity(settings_activity);
+
                 Intent intent = new Intent(contextG, CaptureActivity.class);
                 intent.setAction("com.google.zxing.client.android.SCAN");
                 intent.putExtra("SAVE_HISTORY", false);
@@ -161,6 +165,8 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
     public void setChanged(boolean changed) {
         this.changed = changed;
     }
+
+
 
 
     @Override
