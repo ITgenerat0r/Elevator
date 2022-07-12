@@ -19,5 +19,5 @@ android {
 dependencies {
     compile files('libs/core-3.2.1.jar')
 
-    implementation project(":zxing_standalone")
+//    implementation project(":zxing_standalone")
 }

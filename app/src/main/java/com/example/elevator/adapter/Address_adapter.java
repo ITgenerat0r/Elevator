@@ -148,7 +148,8 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
                 Intent intent = new Intent(contextG, CaptureActivity.class);
                 intent.setAction("com.google.zxing.client.android.SCAN");
                 intent.putExtra("SAVE_HISTORY", false);
-                startActivityForResult(intent, 0);
+                contextG.startActivity(intent);
+//                startActivityForResult(intent, 0);
             } else {
                 Log.d(TAG, "Pressed 'Edit' button" + position);
                 Intent settings_activity = new Intent(contextG, Settings.class);
@@ -169,15 +170,15 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = data.getStringExtra("SCAN_RESULT");
-                Log.d(TAG, "contents: " + contents);
-            } else if (resultCode == RESULT_CANCELED) {
-                Log.d(TAG, "RESULT_CANCELED");
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == 0) {
+//            if (resultCode == RESULT_OK) {
+//                String contents = data.getStringExtra("SCAN_RESULT");
+//                Log.d(TAG, "contents: " + contents);
+//            } else if (resultCode == RESULT_CANCELED) {
+//                Log.d(TAG, "RESULT_CANCELED");
+//            }
+//        }
+//    }
 }
