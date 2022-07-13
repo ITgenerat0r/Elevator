@@ -267,6 +267,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private int getCurrentOrientation() {
     int rotation = getWindowManager().getDefaultDisplay().getRotation();
+//    Log.d(TAG, String.format("rotation = %d", rotation));
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       switch (rotation) {
         case Surface.ROTATION_0:
