@@ -1,0 +1,379 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="tarun0.com.zxing_standalone"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:27:5-65
+11-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:27:22-62
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:28:5-67
+12-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:28:22-64
+13    <uses-permission android:name="android.permission.VIBRATE" />
+13-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:29:5-66
+13-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:29:22-63
+14    <uses-permission android:name="android.permission.FLASHLIGHT" />
+14-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:30:5-69
+14-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:30:22-66
+15    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- unavailable in API 23 -->
+15-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:31:5-72
+15-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:31:22-69
+16    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+16-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:33:5-93
+16-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:33:22-90
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:34:5-81
+17-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:34:22-78
+18    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+18-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:35:5-76
+18-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:35:22-73
+19    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+19-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:36:5-76
+19-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:36:22-73
+20    <uses-feature
+20-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:39:5-41:36
+21        android:name="android.hardware.camera"
+21-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:40:9-47
+22        android:required="false" />
+22-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:41:9-33
+23    <uses-feature
+23-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:42:5-44:36
+24        android:name="android.hardware.camera.front"
+24-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:43:9-53
+25        android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
+25-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:44:9-33
+26    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+27    <uses-feature
+27-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:47:5-49:36
+28        android:name="android.hardware.camera.autofocus"
+28-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:48:9-57
+29        android:required="false" />
+29-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:49:9-33
+30    <uses-feature
+30-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:50:5-52:36
+31        android:name="android.hardware.camera.flash"
+31-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:51:9-53
+32        android:required="false" />
+32-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:52:9-33
+33    <uses-feature android:name="android.hardware.screen.landscape" />
+33-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:53:5-70
+33-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:53:19-67
+34    <uses-feature
+34-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:54:5-56:36
+35        android:name="android.hardware.wifi"
+35-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:55:9-45
+36        android:required="false" /> <!-- This excludes Google TV, which is unfortunately included by virtue of not requiring a camera -->
+36-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:56:9-33
+37    <uses-feature android:name="android.hardware.touchscreen" /> <!-- TODO make this not required again after android.hardware.camera.any is available -->
+37-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:58:5-65
+37-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:58:19-62
+38    <supports-screens
+38-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:61:5-66:40
+39        android:anyDensity="true"
+39-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:62:9-34
+40        android:largeScreens="true"
+40-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:63:9-36
+41        android:normalScreens="true"
+41-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:64:9-37
+42        android:smallScreens="true"
+42-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:65:9-36
+43        android:xlargeScreens="true" />
+43-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:66:9-37
+44
+45    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+46
+47    <application
+47-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:5:5-21:19
+48        android:allowBackup="true"
+48-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:6:9-35
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:22:18-86
+50        android:debuggable="true"
+51        android:icon="@mipmap/ic_launcher"
+51-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:7:9-43
+52        android:label="@string/app_name"
+52-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:8:9-41
+53        android:supportsRtl="true"
+53-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:9:9-35
+54        android:testOnly="true"
+55        android:theme="@style/AppTheme" >
+55-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:10:9-40
+56        <activity
+56-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:11:9-20:20
+57            android:name="tarun0.com.zxing_standalone.MainActivity"
+57-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:12:13-41
+58            android:label="@string/app_name"
+58-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:13:13-45
+59            android:theme="@style/AppTheme.NoActionBar" >
+59-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:14:13-56
+60            <intent-filter>
+60-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:15:13-19:29
+61                <action android:name="android.intent.action.MAIN" />
+61-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:17-69
+61-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:25-66
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+63-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:18:17-77
+63-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:18:27-74
+64            </intent-filter>
+65        </activity>
+66        <activity
+66-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:71:9-134:20
+67            android:name="com.google.zxing.client.android.CaptureActivity"
+67-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:72:13-75
+68            android:clearTaskOnLaunch="true"
+68-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:73:13-45
+69            android:screenOrientation="sensorLandscape"
+69-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:74:13-56
+70            android:stateNotNeeded="true"
+70-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:75:13-42
+71            android:theme="@style/CaptureTheme"
+71-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:76:13-48
+72            android:windowSoftInputMode="stateAlwaysHidden" >
+72-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:77:13-60
+73            <intent-filter>
+73-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:78:13-80:29
+74                <action android:name="android.intent.action.MAIN" />
+74-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:17-69
+74-->C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:25-66
+75            </intent-filter>
+76            <intent-filter>
+76-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:81:13-85:29
+77                <action android:name="com.google.zxing.client.android.SCAN" />
+77-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:82:17-79
+77-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:82:25-76
+78
+79                <category android:name="android.intent.category.DEFAULT" />
+79-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+79-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+80            </intent-filter>
+81            <!-- Allow web apps to launch Barcode Scanner by linking to http://zxing.appspot.com/scan. -->
+82            <intent-filter>
+82-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:87:13-97:29
+83                <action android:name="android.intent.action.VIEW" />
+83-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:17-69
+83-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:25-66
+84
+85                <category android:name="android.intent.category.DEFAULT" />
+85-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+85-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+86                <category android:name="android.intent.category.BROWSABLE" />
+86-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:17-78
+86-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:27-75
+87
+88                <data
+88-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+89                    android:host="zxing.appspot.com"
+89-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:94:21-53
+90                    android:path="/scan"
+90-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:95:21-41
+91                    android:scheme="http" />
+91-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:96:21-42
+92            </intent-filter>
+93            <!-- We also support a Google Product Search URL. -->
+94            <intent-filter>
+94-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:99:13-109:29
+95                <action android:name="android.intent.action.VIEW" />
+95-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:17-69
+95-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:25-66
+96
+97                <category android:name="android.intent.category.DEFAULT" />
+97-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+97-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+98                <category android:name="android.intent.category.BROWSABLE" />
+98-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:17-78
+98-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:27-75
+99
+100                <data
+100-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+101                    android:host="www.google.com"
+101-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:94:21-53
+102                    android:path="/m/products/scan"
+102-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:95:21-41
+103                    android:scheme="http" />
+103-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:96:21-42
+104            </intent-filter>
+105            <!-- And the UK version. -->
+106            <intent-filter>
+106-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:111:13-121:29
+107                <action android:name="android.intent.action.VIEW" />
+107-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:17-69
+107-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:25-66
+108
+109                <category android:name="android.intent.category.DEFAULT" />
+109-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+109-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+110                <category android:name="android.intent.category.BROWSABLE" />
+110-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:17-78
+110-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:27-75
+111
+112                <data
+112-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+113                    android:host="www.google.co.uk"
+113-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:94:21-53
+114                    android:path="/m/products/scan"
+114-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:95:21-41
+115                    android:scheme="http" />
+115-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:96:21-42
+116            </intent-filter>
+117            <!-- Support zxing://scan/?... like iPhone app -->
+118            <intent-filter>
+118-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:123:13-133:29
+119                <action android:name="android.intent.action.VIEW" />
+119-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:17-69
+119-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:25-66
+120
+121                <category android:name="android.intent.category.DEFAULT" />
+121-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+121-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+122                <category android:name="android.intent.category.BROWSABLE" />
+122-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:17-78
+122-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:27-75
+123
+124                <data
+124-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+125                    android:host="scan"
+125-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:94:21-53
+126                    android:path="/"
+126-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:95:21-41
+127                    android:scheme="zxing" />
+127-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:96:21-42
+128            </intent-filter>
+129        </activity>
+130        <activity
+130-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:135:9-138:45
+131            android:name="com.google.zxing.client.android.PreferencesActivity"
+131-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:136:13-79
+132            android:label="@string/preferences_name"
+132-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:137:13-53
+133            android:stateNotNeeded="true" />
+133-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:138:13-42
+134        <activity
+134-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:139:9-163:20
+135            android:name="com.google.zxing.client.android.encode.EncodeActivity"
+135-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:140:13-81
+136            android:stateNotNeeded="true" >
+136-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:141:13-42
+137            <intent-filter>
+137-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:142:13-146:29
+138                <action android:name="com.google.zxing.client.android.ENCODE" />
+138-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:143:17-81
+138-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:143:25-78
+139
+140                <category android:name="android.intent.category.DEFAULT" />
+140-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+140-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+141            </intent-filter>
+142            <!-- This allows us to handle the Share button in Contacts. -->
+143            <intent-filter>
+143-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:148:13-154:29
+144                <action android:name="android.intent.action.SEND" />
+144-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:17-69
+144-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:25-66
+145
+146                <category android:name="android.intent.category.DEFAULT" />
+146-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+146-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+147
+148                <data android:mimeType="text/x-vcard" />
+148-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+149            </intent-filter>
+150            <!-- This allows us to handle sharing any plain text . -->
+151            <intent-filter>
+151-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:156:13-162:29
+152                <action android:name="android.intent.action.SEND" />
+152-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:17-69
+152-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:25-66
+153
+154                <category android:name="android.intent.category.DEFAULT" />
+154-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+154-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+155
+156                <data android:mimeType="text/plain" />
+156-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+157            </intent-filter>
+158        </activity>
+159        <activity
+159-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:164:9-174:20
+160            android:name="com.google.zxing.client.android.book.SearchBookContentsActivity"
+160-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:165:13-91
+161            android:label="@string/sbc_name"
+161-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:166:13-45
+162            android:screenOrientation="sensorLandscape"
+162-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:167:13-56
+163            android:stateNotNeeded="true" >
+163-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:168:13-42
+164            <intent-filter>
+164-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:169:13-173:29
+165                <action android:name="com.google.zxing.client.android.SEARCH_BOOK_CONTENTS" />
+165-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:170:17-95
+165-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:170:25-92
+166
+167                <category android:name="android.intent.category.DEFAULT" />
+167-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+167-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+168            </intent-filter>
+169        </activity>
+170        <activity
+170-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:175:9-184:20
+171            android:name="com.google.zxing.client.android.share.ShareActivity"
+171-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:176:13-79
+172            android:screenOrientation="user"
+172-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:177:13-45
+173            android:stateNotNeeded="true" >
+173-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:178:13-42
+174            <intent-filter>
+174-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:179:13-183:29
+175                <action android:name="com.google.zxing.client.android.SHARE" />
+175-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:180:17-80
+175-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:180:25-77
+176
+177                <category android:name="android.intent.category.DEFAULT" />
+177-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+177-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+178            </intent-filter>
+179        </activity>
+180        <activity
+180-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:185:9-188:45
+181            android:name="com.google.zxing.client.android.history.HistoryActivity"
+181-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:186:13-83
+182            android:label="@string/history_title"
+182-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:187:13-50
+183            android:stateNotNeeded="true" />
+183-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:188:13-42
+184        <activity
+184-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:189:9-192:45
+185            android:name="com.google.zxing.client.android.share.BookmarkPickerActivity"
+185-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:190:13-88
+186            android:label="@string/bookmark_picker_name"
+186-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:191:13-57
+187            android:stateNotNeeded="true" />
+187-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:192:13-42
+188        <activity
+188-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:193:9-196:45
+189            android:name="com.google.zxing.client.android.share.AppPickerActivity"
+189-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:194:13-83
+190            android:label="@string/app_picker_name"
+190-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:195:13-52
+191            android:stateNotNeeded="true" />
+191-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:196:13-42
+192        <activity
+192-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:197:9-201:45
+193            android:name="com.google.zxing.client.android.HelpActivity"
+193-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:198:13-72
+194            android:label="@string/menu_help"
+194-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:199:13-46
+195            android:screenOrientation="user"
+195-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:200:13-45
+196            android:stateNotNeeded="true" />
+196-->[com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:201:13-42
+197    </application>
+198
+199</manifest>

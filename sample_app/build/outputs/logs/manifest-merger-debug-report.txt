@@ -1,0 +1,400 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d9fe90b20373e53cda14cf70a3a9d6b6\material-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4458c9c05cd1e45f3462845bbb5f6a7c\appcompat-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:17:1-204:12
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bbcbf6e10ae52a08d3f4cdfbe738c39d\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4f17f275955dc738888e0a5b3bc4db1b\vectordrawable-animated-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8b7397d2f2608a6d3f4c88b8a1d0ba8a\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f5ec57ec49d0a3e9add695de66a9078c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\18f5c1f0dcc08504bb6a1709d838cf6b\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d5d8e5b76b66aa5a1f28a4c3ed5098de\vectordrawable-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c1b552c955fb6b549b9feae8cbe6bbbf\transition-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\2118a7099009bdd29f0289728ee82c0d\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ebc8011c39d26c440b76466a9b971345\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\df8a19ef163eaa8f3d3c8f24458897fd\coordinatorlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4c1ade53cc4b20d7bc631ac17d3bfca4\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\aa2f1cd22069a9bb65f1845d902d729f\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d1ea25f3382273eed14315b543469208\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\a083b9190df6cd0b2eed1b8d83acb3d5\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f1f8381ec1e1c3f6b165a08612cfd883\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\5c19ca1a4638e9c78653f5d9bfebad33\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7c0677be8011741026309ef690a9f4db\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ffb6a67829fa40d4c0493cb7e147e8f7\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8bab031e716250a6a30588791dc60070\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7bcdab9edca68925f6bcb92ddd8a20de\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d711f81259436f09ffdf0b48105165e3\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\87e4a5cb4839ebd5d033fa0ae6227780\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\b42ab30b982239949a81eb93ceae6c0b\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bcf856ddfeb04b3b73ed182739910d39\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c6f1e76c078a7e4f5288325854cab247\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7282e00d74c6a6acf53f4bfd68421266\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\73114719268a97e9fd391905563b2ee9\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+	package
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:3:5-42
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:5:5-21:19
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d9fe90b20373e53cda14cf70a3a9d6b6\material-1.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d9fe90b20373e53cda14cf70a3a9d6b6\material-1.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:68:5-202:19
+MERGED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:68:5-202:19
+MERGED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\5c19ca1a4638e9c78653f5d9bfebad33\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\5c19ca1a4638e9c78653f5d9bfebad33\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:22:18-86
+	android:supportsRtl
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:9:9-35
+	android:label
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:8:9-41
+	android:icon
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:10:9-40
+activity#tarun0.com.zxing_standalone.MainActivity
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:11:9-20:20
+	android:label
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:13:13-45
+	android:theme
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:14:13-56
+	android:name
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:12:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:15:13-19:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:18:17-77
+	android:name
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:18:27-74
+uses-sdk
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d9fe90b20373e53cda14cf70a3a9d6b6\material-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d9fe90b20373e53cda14cf70a3a9d6b6\material-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4458c9c05cd1e45f3462845bbb5f6a7c\appcompat-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4458c9c05cd1e45f3462845bbb5f6a7c\appcompat-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:23:5-25:41
+MERGED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:23:5-25:41
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bbcbf6e10ae52a08d3f4cdfbe738c39d\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bbcbf6e10ae52a08d3f4cdfbe738c39d\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4f17f275955dc738888e0a5b3bc4db1b\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4f17f275955dc738888e0a5b3bc4db1b\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8b7397d2f2608a6d3f4c88b8a1d0ba8a\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8b7397d2f2608a6d3f4c88b8a1d0ba8a\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f5ec57ec49d0a3e9add695de66a9078c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f5ec57ec49d0a3e9add695de66a9078c\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\18f5c1f0dcc08504bb6a1709d838cf6b\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\18f5c1f0dcc08504bb6a1709d838cf6b\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d5d8e5b76b66aa5a1f28a4c3ed5098de\vectordrawable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d5d8e5b76b66aa5a1f28a4c3ed5098de\vectordrawable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c1b552c955fb6b549b9feae8cbe6bbbf\transition-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c1b552c955fb6b549b9feae8cbe6bbbf\transition-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\2118a7099009bdd29f0289728ee82c0d\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\2118a7099009bdd29f0289728ee82c0d\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ebc8011c39d26c440b76466a9b971345\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ebc8011c39d26c440b76466a9b971345\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\df8a19ef163eaa8f3d3c8f24458897fd\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\df8a19ef163eaa8f3d3c8f24458897fd\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4c1ade53cc4b20d7bc631ac17d3bfca4\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\4c1ade53cc4b20d7bc631ac17d3bfca4\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\aa2f1cd22069a9bb65f1845d902d729f\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\aa2f1cd22069a9bb65f1845d902d729f\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d1ea25f3382273eed14315b543469208\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d1ea25f3382273eed14315b543469208\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\a083b9190df6cd0b2eed1b8d83acb3d5\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\a083b9190df6cd0b2eed1b8d83acb3d5\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f1f8381ec1e1c3f6b165a08612cfd883\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\f1f8381ec1e1c3f6b165a08612cfd883\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\6d11613c3b6a00a9ea456b5609ec43f7\core-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\5c19ca1a4638e9c78653f5d9bfebad33\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\5c19ca1a4638e9c78653f5d9bfebad33\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7c0677be8011741026309ef690a9f4db\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7c0677be8011741026309ef690a9f4db\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ffb6a67829fa40d4c0493cb7e147e8f7\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\ffb6a67829fa40d4c0493cb7e147e8f7\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8bab031e716250a6a30588791dc60070\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\8bab031e716250a6a30588791dc60070\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7bcdab9edca68925f6bcb92ddd8a20de\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7bcdab9edca68925f6bcb92ddd8a20de\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d711f81259436f09ffdf0b48105165e3\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\d711f81259436f09ffdf0b48105165e3\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\87e4a5cb4839ebd5d033fa0ae6227780\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\87e4a5cb4839ebd5d033fa0ae6227780\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\b42ab30b982239949a81eb93ceae6c0b\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\b42ab30b982239949a81eb93ceae6c0b\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bcf856ddfeb04b3b73ed182739910d39\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\bcf856ddfeb04b3b73ed182739910d39\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c6f1e76c078a7e4f5288325854cab247\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\c6f1e76c078a7e4f5288325854cab247\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7282e00d74c6a6acf53f4bfd68421266\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\7282e00d74c6a6acf53f4bfd68421266\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\73114719268a97e9fd391905563b2ee9\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\73114719268a97e9fd391905563b2ee9\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml
+uses-permission#android.permission.CAMERA
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:27:5-65
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:27:22-62
+uses-permission#android.permission.INTERNET
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:28:5-67
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:28:22-64
+uses-permission#android.permission.VIBRATE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:29:5-66
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:29:22-63
+uses-permission#android.permission.FLASHLIGHT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:30:5-69
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:30:22-66
+uses-permission#android.permission.READ_CONTACTS
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:31:5-72
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:31:22-69
+uses-permission#com.android.browser.permission.READ_HISTORY_BOOKMARKS
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:33:5-93
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:33:22-90
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:34:5-81
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:34:22-78
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:35:5-76
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:35:22-73
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:36:5-76
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:36:22-73
+uses-feature#android.hardware.camera
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:39:5-41:36
+	android:required
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:41:9-33
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:40:9-47
+uses-feature#android.hardware.camera.front
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:42:5-44:36
+	android:required
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:44:9-33
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:43:9-53
+uses-feature#android.hardware.camera.autofocus
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:47:5-49:36
+	android:required
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:49:9-33
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:48:9-57
+uses-feature#android.hardware.camera.flash
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:50:5-52:36
+	android:required
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:52:9-33
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:51:9-53
+uses-feature#android.hardware.screen.landscape
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:53:5-70
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:53:19-67
+uses-feature#android.hardware.wifi
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:54:5-56:36
+	android:required
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:56:9-33
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:55:9-45
+uses-feature#android.hardware.touchscreen
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:58:5-65
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:58:19-62
+supports-screens
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:61:5-66:40
+	android:largeScreens
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:63:9-36
+	android:smallScreens
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:65:9-36
+	android:normalScreens
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:64:9-37
+	android:xlargeScreens
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:66:9-37
+	android:anyDensity
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:62:9-34
+activity#com.google.zxing.client.android.CaptureActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:71:9-134:20
+	android:screenOrientation
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:74:13-56
+	android:clearTaskOnLaunch
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:73:13-45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:75:13-42
+	android:windowSoftInputMode
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:77:13-60
+	android:theme
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:76:13-48
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:72:13-75
+intent-filter#action:name:android.intent.action.MAIN
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:78:13-80:29
+intent-filter#action:name:com.google.zxing.client.android.SCAN+category:name:android.intent.category.DEFAULT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:81:13-85:29
+action#com.google.zxing.client.android.SCAN
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:82:17-79
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:82:25-76
+category#android.intent.category.DEFAULT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:17-76
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:84:27-73
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:zxing.appspot.com+data:path:/scan+data:scheme:http
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:87:13-97:29
+action#android.intent.action.VIEW
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:17-69
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:88:25-66
+category#android.intent.category.BROWSABLE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:17-78
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:91:27-75
+data
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:93:17-96:45
+	android:path
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:95:21-41
+	android:host
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:94:21-53
+	android:scheme
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:96:21-42
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:www.google.com+data:path:/m/products/scan+data:scheme:http
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:99:13-109:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:www.google.co.uk+data:path:/m/products/scan+data:scheme:http
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:111:13-121:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:scan+data:path:/+data:scheme:zxing
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:123:13-133:29
+activity#com.google.zxing.client.android.PreferencesActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:135:9-138:45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:138:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:137:13-53
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:136:13-79
+activity#com.google.zxing.client.android.encode.EncodeActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:139:9-163:20
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:141:13-42
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:140:13-81
+intent-filter#action:name:com.google.zxing.client.android.ENCODE+category:name:android.intent.category.DEFAULT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:142:13-146:29
+action#com.google.zxing.client.android.ENCODE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:143:17-81
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:143:25-78
+intent-filter#action:name:android.intent.action.SEND+category:name:android.intent.category.DEFAULT+data:mimeType:text/x-vcard
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:148:13-154:29
+action#android.intent.action.SEND
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:17-69
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:149:25-66
+intent-filter#action:name:android.intent.action.SEND+category:name:android.intent.category.DEFAULT+data:mimeType:text/plain
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:156:13-162:29
+activity#com.google.zxing.client.android.book.SearchBookContentsActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:164:9-174:20
+	android:screenOrientation
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:167:13-56
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:168:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:166:13-45
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:165:13-91
+intent-filter#action:name:com.google.zxing.client.android.SEARCH_BOOK_CONTENTS+category:name:android.intent.category.DEFAULT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:169:13-173:29
+action#com.google.zxing.client.android.SEARCH_BOOK_CONTENTS
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:170:17-95
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:170:25-92
+activity#com.google.zxing.client.android.share.ShareActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:175:9-184:20
+	android:screenOrientation
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:177:13-45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:178:13-42
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:176:13-79
+intent-filter#action:name:com.google.zxing.client.android.SHARE+category:name:android.intent.category.DEFAULT
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:179:13-183:29
+action#com.google.zxing.client.android.SHARE
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:180:17-80
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:180:25-77
+activity#com.google.zxing.client.android.history.HistoryActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:185:9-188:45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:188:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:187:13-50
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:186:13-83
+activity#com.google.zxing.client.android.share.BookmarkPickerActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:189:9-192:45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:192:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:191:13-57
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:190:13-88
+activity#com.google.zxing.client.android.share.AppPickerActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:193:9-196:45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:196:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:195:13-52
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:194:13-83
+activity#com.google.zxing.client.android.HelpActivity
+ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:197:9-201:45
+	android:screenOrientation
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:200:13-45
+	android:stateNotNeeded
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:201:13-42
+	android:label
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:199:13-46
+	android:name
+		ADDED from [com.tarun0.zxing-standalone:zxing-standalone:1.0.0] C:\Users\admin\.gradle\caches\transforms-2\files-2.1\464a3523d7b961967befde395510b458\jetified-zxing-standalone-1.0.0\AndroidManifest.xml:198:13-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from C:\Users\admin\AndroidStudioProjects\Elevator_cabine\sample_app\src\main\AndroidManifest.xml:2:1-23:12 reason: com.google.zxing.client.android requested WRITE_EXTERNAL_STORAGE
