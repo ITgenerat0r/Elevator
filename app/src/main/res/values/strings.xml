@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Elevator</string>
-    <string name="title_name">Discovered devices</string>
-    <string name="discovering">Discovering...</string>
 </resources>
