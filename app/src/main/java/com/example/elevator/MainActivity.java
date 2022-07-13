@@ -112,10 +112,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isBtConnected = false;
     private final int OVER = 2000;
     private final int BT_REQUEST_PERMISSION = 111; // Code for broadcasteceiver
+    private static final int MY_CAMERA_REQUEST_CODE = 115;
     private final byte COUNT_DISCOVERS = 1;  // Количество попыток обнаружить устройства
     private final byte UPDATE_LIST_AFTER = 3;
     private byte count_for_update_list = 0;
     private boolean isBtPermissionGranted = false; // Разрешение геолокации
+    private boolean isCameraPermissionGranted = false; // Разрешение доступа к камере
     private boolean isBtDiscovering = false; // State discovering
     private byte countDiscover = 0; // Количество обнаружений
     private boolean background_wait_for_disconnect = false;
@@ -663,30 +665,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 menu_bt_connect.setIcon(R.drawable.ic_connection);
             }
         } else if (item.getItemId() == R.id.id_settings) {
-            setBtIcon();
-            if(!bluetooth_status){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Bluetooth выключен");
-                builder.setMessage("Вклчить bluetooth?");
-                builder.setPositiveButton("Включить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ((MainActivity) getActivity()).enableBt();
-                    }
-                });
-                builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do something if pressed button "Cancel"
-                    }
-                });
+            getCameraPermission();
+            if(isCameraPermissionGranted) {
+                setBtIcon();
+                if (!bluetooth_status) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Bluetooth выключен");
+                    builder.setMessage("Вклчить bluetooth?");
+                    builder.setPositiveButton("Включить", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((MainActivity) getActivity()).enableBt();
+                        }
+                    });
+                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do something if pressed button "Cancel"
+                        }
+                    });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-            if(bluetooth_status){
-                Intent settings_activity = new Intent(MainActivity.this, ListElevatorsActivity.class);
-                startActivity(settings_activity);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                if (bluetooth_status) {
+                    Intent settings_activity = new Intent(MainActivity.this, ListElevatorsActivity.class);
+                    startActivity(settings_activity);
+                }
             }
 
         } else if (item.getItemId() == R.id.id_bt_test){
@@ -1077,7 +1082,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
+    private void getCameraPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_DENIED){
+            Log.d(TAG, "Camera permission denied");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+        } else {
+            isCameraPermissionGranted = true;
+        }
+    }
 
 
 
@@ -1097,6 +1109,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 Toast toast = Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        } else if (requestCode == MY_CAMERA_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                isCameraPermissionGranted = true;
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

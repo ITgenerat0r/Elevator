@@ -1,8 +1,10 @@
 package com.example.elevator.adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.ArraySet;
 import android.util.Log;
@@ -19,6 +21,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+
 
 import com.example.elevator.ListElevatorsActivity;
 import com.example.elevator.MainActivity;
@@ -38,7 +44,7 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
 
 
 
-    final static String TAG = "Address_adapter (class)";
+    final String TAG = this.getClass().getSimpleName();
     final static String string_address = "Добавить адрес";
 
     private Context contextG;
@@ -63,7 +69,6 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
         super(context, resource, btList);
         changed = false;
         contextG = context;
-        Log.d(TAG, "Address_adapter()");
         ListItemAddress elem = new ListItemAddress();
         elem.setComment("");
         elem.setAddress(string_address);
@@ -166,7 +171,6 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
     public void setChanged(boolean changed) {
         this.changed = changed;
     }
-
 
 
 
