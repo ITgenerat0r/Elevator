@@ -5,8 +5,8 @@ import com.example.elevator.adapter.ListItemAddress;
 import java.util.List;
 
 public class Elevator {
-    private List<ListItemAddress> cabins;
-    private List<ListItemAddress> floors;
+    private List<Device> cabins;
+    private List<Device> floors;
     private String description;
     private byte floor;
     private boolean auto;
@@ -35,27 +35,27 @@ public class Elevator {
         this.auto = auto;
     }
 
-    public List<ListItemAddress> getCabins() {
+    public List<Device> getCabins() {
         return cabins;
     }
 
-    public void setCabins(List<ListItemAddress> cabins) {
+    public void setCabins(List<Device> cabins) {
         this.cabins = cabins;
     }
 
-    public void addCabins(ListItemAddress cabine){
+    public void addCabins(Device cabine){
         this.cabins.add(cabine);
     }
 
-    public List<ListItemAddress> getFloors() {
+    public List<Device> getFloors() {
         return floors;
     }
 
-    public void setFloors(List<ListItemAddress> floors) {
+    public void setFloors(List<Device> floors) {
         this.floors = floors;
     }
 
-    public void addFloor(ListItemAddress floor){
+    public void addFloor(Device floor){
         this.floors.add(floor);
     }
 }

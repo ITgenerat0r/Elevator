@@ -10,5 +10,7 @@ public class BtConsts {
     public static final String MY_FLOOR = "my_floor"; // Этаж дома
     public static final String MY_ADDRESS = "my_address"; // МАС адрес дома
     public static final String CURRENT_ADDRESS = "current_address"; // Текущий адрес, или последний
-    public static final String LIST_ADRESS = "list_address"; // Все мои адреса
+    public static final String LIST_ADRESS = "list_address"; // Все сохраненные адреса
+    public static final String LIST_ELEVATORS = "list_elevators"; // Все сохраненные лифты
+    public static final String LIST_DEVICES = "list_devices"; // Все БТ модули для сохраненных лифтов
 }
