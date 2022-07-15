@@ -10,6 +10,15 @@ public class Elevator {
     private String description;
     private byte floor;
     private boolean auto;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
