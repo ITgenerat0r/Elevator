@@ -21,10 +21,11 @@ public class Storage {
     private SharedPreferences preferences;
     private List<Elevator> storage;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Storage(Context context) {
         Log.d(TAG, "Constructor()");
         this.preferences = context.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
-
+        this.read();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -141,6 +142,20 @@ public class Storage {
         editor.putStringSet(BtConsts.LIST_ELEVATORS, stringSetElevators);
         editor.putStringSet(BtConsts.LIST_DEVICES, stringSetDevices);
         editor.apply();
+    }
+
+    public void deleteElevatorByID(int id){
+        storage.remove(this.getById(id));
+    }
+
+    public void addElevator(Elevator el){
+        storage.add(el);
+    }
+
+    public void renewIDs(){
+        for(int i = 0; i < this.getLength(); i++){
+            storage.get(i).setId(i);
+        }
     }
 
     public Elevator getById(int id){
