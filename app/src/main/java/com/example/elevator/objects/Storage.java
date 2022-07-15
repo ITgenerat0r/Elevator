@@ -149,6 +149,7 @@ public class Storage {
     }
 
     public void addElevator(Elevator el){
+        el.setId(this.getNewID());
         storage.add(el);
     }
 

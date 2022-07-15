@@ -22,6 +22,9 @@ import com.example.elevator.adapter.Address_adapter;
 import com.example.elevator.adapter.BtConsts;
 import com.example.elevator.adapter.ListItemAddress;
 import com.example.elevator.adapter.SetAddressInPreferences;
+import com.example.elevator.objects.Device;
+import com.example.elevator.objects.Elevator;
+import com.example.elevator.objects.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Activities", "ListElevatorsActivity().onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_elevators);
 
@@ -141,11 +145,48 @@ public class ListElevatorsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, " -> onStart()");
+
+        Log.d("Activities", "ListElevatorsActivity().onStart()");
         SetAddressInPreferences storage = new SetAddressInPreferences(this);
         listAddresses = storage.getStorage();
         adapter = new Address_adapter(this, R.layout.item_address, listAddresses);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume() {
+        Log.d("Activities", "ListElevatorsActivity().onResume()");
+        super.onResume();
+        String qr = preferences.getString(BtConsts.QR_CODE, "");
+        assert qr != null;
+        if(qr.equals("")) return;
+        Storage str = new Storage(this);
+        Elevator elv = new Elevator();
+        byte g = 0; // Глубина
+        StringBuilder mac = new StringBuilder();
+        String name = "Cabine";
+        for(char c : qr.toCharArray()){
+            switch (c){
+                case '/':
+                    break;
+                case '_':
+                    name = "Elevator_f" + mac.toString();
+                    mac = new StringBuilder();
+                    break;
+                default:
+                    g++;
+                    mac.append(c);
+            }
+            if(g == 12){
+                g = 0;
+                Device dvc = new Device(name, mac.toString());
+                elv.addDevice(dvc);
+                mac = new StringBuilder();
+            }
+        }
+        str.addElevator(elv);
+        str.write();
     }
 }

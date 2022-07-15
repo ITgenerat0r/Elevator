@@ -49,6 +49,7 @@ public class BtListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Activities", "BtListActivity().onCreate()");
         setContentView(R.layout.activity_bt_list);
         //getBtPermission();
         init();
@@ -165,6 +166,7 @@ public class BtListActivity extends AppCompatActivity {
         registerReceiver(broadcastReceiver, f1);
         registerReceiver(broadcastReceiver, f2);
         registerReceiver(broadcastReceiver, f3);
+        Log.d("Activities", "BtListActivity().onResume()");
     }
 
     @Override
