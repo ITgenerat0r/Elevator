@@ -2,6 +2,7 @@ package com.example.elevator.objects;
 
 import com.example.elevator.adapter.ListItemAddress;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator {
@@ -11,6 +12,15 @@ public class Elevator {
     private byte floor;
     private boolean auto;
     private int id;
+
+    public Elevator() {
+        this.cabins = new ArrayList<>();
+        this.floors = new ArrayList<>();
+        this.description = "";
+        this.floor = 0;
+        this.auto = false;
+        this.id = 0;
+    }
 
     public int getId() {
         return id;
@@ -66,5 +76,13 @@ public class Elevator {
 
     public void addFloor(Device floor){
         this.floors.add(floor);
+    }
+
+    public void addDevice(Device d){
+        if(d.getName().equals("Cabine")){
+            this.addCabins(d);
+        } else {
+            this.addFloor(d);
+        }
     }
 }
