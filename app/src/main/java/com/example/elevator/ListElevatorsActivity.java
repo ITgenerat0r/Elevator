@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListElevatorsActivity extends AppCompatActivity {
-    final static String TAG = "ListElevatorsActivity";
+//    final static String TAG = "ListElevatorsActivity";
+    String TAG = "Debug";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private ListView listView;
     private List<ListItemAddress> listAddresses;
@@ -159,9 +160,13 @@ public class ListElevatorsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
+        Log.d(TAG, "read QR_CODE");
         String qr = preferences.getString(BtConsts.QR_CODE, "");
         assert qr != null;
-        if(qr.equals("")) return;
+        if(qr.equals("")) {
+            Log.d(TAG, "QR code is empty");
+            return;
+        }
         Storage str = new Storage(this);
         Elevator elv = new Elevator();
         byte g = 0; // Глубина
@@ -172,6 +177,25 @@ public class ListElevatorsActivity extends AppCompatActivity {
                 case '/':
                     break;
                 case '_':
+                    // check if there not numeric
+                    for(char i : mac.toString().toCharArray()){
+                        switch (i){
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':
+                            case '0':
+                                break;
+                            default:
+                                Log.d(TAG, "Wrong QR code, num floor have another sumbols (not number)!!!");
+                                return;
+                        }
+                    }
                     name = "Elevator_f" + mac.toString();
                     mac = new StringBuilder();
                     break;
@@ -185,8 +209,14 @@ public class ListElevatorsActivity extends AppCompatActivity {
                 elv.addDevice(dvc);
                 mac = new StringBuilder();
             }
+            if(g > 12){
+                Log.d(TAG, "Wrong QR code (MAC length > 12)!!!");
+                return;
+            }
         }
         str.addElevator(elv);
         str.write();
+
+        str.printAll();
     }
 }

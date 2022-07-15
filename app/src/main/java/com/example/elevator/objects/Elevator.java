@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator {
+    private int id;
     private List<Device> cabins;
     private List<Device> floors;
     private String description;
     private byte floor;
     private byte maxFloor;
     private boolean auto;
-    private int id;
 
     public Elevator() {
+        this.id = 0;
         this.cabins = new ArrayList<>();
         this.floors = new ArrayList<>();
         this.description = "";
         this.floor = 0;
         this.maxFloor = 2;
         this.auto = false;
-        this.id = 0;
     }
 
     public byte getMaxFloor() {

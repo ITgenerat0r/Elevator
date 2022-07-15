@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Storage {
-    private String TAG = this.getClass().getSimpleName();
+//    private String TAG = this.getClass().getSimpleName();
+    private String TAG = "Debug";
     private SharedPreferences preferences;
     private List<Elevator> storage;
 
@@ -189,4 +190,30 @@ public class Storage {
     public int getLength(){
         return storage.size();
     }
+
+    public void printElevator(Elevator elv){
+        Log.d(TAG, String.format("ID: %d", elv.getId()));
+        Log.d(TAG, "Description: " + elv.getDescription());
+        Log.d(TAG, "Cabins");
+        for(Device dvc : elv.getCabins()){
+            Log.d(TAG, " - " + dvc.getAddress());
+        }
+        Log.d(TAG, "Floors");
+        for(Device dvc : elv.getFloors()){
+            Log.d(TAG, " - " + dvc.getName() + " : " + dvc.getAddress());
+        }
+        Log.d(TAG, String.format("My floor: %d", elv.getFloor()));
+        Log.d(TAG, String.format("Max floors: %d", elv.getMaxFloor()));
+        String a = "Disabled";
+        if(elv.isAuto()) a = "Enabled";
+        Log.d(TAG, String.format("Auto: %s (%b)", a, elv.isAuto()));
+    }
+
+    public void printAll(){
+        for(Elevator e : storage){
+            Log.d(TAG, " <--->");
+            this.printElevator(e);
+        }
+    }
+
 }
