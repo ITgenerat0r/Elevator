@@ -13,4 +13,5 @@ public class BtConsts {
     public static final String LIST_ADRESS = "list_address"; // Все сохраненные адреса
     public static final String LIST_ELEVATORS = "list_elevators"; // Все сохраненные лифты
     public static final String LIST_DEVICES = "list_devices"; // Все БТ модули для сохраненных лифтов
+    public static final String QR_CODE = "qr_code"; // save qr code after scanning
 }

@@ -21,6 +21,7 @@ import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
+import com.google.zxing.client.android.additional.Consts;
 import com.google.zxing.client.android.camera.CameraManager;
 import com.google.zxing.client.android.clipboard.ClipboardInterface;
 import com.google.zxing.client.android.history.HistoryActivity;
@@ -34,6 +35,7 @@ import com.google.zxing.client.android.share.ShareActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -475,6 +477,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                          Toast.LENGTH_SHORT).show();
           // Wait a moment or else it will scan the same barcode continuously about 3 times
           restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
+
+          // save qr code
+          SharedPreferences preferences = this.getSharedPreferences(Consts.MY_PREF, Context.MODE_PRIVATE);
+          SharedPreferences.Editor editor = preferences.edit();
+          editor.putString(Consts.QR_CODE, rawResult.getText());
+          editor.apply();
+          // exit
+          super.onBackPressed();
+
         } else {
           handleDecodeInternally(rawResult, resultHandler, barcode);
         }
