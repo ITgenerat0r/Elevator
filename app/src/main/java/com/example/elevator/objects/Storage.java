@@ -158,6 +158,20 @@ public class Storage {
         }
     }
 
+    public int getNewID(){
+        int res = storage.get(this.getLength()).getId() + 1;
+        Log.d(TAG, String.format("   new ID = %d", res));
+        for(Elevator i : storage){
+            Log.d(TAG, String.format("   ->  id = %d", i.getId()));
+            if(i.getId() == res){
+                Log.d(TAG, "WE HAVE COLLISION!!!!!!!!!!!!!!!!!!!!");
+                res*=2;
+                break;
+            }
+        }
+        return res;
+    }
+
     public Elevator getById(int id){
         if(storage.get(id).getId() == id){
             return storage.get(id);
