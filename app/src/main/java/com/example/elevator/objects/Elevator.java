@@ -10,6 +10,7 @@ public class Elevator {
     private List<Device> floors;
     private String description;
     private byte floor;
+    private byte maxFloor;
     private boolean auto;
     private int id;
 
@@ -18,8 +19,17 @@ public class Elevator {
         this.floors = new ArrayList<>();
         this.description = "";
         this.floor = 0;
+        this.maxFloor = 2;
         this.auto = false;
         this.id = 0;
+    }
+
+    public byte getMaxFloor() {
+        return maxFloor;
+    }
+
+    public void setMaxFloor(byte maxFloor) {
+        this.maxFloor = maxFloor;
     }
 
     public int getId() {
@@ -72,6 +82,7 @@ public class Elevator {
 
     public void setFloors(List<Device> floors) {
         this.floors = floors;
+        this.maxFloor = Byte.parseByte(Integer.toString(floors.size()));
     }
 
     public void addFloor(Device floor){
