@@ -173,48 +173,50 @@ public class ListElevatorsActivity extends AppCompatActivity {
         byte g = 0; // Глубина
         StringBuilder mac = new StringBuilder();
         String name = "Cabine";
-//        for(char c : qr.toCharArray()){
-//            switch (c){
-//                case '/':
-//                    break;
-//                case '_':
-//                    // check if there not numeric
-//                    for(char i : mac.toString().toCharArray()){
-//                        switch (i){
-//                            case '1':
-//                            case '2':
-//                            case '3':
-//                            case '4':
-//                            case '5':
-//                            case '6':
-//                            case '7':
-//                            case '8':
-//                            case '9':
-//                            case '0':
-//                                break;
-//                            default:
-//                                Log.d(TAG, "Wrong QR code, num floor have another sumbols (not number)!!!");
-//                                return;
-//                        }
-//                    }
-//                    name = "Elevator_f" + mac.toString();
-//                    mac = new StringBuilder();
-//                    break;
-//                default:
-//                    g++;
-//                    mac.append(c);
-//            }
-//            if(g == 12){
-//                g = 0;
-//                Device dvc = new Device(name, mac.toString());
-//                elv.addDevice(dvc);
-//                mac = new StringBuilder();
-//            }
-//            if(g > 12){
-//                Log.d(TAG, "Wrong QR code (MAC length > 12)!!!");
-//                return;
-//            }
-//        }
+        for(char c : qr.toCharArray()){
+            switch (c){
+                case '/':
+                    break;
+                case '_':
+                    // check if there not numeric
+                    for(char i : mac.toString().toCharArray()){
+                        switch (i){
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':
+                            case '0':
+                                break;
+                            default:
+                                Log.d(TAG, "Wrong QR code, num floor have another sumbols (not number)!!!");
+                                return;
+                        }
+                    }
+                    name = "Elevator_f" + mac.toString();
+                    mac = new StringBuilder();
+                    g = 0;
+                    break;
+                default:
+                    g++;
+                    mac.append(c);
+            }
+            if(g == 12){
+                g = 0;
+                Device dvc = new Device(name, mac.toString());
+                elv.addDevice(dvc);
+                mac = new StringBuilder();
+            }
+            if(g > 12){
+                Log.d(TAG, "Wrong QR code (MAC length > 12)!!!");
+                return;
+            }
+        }
+        str.printElevator(elv);
 //        str.addElevator(elv);
 //        str.write();
 //
