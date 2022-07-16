@@ -478,13 +478,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
           // Wait a moment or else it will scan the same barcode continuously about 3 times
           restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
 
-          // save qr code
-          SharedPreferences preferences = this.getSharedPreferences(Consts.MY_PREF, Context.MODE_PRIVATE);
-          SharedPreferences.Editor editor = preferences.edit();
-          editor.putString(Consts.QR_CODE, rawResult.getText());
-          editor.apply();
+
           // exit
-          super.onBackPressed();
+//          super.onBackPressed();
 
         } else {
           handleDecodeInternally(rawResult, resultHandler, barcode);
@@ -648,6 +644,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         rawResultString = rawResultString.substring(0, 32) + " ...";
       }
       statusView.setText(getString(resultHandler.getDisplayTitle()) + " : " + rawResultString);
+      Log.d("Debug", "QR : " + String.valueOf(rawResult));
+
+      // save qr code
+      SharedPreferences preferences = this.getSharedPreferences(Consts.MY_PREF, Context.MODE_PRIVATE);
+      SharedPreferences.Editor editor = preferences.edit();
+      editor.putString(Consts.QR_CODE, rawResult.getText());
+      editor.apply();
     }
 
     if (copyToClipboard && !resultHandler.areContentsSecure()) {

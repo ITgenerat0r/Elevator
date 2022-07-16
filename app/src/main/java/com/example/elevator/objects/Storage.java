@@ -26,7 +26,7 @@ public class Storage {
     public Storage(Context context) {
         Log.d(TAG, "Constructor()");
         this.preferences = context.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
-        this.read();
+//        this.read();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
