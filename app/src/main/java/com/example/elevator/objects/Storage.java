@@ -26,7 +26,8 @@ public class Storage {
     public Storage(Context context) {
         Log.d(TAG, "Constructor()");
         this.preferences = context.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
-//        this.read();
+        storage = new ArrayList<>();
+        this.read();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -161,7 +162,12 @@ public class Storage {
     }
 
     public int getNewID(){
-        int res = storage.get(this.getLength()).getId() + 1;
+        Log.d(TAG, "getNewID()");
+        if(storage.isEmpty()){
+            Log.d(TAG, "new ID = 0");
+            return 0;
+        }
+        int res = storage.get(this.getLength() - 1).getId() + 1;
         Log.d(TAG, String.format("   new ID = %d", res));
         for(Elevator i : storage){
             Log.d(TAG, String.format("   ->  id = %d", i.getId()));
@@ -210,10 +216,12 @@ public class Storage {
     }
 
     public void printAll(){
+        Log.d(TAG, "   <--- STORAGE ---> ");
         for(Elevator e : storage){
             Log.d(TAG, " <--->");
             this.printElevator(e);
         }
+        Log.d(TAG, "   <--- END --->");
     }
 
 }

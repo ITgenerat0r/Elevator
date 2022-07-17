@@ -18,7 +18,7 @@ public class Elevator {
         this.id = 0;
         this.cabins = new ArrayList<>();
         this.floors = new ArrayList<>();
-        this.description = "";
+        this.description = "e";
         this.floor = 0;
         this.maxFloor = 2;
         this.auto = false;

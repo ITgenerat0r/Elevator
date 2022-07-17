@@ -25,6 +25,7 @@ import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.objects.Device;
 import com.example.elevator.objects.Elevator;
 import com.example.elevator.objects.Storage;
+import com.google.zxing.client.android.additional.Consts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,9 +162,14 @@ public class ListElevatorsActivity extends AppCompatActivity {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
         Log.d(TAG, "read QR_CODE");
-        String qr = preferences.getString(BtConsts.QR_CODE, "");
-        assert qr != null;
-        if(qr.equals("")) {
+        String qr = preferences.getString(BtConsts.QR_CODE, "-");
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(BtConsts.QR_CODE, "-");
+        editor.apply();
+
+//        assert qr != null;
+        if(qr.equals("-")) {
             Log.d(TAG, "QR code is empty");
             return;
         }
@@ -217,9 +223,8 @@ public class ListElevatorsActivity extends AppCompatActivity {
             }
         }
         str.printElevator(elv);
-//        str.addElevator(elv);
-//        str.write();
-//
-//        str.printAll();
+        str.addElevator(elv);
+        str.printAll();
+        str.write();
     }
 }
