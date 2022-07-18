@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.elevator.adapter.Address_adapter;
 import com.example.elevator.adapter.BtConsts;
@@ -161,80 +162,11 @@ public class ListElevatorsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
-        Log.d(TAG, "read QR_CODE");
-        String qr = preferences.getString(BtConsts.QR_CODE, "-");
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(BtConsts.QR_CODE, "-");
-        editor.apply();
-
-//        assert qr != null;
-        if(qr.equals("-")) {
-            Log.d(TAG, "QR code is empty");
-            return;
+        if(parseQR() == false){
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(com.google.zxing.client.android.R.string.msg_wrong_qr),
+                    Toast.LENGTH_LONG).show();
         }
-        Log.d(TAG, "QR = " + qr);
-        String id = qr.substring(0, 10);
-        qr = qr.substring(10);
-//        Log.d(TAG, id + ":" + qr);
-        Storage str = new Storage(this);
-        Elevator elv = new Elevator();
-        elv.setId(StringHEXtoInt(id));
-        if(elv.getId() < 0) {
-            Log.d(TAG, "Wrong Elevator ID");
-            return;
-        }
-        byte g = 0; // Глубина
-        StringBuilder mac = new StringBuilder();
-        String name = "Cabine";
-        for(char c : qr.toCharArray()){
-            switch (c){
-                case '/':
-                    break;
-                case '_':
-                    // check if there not numeric
-                    for(char i : mac.toString().toCharArray()){
-                        switch (i){
-                            case '1':
-                            case '2':
-                            case '3':
-                            case '4':
-                            case '5':
-                            case '6':
-                            case '7':
-                            case '8':
-                            case '9':
-                            case '0':
-                                break;
-                            default:
-                                Log.d(TAG, "Wrong QR code, num floor have another sumbols (not number)!!!");
-                                return;
-                        }
-                    }
-                    name = "Elevator_f" + mac.toString();
-                    mac = new StringBuilder();
-                    g = 0;
-                    break;
-                default:
-                    g++;
-                    mac.append(c);
-            }
-            if(g == 12){
-                g = 0;
-                Device dvc = new Device(name, mac.toString());
-                elv.addDevice(dvc);
-                mac = new StringBuilder();
-            }
-            if(g > 12){
-                Log.d(TAG, "Wrong QR code (MAC length > 12)!!!");
-                return;
-            }
-        }
-        str.printElevator(elv);
-        str.addElevator(elv);
-//        str.clear();
-//        str.printAll();
-        str.write();
     }
 
     private long StringHEXtoInt(String h){
@@ -282,5 +214,85 @@ public class ListElevatorsActivity extends AppCompatActivity {
         }
         Log.d(TAG, String.format("Parsed: %d", res));
         return res;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean parseQR(){
+        Log.d(TAG, "read QR_CODE");
+        String qr = preferences.getString(BtConsts.QR_CODE, "-");
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(BtConsts.QR_CODE, "-");
+        editor.apply();
+
+//        assert qr != null;
+        if(qr.equals("-")) {
+            Log.d(TAG, "QR code is empty");
+            return false;
+        }
+        Log.d(TAG, "QR = " + qr);
+        String id = qr.substring(0, 10);
+        qr = qr.substring(10);
+//        Log.d(TAG, id + ":" + qr);
+        Storage str = new Storage(this);
+        Elevator elv = new Elevator();
+        elv.setId(StringHEXtoInt(id));
+        elv.setDescription(getResources().getString(com.google.zxing.client.android.R.string.empty));
+        if(elv.getId() < 0) {
+            Log.d(TAG, "Wrong Elevator ID");
+            return false;
+        }
+        byte g = 0; // Глубина
+        StringBuilder mac = new StringBuilder();
+        String name = "Cabine";
+        for(char c : qr.toCharArray()){
+            switch (c){
+                case '/':
+                    break;
+                case '_':
+                    // check if there not numeric
+                    for(char i : mac.toString().toCharArray()){
+                        switch (i){
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':
+                            case '0':
+                                break;
+                            default:
+                                Log.d(TAG, "Wrong QR code, num floor have another sumbols (not number)!!!");
+                                return false;
+                        }
+                    }
+                    name = "Elevator_f" + mac.toString();
+                    mac = new StringBuilder();
+                    g = 0;
+                    break;
+                default:
+                    g++;
+                    mac.append(c);
+            }
+            if(g == 12){
+                g = 0;
+                Device dvc = new Device(name, mac.toString());
+                elv.addDevice(dvc);
+                mac = new StringBuilder();
+            }
+            if(g > 12){
+                Log.d(TAG, "Wrong QR code (MAC length > 12)!!!");
+                return false;
+            }
+        }
+        str.printElevator(elv);
+        str.addElevator(elv);
+//        str.clear();
+//        str.printAll();
+        str.write();
+        return true;
     }
 }
