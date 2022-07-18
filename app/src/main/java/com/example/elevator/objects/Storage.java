@@ -167,13 +167,13 @@ public class Storage {
         }
     }
 
-    public int getNewID(){
+    public long getNewID(){
         Log.d(TAG, "getNewID()");
         if(storage.isEmpty()){
             Log.d(TAG, "new ID = 0");
             return 0;
         }
-        int res = storage.get(this.getLength() - 1).getId() + 1;
+        long res = storage.get(this.getLength() - 1).getId() + 1;
         Log.d(TAG, String.format("   new ID = %d", res));
         for(Elevator i : storage){
             Log.d(TAG, String.format("   ->  id = %d", i.getId()));
@@ -228,6 +228,10 @@ public class Storage {
             this.printElevator(e);
         }
         Log.d(TAG, "   <--- END --->");
+    }
+
+    public void clear(){
+        storage.clear();
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator {
-    private int id;
+    private long id;
     private List<Device> cabins;
     private List<Device> floors;
     private String description;
@@ -32,11 +32,11 @@ public class Elevator {
         this.maxFloor = maxFloor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

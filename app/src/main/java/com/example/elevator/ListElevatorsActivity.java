@@ -232,13 +232,14 @@ public class ListElevatorsActivity extends AppCompatActivity {
         }
         str.printElevator(elv);
         str.addElevator(elv);
-        str.printAll();
+//        str.clear();
+//        str.printAll();
         str.write();
     }
 
-    private int StringHEXtoInt(String h){
+    private long StringHEXtoInt(String h){
         Log.d(TAG, "Parse HEX = " + h);
-        int res = 0;
+        long res = 0;
         for(char c : h.toCharArray()){
             int bit = 0;
             switch (c){
@@ -253,6 +254,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
                 case '9':
                 case '0':
                     bit = Integer.parseInt("" + c);
+                    break;
                 case 'a':
                     bit = 10;
                     break;
