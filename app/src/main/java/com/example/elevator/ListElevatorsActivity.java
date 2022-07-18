@@ -174,8 +174,16 @@ public class ListElevatorsActivity extends AppCompatActivity {
             return;
         }
         Log.d(TAG, "QR = " + qr);
+        String id = qr.substring(0, 10);
+        qr = qr.substring(10);
+//        Log.d(TAG, id + ":" + qr);
         Storage str = new Storage(this);
         Elevator elv = new Elevator();
+        elv.setId(StringHEXtoInt(id));
+        if(elv.getId() < 0) {
+            Log.d(TAG, "Wrong Elevator ID");
+            return;
+        }
         byte g = 0; // Глубина
         StringBuilder mac = new StringBuilder();
         String name = "Cabine";
@@ -226,5 +234,51 @@ public class ListElevatorsActivity extends AppCompatActivity {
         str.addElevator(elv);
         str.printAll();
         str.write();
+    }
+
+    private int StringHEXtoInt(String h){
+        Log.d(TAG, "Parse HEX = " + h);
+        int res = 0;
+        for(char c : h.toCharArray()){
+            int bit = 0;
+            switch (c){
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case '0':
+                    bit = Integer.parseInt("" + c);
+                case 'a':
+                    bit = 10;
+                    break;
+                case 'b':
+                    bit = 11;
+                    break;
+                case 'c':
+                    bit = 12;
+                    break;
+                case 'd':
+                    bit = 13;
+                    break;
+                case 'e':
+                    bit = 14;
+                    break;
+                case 'f':
+                    bit = 15;
+                    break;
+                default:
+                    Log.d(TAG, "Parsing fault, num have another sumbols (not HEX)!!!");
+                    return -1;
+            }
+            res *= 16;
+            res += bit;
+        }
+        Log.d(TAG, String.format("Parsed: %d", res));
+        return res;
     }
 }
