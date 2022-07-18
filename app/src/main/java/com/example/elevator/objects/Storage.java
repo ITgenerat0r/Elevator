@@ -74,7 +74,7 @@ public class Storage {
             Log.d(TAG, " -> comm = " + comm.toString());
 
             Elevator el = new Elevator();
-            el.setId(Integer.parseInt(id.toString()));
+            el.setId(Long.parseLong(id.toString()));
             el.setFloor(Byte.parseByte(floor.toString()));
             el.setAuto(auto);
             el.setDescription(addr.toString());
@@ -112,7 +112,7 @@ public class Storage {
             Log.d(TAG, " -> addr = " + addr.toString());
 
             Device dvc = new Device(name.toString(), addr.toString());
-            this.getById(Integer.parseInt(id.toString())).addDevice(dvc);
+            this.getById(Long.parseLong(id.toString())).addDevice(dvc);
 
         }
         Log.d(TAG, " read() end");
@@ -146,7 +146,7 @@ public class Storage {
         editor.apply();
     }
 
-    public void deleteElevatorByID(int id){
+    public void deleteElevatorByID(long id){
         storage.remove(this.getById(id));
     }
 
@@ -161,35 +161,7 @@ public class Storage {
         storage.add(el);
     }
 
-    public void renewIDs(){
-        for(int i = 0; i < this.getLength(); i++){
-            storage.get(i).setId(i);
-        }
-    }
-
-    public long getNewID(){
-        Log.d(TAG, "getNewID()");
-        if(storage.isEmpty()){
-            Log.d(TAG, "new ID = 0");
-            return 0;
-        }
-        long res = storage.get(this.getLength() - 1).getId() + 1;
-        Log.d(TAG, String.format("   new ID = %d", res));
-        for(Elevator i : storage){
-            Log.d(TAG, String.format("   ->  id = %d", i.getId()));
-            if(i.getId() == res){
-                Log.d(TAG, "WE HAVE COLLISION!!!!!!!!!!!!!!!!!!!!");
-                res*=2;
-                break;
-            }
-        }
-        return res;
-    }
-
-    public Elevator getById(int id){
-        if(storage.get(id).getId() == id){
-            return storage.get(id);
-        }
+    public Elevator getById(long id){
         for(Elevator i : storage){
             if(i.getId() == id) return i;
         }
@@ -199,6 +171,7 @@ public class Storage {
     public Elevator getByIndex(int pos){
         return storage.get(pos);
     }
+
     public int getLength(){
         return storage.size();
     }
