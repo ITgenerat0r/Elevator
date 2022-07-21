@@ -29,7 +29,7 @@
         android:icon="@drawable/ic_test_off"
         app:showAsAction="ifRoom"/>
 
-    <item android:title="Settings"
+    <item android:title="@string/settings"
         android:id="@+id/id_settings"
         android:icon="@drawable/ic_settings"
         android:orderInCategory="100"

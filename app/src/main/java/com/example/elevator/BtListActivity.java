@@ -140,7 +140,7 @@ public class BtListActivity extends AppCompatActivity {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED ){
                 isBtPermissionGranted = true;
             } else {
-                Toast toast = Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT);
                 toast.show();
             }
         } else {

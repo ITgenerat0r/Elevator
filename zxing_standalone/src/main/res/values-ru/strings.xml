@@ -145,4 +145,7 @@
 
   <string name="empty">Пусто</string>
   <string name="msg_wrong_qr">Неверный формат QR кода</string>
+  <string name="permission_denied">Разрешение отказано</string>
+  <string name="update_app">Необходимо обновить приложение</string>
+  <string name="settings">Настройки</string>
 </resources>

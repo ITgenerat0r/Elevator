@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -48,6 +49,7 @@ import com.example.elevator.adapter.ListItemAddress;
 import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.bluetooth.BtConnection;
 import com.example.elevator.bluetoothle.BLEConnection;
+import com.example.elevator.objects.Control;
 
 import java.lang.reflect.GenericArrayType;
 import java.text.DateFormat;
@@ -351,7 +353,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         init();
         getBtPermission();
-
     }
 
     @SuppressLint("DefaultLocale")
@@ -620,12 +621,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         my_floor = preferences.getInt(BtConsts.MY_FLOOR, 0);
         auto_move_me = preferences.getBoolean(BtConsts.LIFT_ME, false);
 
-
-        Log.d(TAG, "OnStart()");
+//        Log.d(TAG, "OnStart()");
 
         SetAddressInPreferences storage = new SetAddressInPreferences(this);
         listSavedAddresses = storage.getStorage();
         super.onStart();
+
     }
 
     @SuppressLint("ResourceType")
@@ -711,6 +712,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void ch(){
+        Control cntr = new Control();
+        if(!cntr.check()){
+            Toast toast = Toast.makeText( this , R.string.update_app, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 10 , 40);
+            toast.show();
+            sleep(10000);
+            this.finish();
+        }
     }
 
     @Override
@@ -1134,6 +1146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(broadcastReceiver, f1);
         registerReceiver(broadcastReceiver, f2);
         registerReceiver(broadcastReceiver, f3);
+        ch();
     }
 
     @Override

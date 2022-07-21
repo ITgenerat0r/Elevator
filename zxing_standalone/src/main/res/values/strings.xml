@@ -145,4 +145,7 @@
 
   <string name="empty">Empty</string>
   <string name="msg_wrong_qr">Wrong QR code</string>
+  <string name="permission_denied">Permission denied</string>
+  <string name="update_app">You need to update application</string>
+  <string name="settings">Settings</string>
 </resources>

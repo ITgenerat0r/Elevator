@@ -30,7 +30,6 @@ import com.example.elevator.ListElevatorsActivity;
 import com.example.elevator.MainActivity;
 import com.example.elevator.R;
 import com.example.elevator.Settings;
-import com.example.elevator.qrcode.QRcode;
 //import tarun0.com.zxing_standalone
 import com.google.zxing.client.android.CaptureActivity;
 

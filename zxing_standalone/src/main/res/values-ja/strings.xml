@@ -145,4 +145,7 @@
 
   <string name="empty">空</string>
   <string name="msg_wrong_qr">QRコードが正しくありません</string>
+  <string name="permission_denied">Permission denied</string>
+  <string name="update_app">You need to update application</string>
+  <string name="settings">Settings</string>
 </resources>

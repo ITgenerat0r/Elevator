@@ -228,7 +228,8 @@ public class ListElevatorsActivity extends AppCompatActivity {
 //        assert qr != null;
         if(qr.equals("-")) {
             Log.d(TAG, "QR code is empty");
-            return false;
+//            return false;
+            return true;
         }
         Log.d(TAG, "QR = " + qr);
         String id = qr.substring(0, 10);
