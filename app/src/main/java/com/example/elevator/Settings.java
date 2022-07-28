@@ -1,6 +1,5 @@
 package com.example.elevator;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +12,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,15 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elevator.adapter.BtConsts;
-import com.example.elevator.adapter.ListItemAddress;
-import com.example.elevator.adapter.SetAddressInPreferences;
-
-import static android.widget.Toast.LENGTH_LONG;
+import com.example.elevator.objects.Elevator;
+import com.example.elevator.objects.Storage;
 
 public class Settings extends AppCompatActivity {
     final static String TAG = "Settings";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
-    private SetAddressInPreferences storage;
+    private Storage storage;
     private CheckBox checkBox_autodown;
     private EditText editText_floor;
     private TextView current_address;
@@ -39,7 +35,7 @@ public class Settings extends AppCompatActivity {
     private EditText editText_comment;
     private Button btn_set_addr;
     final static String string_address = "Добавить адрес";
-    private ListItemAddress itemAddress;
+    private Elevator itemAddress;
     private CharSequence buffer; // для editText_address, хранит предыдущее значение
 
     private String cur_addr;
@@ -57,7 +53,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         preferences = this.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
-        storage = new SetAddressInPreferences(this);
+        storage = new Storage(this);
 
         checkBox_autodown = findViewById(R.id.autodown);
         editText_floor = findViewById(R.id.floor);
@@ -71,10 +67,10 @@ public class Settings extends AppCompatActivity {
         cur_name = preferences.getString(BtConsts.LAST_NAME, "last_name");
         current_address.setText(cur_addr);
 
-        itemAddress = storage.getItemAddress(preferences.getString(BtConsts.MY_ADDRESS, "none"));
-        editText_address.setText(itemAddress.getAddress());
-        editText_name.setText(itemAddress.getName());
-        editText_comment.setText(itemAddress.getComment());
+        itemAddress = storage.getById(Long.parseLong(preferences.getString(BtConsts.MY_ADDRESS, "0")));
+        editText_address.setText("" + itemAddress.getId());
+        editText_name.setText(itemAddress.getDescription());
+        editText_comment.setText("" + itemAddress.isAuto());
         editText_floor.setText("" + itemAddress.getFloor());
         checkBox_autodown.setChecked(itemAddress.isAuto());
 
@@ -161,20 +157,20 @@ public class Settings extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void applySettings(View v){
-        if(!itemAddress.getAddress().equals(string_address)){
-            storage.delete(itemAddress.getAddress());
+        if(!("" + itemAddress.getId()).equals(string_address)){
+            storage.deleteElevatorByID(itemAddress.getId());
         }
-        itemAddress.setAddress(editText_address.getText().toString().toUpperCase());
-        itemAddress.setName(editText_name.getText().toString());
-        itemAddress.setComment(editText_comment.getText().toString());
+        itemAddress.setId(Long.parseLong(editText_address.getText().toString().toUpperCase()));
+        itemAddress.setDescription(editText_name.getText().toString());
+//        itemAddress.set(editText_comment.getText().toString());
         itemAddress.setAuto(checkBox_autodown.isChecked());
         itemAddress.setFloor(Byte.parseByte(editText_floor.getText().toString()));
 
-        if(check_all(itemAddress.getAddress())){
-            storage.addItem(itemAddress);
+        if(storage.getById(itemAddress.getId()).getId() == 0){
+            storage.addElevator(itemAddress);
             storage.write();
         } else {
-            Toast toast = Toast.makeText( this , "Неверный формат адреса, (Требуется: **:**:**:**:**)", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText( this , "Wrong ID", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP, 10 , 20);
             toast.show();
         }

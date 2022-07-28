@@ -2,7 +2,6 @@ package com.example.elevator.bluetoothle;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -12,11 +11,7 @@ import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Build;
-import android.os.Handler;
-import android.os.RemoteException;
-import android.telephony.MbmsGroupCallSession;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -24,34 +19,20 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.elevator.adapter.BtConsts;
-import com.example.elevator.adapter.ListItem;
-import com.example.elevator.adapter.ListItemAddress;
-import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.bluetooth.ConnectThread;
+import com.example.elevator.objects.Device;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Queue;
-import java.util.UUID;
 
 import static android.bluetooth.BluetoothDevice.BOND_BONDED;
 import static android.bluetooth.BluetoothDevice.BOND_BONDING;
 import static android.bluetooth.BluetoothDevice.BOND_NONE;
 import static android.bluetooth.BluetoothDevice.ERROR;
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_BROADCAST;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_EXTENDED_PROPS;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_INDICATE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_NOTIFY;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_READ;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_SIGNED_WRITE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_WRITE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE;
 import static android.bluetooth.BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT;
-import static android.bluetooth.BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE;
-import static android.bluetooth.BluetoothGattCharacteristic.WRITE_TYPE_SIGNED;
 //import static android.bluetooth.BluetoothProfile.STATE_CONNECTED;
 //import static android.bluetooth.BluetoothProfile.STATE_DISCONNECTED;
 
@@ -327,94 +308,94 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean connect_to_saved(String target){
         Log.d(TAG, "\r\nconnect_to_saved()");
-        String target_name = "Elevator_f";
-        if(!target.equals("all")){
-            String f = "";
-            if(target.length() == 1) f ="0";
-            target_name += f + target;
-        }
-        Log.d(TAG, "target_name = " + target_name);
-//        if(!btAdapter.isEnabled() || mac.isEmpty() || isConnecting) return;
-        if(!btAdapter.isEnabled()) {
-            Log.d(TAG, "BT adapter is off!");
-            response.add("BT adapter is off!");
-            return false;
-        }
-        if(isConnecting) {
-            Log.d(TAG, "State already in connecting!");
-            response.add("State already in connecting!");
-            return false;
-        }
-        isConnecting = true;
-        Log.d(TAG, "See what to connect...");
-        SetAddressInPreferences storage = new SetAddressInPreferences(context);
-        List<ListItemAddress> cabins = new ArrayList<>();
-        Log.d(TAG, "" + storage.getLength() + " devices may be to connect");
+//        String target_name = "Elevator_f";
+//        if(!target.equals("all")){
+//            String f = "";
+//            if(target.length() == 1) f ="0";
+//            target_name += f + target;
+//        }
+//        Log.d(TAG, "target_name = " + target_name);
+////        if(!btAdapter.isEnabled() || mac.isEmpty() || isConnecting) return;
+//        if(!btAdapter.isEnabled()) {
+//            Log.d(TAG, "BT adapter is off!");
+//            response.add("BT adapter is off!");
+//            return false;
+//        }
+//        if(isConnecting) {
+//            Log.d(TAG, "State already in connecting!");
+//            response.add("State already in connecting!");
+//            return false;
+//        }
+//        isConnecting = true;
+//        Log.d(TAG, "See what to connect...");
+//        SetAddressInPreferences storage = new SetAddressInPreferences(context);
+//        List<ListItemAddress> cabins = new ArrayList<>();
+//        Log.d(TAG, "" + storage.getLength() + " devices may be to connect");
         boolean is_was_connected = false;
-        byte who_was_connected = 0;
-        boolean key = true;
-        for(int i = 0; i < storage.getLength(); i++){
-            ListItemAddress item = storage.getByIndex(i);
-            Log.d(TAG, " - > " + item.getName() + " (" + item.getAddress() + ")");
-            if(item.getName().equals("Cabine")){
-                ListItemAddress tmp = new ListItemAddress();
-                tmp = item;
-                cabins.add(tmp);
-//                continue;
-            } else if (item.getName().length() >= target_name.length() && item.getName().substring(0, target_name.length()).equals(target_name)){
-               if(key && conn(item.getAddress())){
-                   boolean res = after_connect(false,"");
-                   Log.d(TAG, "after_connect(false, '') response = " + res);
-                   if(res){
-                       is_was_connected = true;
-                       who_was_connected = item.getFloor();
-                       key = false;
-                   }
-               }
-            }
-        }
-        if(!is_was_connected){
-            Log.d(TAG, "NO ONE WAS CONNECTED TO FLOOR");
-            for(ListItemAddress item : cabins){
-                Log.d(TAG, " -> " + item.getAddress());
-                String command = "lift_";
-                if(target.equals("all")){
-                    command += item.getFloor();
-                    if(connect_cabine(item, command)) is_was_connected = true;
-                    command = "lift_1";
-                    if(connect_cabine(item, command)) is_was_connected = true;
-                } else {
-                    command += target;
-                    if(connect_cabine(item, command)) is_was_connected = true;
-                }
-            }
-        } else {
-            Log.d(TAG, "WAS CONNECTED TO FLOOR");
-            Log.d(TAG, "WAS CONNECTED TO " + who_was_connected);
-            if(target.equals("all")){
-                Log.d(TAG, "target == all");
-                for(ListItemAddress item : cabins){
-                    String cmd_to = "lift_";
-//                    String cmd_from = "lift_";
-                    if(item.getFloor() == who_was_connected){
-//                        cmd_from += item.getFloor();
-                        cmd_to += "1";
-                    } else {
-//                        cmd_from += "1";
-                        cmd_to += item.getFloor();
-                    }
-//                    connect_cabine(item, cmd_from);
-                    connect_cabine(item, cmd_to);
-                }
-            }
-        }
-        isConnecting = false;
+//        byte who_was_connected = 0;
+//        boolean key = true;
+//        for(int i = 0; i < storage.getLength(); i++){
+//            ListItemAddress item = storage.getByIndex(i);
+//            Log.d(TAG, " - > " + item.getName() + " (" + item.getAddress() + ")");
+//            if(item.getName().equals("Cabine")){
+//                ListItemAddress tmp = new ListItemAddress();
+//                tmp = item;
+//                cabins.add(tmp);
+////                continue;
+//            } else if (item.getName().length() >= target_name.length() && item.getName().substring(0, target_name.length()).equals(target_name)){
+//               if(key && conn(item.getAddress())){
+//                   boolean res = after_connect(false,"");
+//                   Log.d(TAG, "after_connect(false, '') response = " + res);
+//                   if(res){
+//                       is_was_connected = true;
+//                       who_was_connected = item.getFloor();
+//                       key = false;
+//                   }
+//               }
+//            }
+//        }
+//        if(!is_was_connected){
+//            Log.d(TAG, "NO ONE WAS CONNECTED TO FLOOR");
+//            for(ListItemAddress item : cabins){
+//                Log.d(TAG, " -> " + item.getAddress());
+//                String command = "lift_";
+//                if(target.equals("all")){
+//                    command += item.getFloor();
+//                    if(connect_cabine(item, command)) is_was_connected = true;
+//                    command = "lift_1";
+//                    if(connect_cabine(item, command)) is_was_connected = true;
+//                } else {
+//                    command += target;
+//                    if(connect_cabine(item, command)) is_was_connected = true;
+//                }
+//            }
+//        } else {
+//            Log.d(TAG, "WAS CONNECTED TO FLOOR");
+//            Log.d(TAG, "WAS CONNECTED TO " + who_was_connected);
+//            if(target.equals("all")){
+//                Log.d(TAG, "target == all");
+//                for(ListItemAddress item : cabins){
+//                    String cmd_to = "lift_";
+////                    String cmd_from = "lift_";
+//                    if(item.getFloor() == who_was_connected){
+////                        cmd_from += item.getFloor();
+//                        cmd_to += "1";
+//                    } else {
+////                        cmd_from += "1";
+//                        cmd_to += item.getFloor();
+//                    }
+////                    connect_cabine(item, cmd_from);
+//                    connect_cabine(item, cmd_to);
+//                }
+//            }
+//        }
+//        isConnecting = false;
         return is_was_connected;
     }
 
     
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private boolean connect_cabine(ListItemAddress item, String command){
+    private boolean connect_cabine(Device item, String command){
         boolean is_was_connected = false;
         if(conn(item.getAddress())){
             // do something after connect

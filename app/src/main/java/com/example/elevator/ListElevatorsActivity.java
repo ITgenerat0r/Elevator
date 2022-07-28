@@ -6,37 +6,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.elevator.adapter.Address_adapter;
 import com.example.elevator.adapter.BtConsts;
-import com.example.elevator.adapter.ListItemAddress;
-import com.example.elevator.adapter.SetAddressInPreferences;
 import com.example.elevator.objects.Device;
 import com.example.elevator.objects.Elevator;
 import com.example.elevator.objects.Storage;
-import com.google.zxing.client.android.additional.Consts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListElevatorsActivity extends AppCompatActivity {
-//    final static String TAG = "ListElevatorsActivity";
-    String TAG = "Debug";
+    final String TAG = this.getClass().getSimpleName();
+//    String TAG = "Debug";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private ListView listView;
-    private List<ListItemAddress> listAddresses;
+//    private List<ListItemAddress> listAddresses;
+    private List<Elevator> listElevators;
     private Address_adapter adapter;
     private boolean listen_response_adapter = true; // Для background response
 
@@ -81,9 +74,11 @@ public class ListElevatorsActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void change(){
-        SetAddressInPreferences storage = new SetAddressInPreferences(getBaseContext());
-        listAddresses = storage.getStorage();
-        adapter = new Address_adapter(this, R.layout.item_address, listAddresses);
+//        SetAddressInPreferences storage = new SetAddressInPreferences(getBaseContext());
+        Storage storage = new Storage(getBaseContext());
+//        listAddresses = storage.getStorage();
+        listElevators = storage.getStorage();
+        adapter = new Address_adapter(this, R.layout.item_address, listElevators);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.setChanged(false);
@@ -110,19 +105,22 @@ public class ListElevatorsActivity extends AppCompatActivity {
         // list заполнить из preferences
 
 //        List<ListItemAddress> list = new ArrayList<>();
-        SetAddressInPreferences storage = new SetAddressInPreferences(this);
-        listAddresses = storage.getStorage();
+//        SetAddressInPreferences storage = new SetAddressInPreferences(this);
+        Storage storage = new Storage(this);
+        listElevators = storage.getStorage();
 
 
-        for(ListItemAddress i : listAddresses){
-            Log.d("for i : list", "Item: " + i.getAddress());
+
+        for(Elevator i : listElevators){
+            Log.d("for i : list", "Item: " + i.getId());
         }
 
-
-        adapter = new Address_adapter(this, R.layout.item_address, listAddresses);
+        Log.d(TAG, "init Adapter...");
+        adapter = new Address_adapter(this, R.layout.item_address, listElevators);
+        Log.d(TAG, "running Adapter...");
         listView.setAdapter(adapter);
 
-        Log.d(TAG, String.format("list.size() in ListElevatorsActivity = %d", listAddresses.size()));
+        Log.d(TAG, String.format("list.size() in ListElevatorsActivity = %d", listElevators.size()));
         Log.d(TAG, String.format("listView.getChildCoutn() in ListElevatorsActivity = %d", listView.getChildCount()));
 
 
@@ -150,9 +148,10 @@ public class ListElevatorsActivity extends AppCompatActivity {
         super.onStart();
 
         Log.d("Activities", "ListElevatorsActivity().onStart()");
-        SetAddressInPreferences storage = new SetAddressInPreferences(this);
-        listAddresses = storage.getStorage();
-        adapter = new Address_adapter(this, R.layout.item_address, listAddresses);
+//        SetAddressInPreferences storage = new SetAddressInPreferences(this);
+        Storage storage = new Storage(this);
+        listElevators = storage.getStorage();
+        adapter = new Address_adapter(this, R.layout.item_address, listElevators);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -162,6 +161,8 @@ public class ListElevatorsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
+        Storage storage = new Storage(this);
+        listElevators = storage.getStorage();
         if(parseQR() == false){
             Toast.makeText(getApplicationContext(),
                     getResources().getString(com.google.zxing.client.android.R.string.msg_wrong_qr),

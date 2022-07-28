@@ -31,6 +31,9 @@ import com.example.elevator.MainActivity;
 import com.example.elevator.R;
 import com.example.elevator.Settings;
 //import tarun0.com.zxing_standalone
+import com.example.elevator.objects.Device;
+import com.example.elevator.objects.Elevator;
+import com.example.elevator.objects.Storage;
 import com.google.zxing.client.android.CaptureActivity;
 
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ import java.util.Set;
 
 
 
-public class Address_adapter extends ArrayAdapter<ListItemAddress> {
+public class Address_adapter extends ArrayAdapter<Elevator> {
 
 
 
@@ -47,13 +50,13 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
     final static String string_address = "Добавить адрес";
 
     private Context contextG;
-    private List<ListItemAddress> mainList;
+    private List<Elevator> mainList;
     private List<ViewHolder> listViewHolders;
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
-    private SetAddressInPreferences storage;
+    private Storage storage;
     private boolean changed;
 
-    // Класс для запоминания ListItemAddress, которые были отображены и пролистаны вверх
+    // Класс для запоминания Elevator, которые были отображены и пролистаны вверх
     static class ViewHolder{
         TextView comment_field;
         Button Address_field;
@@ -63,14 +66,19 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public Address_adapter(@NonNull Context context, int resource, List<ListItemAddress> btList) {
+    public Address_adapter(@NonNull Context context, int resource, List<Elevator> btList) {
         super(context, resource, btList);
+        Log.d(TAG, "Constructor -> " + TAG);
         changed = false;
         contextG = context;
-        ListItemAddress elem = new ListItemAddress();
-        elem.setComment("");
-        elem.setAddress(string_address);
+        Elevator elem = new Elevator();
+        elem.setDescription("");
+        try {
+            elem.setDescription(string_address);
+        } catch (Exception e){
+            Log.d(TAG, "elem.setId() failed. " + e.toString());
+        }
+
         mainList = btList;
         mainList.add(elem);
         listViewHolders = new ArrayList<>();
@@ -108,32 +116,30 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        String fill = mainList.get(position).getAddress();
+        String fill = mainList.get(position).getDescription();
         if(fill != string_address){
-            fill = mainList.get(position).getName() + " (" + fill + ")";
+//            fill = fill + " (" + mainList.get(position).getId() + ")";
             Log.d(TAG, "fill = " + fill);
         }
         viewHolder.Address_field.setText(fill);
-        if(mainList.get(position).getAddress() == string_address) {
+        if(mainList.get(position).getDescription().equals(string_address)) {
             viewHolder.delete_field.setBackground(null);
+            viewHolder.comment_field.setText("");
         } else {
-            //
+            viewHolder.comment_field.setText("" + mainList.get(position).getId());
         }
-        viewHolder.comment_field.setText(mainList.get(position).getComment());
 
 
         viewHolder.delete_field.setOnClickListener(v -> {
-            if(mainList.get(position).getAddress() == string_address){
+            if(mainList.get(position).getDescription().equals(string_address)){
                 return;
             }
-            Log.d(TAG, "Pressed 'Delete' button" + position);
-            int ln = viewHolder.Address_field.getText().toString().length();
-            String addres_for_delete = viewHolder.Address_field.getText().toString().substring(ln-18, ln-1);
+            Log.d(TAG, "Pressed 'Delete' button on position " + position);
+            String addres_for_delete = viewHolder.comment_field.getText().toString();
             // Удалить везде вручную, в preferences, в mainList и в ListViewHolders
             Log.d(TAG, "Delete " + addres_for_delete);
-            storage = new SetAddressInPreferences(this.contextG);
-//            storage.read();
-            storage.delete(addres_for_delete);
+            storage = new Storage(this.contextG);
+            storage.deleteElevatorByID(Long.parseLong(addres_for_delete));
             storage.write();
 //            mainList.remove(position);
 //            listViewHolders.remove(position);
@@ -142,9 +148,9 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
 
         viewHolder.Address_field.setOnClickListener(v -> {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(BtConsts.MY_ADDRESS, mainList.get(position).getAddress());
+            editor.putString(BtConsts.MY_ADDRESS, "" + mainList.get(position).getId());
             editor.apply();
-            if(mainList.get(position).getAddress().equals(string_address)){
+            if(mainList.get(position).getDescription().equals(string_address)){
                 Log.d(TAG, "Pressed 'Add' button");
 //                Intent settings_activity = new Intent(contextG, Settings.class);
 //                contextG.startActivity(settings_activity);
@@ -155,7 +161,7 @@ public class Address_adapter extends ArrayAdapter<ListItemAddress> {
                 contextG.startActivity(intent);
 //                startActivityForResult(intent, 0);
             } else {
-                Log.d(TAG, "Pressed 'Edit' button" + position);
+                Log.d(TAG, "Pressed 'Edit' button on position" + position);
                 Intent settings_activity = new Intent(contextG, Settings.class);
                 contextG.startActivity(settings_activity);
             }

@@ -10,7 +10,6 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.example.elevator.adapter.BtConsts;
-import com.example.elevator.adapter.ListItemAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,6 +204,10 @@ public class Storage {
 
     public void clear(){
         storage.clear();
+    }
+
+    public List<Elevator> getStorage(){
+        return storage;
     }
 
 }

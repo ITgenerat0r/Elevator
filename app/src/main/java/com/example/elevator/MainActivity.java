@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -27,11 +26,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,19 +36,15 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.elevator.adapter.BtAdapter;
 import com.example.elevator.adapter.BtConsts;
 import com.example.elevator.adapter.BtnItem;
 import com.example.elevator.adapter.ButtonAdapter;
 import com.example.elevator.adapter.LiftAdapter;
-import com.example.elevator.adapter.ListItem;
-import com.example.elevator.adapter.ListItemAddress;
-import com.example.elevator.adapter.SetAddressInPreferences;
-import com.example.elevator.bluetooth.BtConnection;
 import com.example.elevator.bluetoothle.BLEConnection;
 import com.example.elevator.objects.Control;
+import com.example.elevator.objects.Elevator;
+import com.example.elevator.objects.Storage;
 
-import java.lang.reflect.GenericArrayType;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -129,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                 // нужен что бы не произошло одновременного обращения к списку
     private boolean wrong_address = false; // если при автоматическом режиме не нашлось адресов сохраненных в памяти, то будет равно true
     //
-    private List<ListItemAddress> listSavedAddresses;
+    private List<Elevator> listSavedElevators;
 
 
     static class DiscoveredDevice {
@@ -623,8 +616,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        Log.d(TAG, "OnStart()");
 
-        SetAddressInPreferences storage = new SetAddressInPreferences(this);
-        listSavedAddresses = storage.getStorage();
+        Storage storage = new Storage(this);
+        listSavedElevators = storage.getStorage();
         super.onStart();
 
     }
@@ -1193,25 +1186,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // check for autoconnect
                 String address = "";
                 String name = "";
-                for(ListItemAddress item : listSavedAddresses){
+                for(Elevator item : listSavedElevators){
                     if(item.isAuto()){
-//                        String add = ":";
-//                        if (item.getFloor() < 10) add = ":0";
-                        if(device.getAddress().equals(item.getAddress())){
-                            Log.d(TAG, "AutoConnect to " + item.getAddress());
-                            // my cabine address, need to connect
-                            address = item.getAddress();
-                            name = item.getName();
-                            background_send_command = true;
-                            break;
-                        } else if (device.getAddress().equals(item.getAddress())){
-                            Log.d(TAG, "AutoConnect to " + item.getAddress());
-                            // my floor address, need to connect
-                            address = item.getAddress();
-                            name = item.getName();
-                            background_send_command = false;
-                            break;
-                        }
+//                        if(device.getAddress().equals(item.getAddress())){
+//                            Log.d(TAG, "AutoConnect to " + item.getAddress());
+//                            // my cabine address, need to connect
+//                            address = item.getAddress();
+//                            name = item.getName();
+//                            background_send_command = true;
+//                            break;
+//                        } else if (device.getAddress().equals(item.getAddress())){
+//                            Log.d(TAG, "AutoConnect to " + item.getAddress());
+//                            // my floor address, need to connect
+//                            address = item.getAddress();
+//                            name = item.getName();
+//                            background_send_command = false;
+//                            break;
+//                        }
                     }
                 }
 

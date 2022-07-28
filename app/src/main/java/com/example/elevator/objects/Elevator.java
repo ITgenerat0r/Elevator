@@ -1,7 +1,5 @@
 package com.example.elevator.objects;
 
-import com.example.elevator.adapter.ListItemAddress;
-
 import java.util.ArrayList;
 import java.util.List;
 
