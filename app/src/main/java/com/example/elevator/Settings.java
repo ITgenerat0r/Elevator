@@ -23,6 +23,8 @@ import com.example.elevator.adapter.BtConsts;
 import com.example.elevator.objects.Elevator;
 import com.example.elevator.objects.Storage;
 
+import org.w3c.dom.Text;
+
 public class Settings extends AppCompatActivity {
     final static String TAG = "Settings";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
@@ -30,7 +32,7 @@ public class Settings extends AppCompatActivity {
     private CheckBox checkBox_autodown;
     private EditText editText_floor;
     private TextView current_address;
-    private EditText editText_address;
+    private TextView editText_address;
     private EditText editText_name;
     private EditText editText_comment;
     private Button btn_set_addr;
@@ -57,15 +59,15 @@ public class Settings extends AppCompatActivity {
 
         checkBox_autodown = findViewById(R.id.autodown);
         editText_floor = findViewById(R.id.floor);
-        current_address = findViewById(R.id.current_address);
+//        current_address = findViewById(R.id.current_address);
         editText_address = findViewById(R.id.home_address);
         editText_name = findViewById(R.id.editText_name);
-        btn_set_addr = findViewById(R.id.btn_set_address);
+//        btn_set_addr = findViewById(R.id.btn_set_address);
         editText_comment = findViewById(R.id.editText_comment);
 
-        cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
+//        cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
         cur_name = preferences.getString(BtConsts.LAST_NAME, "last_name");
-        current_address.setText(cur_addr);
+//        current_address.setText(cur_addr);
 
         itemAddress = storage.getById(Long.parseLong(preferences.getString(BtConsts.MY_ADDRESS, "0")));
         editText_address.setText("" + itemAddress.getId());
@@ -187,16 +189,4 @@ public class Settings extends AppCompatActivity {
         editor.apply();
     }
 
-    // Функция кнопки "Установить"
-    @SuppressLint("SetTextI18n")
-    public void setAddress(View view){
-        String addr = current_address.getText().toString().toUpperCase();
-        Log.d("MainLog", "current address = <" + addr + ">, length = " + addr.length());
-        if(addr.length() == 17) {
-            editText_address.setText(addr.substring(0, addr.length() - 7));
-            editText_address.append(addr.substring(addr.length() - 7 , addr.length()));
-        }
-        editText_name.setText(cur_name);
-//        editText_address.setText(cur_addr);
-    }
 }
