@@ -1188,6 +1188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String address = "";
                 String name = "";
                 for(Elevator elv : listSavedElevators){
+                    // need fix
                     if(elv.isAuto()){
                         for(Device item : elv.getFloors()){
                             if (device.getAddress().equals(item.getAddress())){
