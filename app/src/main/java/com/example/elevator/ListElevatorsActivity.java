@@ -161,7 +161,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
-        if(parseQR() == false){
+        if(!parseQR()){
             Toast.makeText(getApplicationContext(),
                     getResources().getString(com.google.zxing.client.android.R.string.msg_wrong_qr),
                     Toast.LENGTH_LONG).show();
