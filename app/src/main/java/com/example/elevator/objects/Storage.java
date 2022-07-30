@@ -149,15 +149,16 @@ public class Storage {
         storage.remove(this.getById(id));
     }
 
-    public void addElevator(Elevator el){
+    public boolean addElevator(Elevator el){
 //        el.setId(this.getNewID());
         for(Elevator e : storage){
             if(e.getId() == el.getId()){
                 Log.d(TAG, "Storage already have Elevator with the same ID");
-                return;
+                return false;
             }
         }
         storage.add(el);
+        return true;
     }
 
     public Elevator getById(long id){

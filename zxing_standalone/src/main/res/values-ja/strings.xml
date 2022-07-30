@@ -146,6 +146,7 @@
   <string name="empty">空</string>
   <string name="msg_wrong_qr">QRコードが正しくありません</string>
   <string name="permission_denied">Permission denied</string>
+  <string name="msg_already_have_qr">Storage already have Elevator with the same ID</string>
   <string name="update_app">You need to update application</string>
-  <string name="settings">Settings</string>
+  <string name="settings">設定</string>
 </resources>

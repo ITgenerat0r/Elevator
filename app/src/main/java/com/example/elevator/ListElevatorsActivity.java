@@ -161,13 +161,16 @@ public class ListElevatorsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("Activities", "ListElevatorsActivity().onResume()");
         super.onResume();
-        Storage storage = new Storage(this);
-        listElevators = storage.getStorage();
         if(parseQR() == false){
             Toast.makeText(getApplicationContext(),
                     getResources().getString(com.google.zxing.client.android.R.string.msg_wrong_qr),
                     Toast.LENGTH_LONG).show();
         }
+        Storage storage = new Storage(this);
+        listElevators = storage.getStorage();
+        adapter = new Address_adapter(this, R.layout.item_address, listElevators);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private long StringHEXtoInt(String h){
@@ -291,7 +294,11 @@ public class ListElevatorsActivity extends AppCompatActivity {
             }
         }
         str.printElevator(elv);
-        str.addElevator(elv);
+        if(!str.addElevator(elv)){
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(com.google.zxing.client.android.R.string.msg_already_have_qr),
+                    Toast.LENGTH_LONG).show();
+        }
 //        str.clear();
 //        str.printAll();
         str.write();
