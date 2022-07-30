@@ -42,6 +42,7 @@ import com.example.elevator.adapter.ButtonAdapter;
 import com.example.elevator.adapter.LiftAdapter;
 import com.example.elevator.bluetoothle.BLEConnection;
 import com.example.elevator.objects.Control;
+import com.example.elevator.objects.Device;
 import com.example.elevator.objects.Elevator;
 import com.example.elevator.objects.Storage;
 
@@ -1186,23 +1187,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // check for autoconnect
                 String address = "";
                 String name = "";
-                for(Elevator item : listSavedElevators){
-                    if(item.isAuto()){
-//                        if(device.getAddress().equals(item.getAddress())){
-//                            Log.d(TAG, "AutoConnect to " + item.getAddress());
-//                            // my cabine address, need to connect
-//                            address = item.getAddress();
-//                            name = item.getName();
-//                            background_send_command = true;
-//                            break;
-//                        } else if (device.getAddress().equals(item.getAddress())){
-//                            Log.d(TAG, "AutoConnect to " + item.getAddress());
-//                            // my floor address, need to connect
-//                            address = item.getAddress();
-//                            name = item.getName();
-//                            background_send_command = false;
-//                            break;
-//                        }
+                for(Elevator elv : listSavedElevators){
+                    if(elv.isAuto()){
+                        for(Device item : elv.getFloors()){
+                            if (device.getAddress().equals(item.getAddress())){
+                                Log.d(TAG, "AutoConnect to floor " + item.getAddress());
+                                // my floor address, need to connect
+                                address = item.getAddress();
+                                name = item.getName();
+                                background_send_command = false;
+                                break;
+                            }
+                        }
+                        for(Device item : elv.getCabins()){
+                            if(device.getAddress().equals(item.getAddress())){
+                                Log.d(TAG, "AutoConnect to cabine " + item.getAddress());
+                                // my cabine address, need to connect
+                                address = item.getAddress();
+                                name = item.getName();
+                                background_send_command = true;
+                                break;
+                            }
+                        }
                     }
                 }
 
