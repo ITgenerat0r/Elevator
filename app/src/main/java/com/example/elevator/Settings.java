@@ -31,17 +31,14 @@ public class Settings extends AppCompatActivity {
     private Storage storage;
     private CheckBox checkBox_autodown;
     private EditText editText_floor;
-    private TextView current_address;
     private TextView editText_address;
     private EditText editText_name;
-    private EditText editText_comment;
-    private Button btn_set_addr;
     final static String string_address = "Добавить адрес";
     private Elevator itemAddress;
     private CharSequence buffer; // для editText_address, хранит предыдущее значение
 
-    private String cur_addr;
     private String cur_name;
+    private byte cur_floor;
 
 
 
@@ -62,8 +59,6 @@ public class Settings extends AppCompatActivity {
 //        current_address = findViewById(R.id.current_address);
         editText_address = findViewById(R.id.home_address);
         editText_name = findViewById(R.id.editText_name);
-//        btn_set_addr = findViewById(R.id.btn_set_address);
-        editText_comment = findViewById(R.id.editText_comment);
 
 //        cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
         cur_name = preferences.getString(BtConsts.LAST_NAME, "last_name");
@@ -72,8 +67,8 @@ public class Settings extends AppCompatActivity {
         itemAddress = storage.getById(Long.parseLong(preferences.getString(BtConsts.MY_ADDRESS, "0")));
         editText_address.setText("" + itemAddress.getId());
         editText_name.setText(itemAddress.getDescription());
-        editText_comment.setText("" + itemAddress.isAuto());
         editText_floor.setText("" + itemAddress.getFloor());
+        cur_floor = itemAddress.getFloor();
         checkBox_autodown.setChecked(itemAddress.isAuto());
 
 
@@ -159,23 +154,28 @@ public class Settings extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void applySettings(View v){
-        if(!("" + itemAddress.getId()).equals(string_address)){
-            storage.deleteElevatorByID(itemAddress.getId());
-        }
-        itemAddress.setId(Long.parseLong(editText_address.getText().toString().toUpperCase()));
+//        if(!("" + itemAddress.getId()).equals(string_address)){
+////            storage.deleteElevatorByID(itemAddress.getId());
+//            Elevator i = storage.getById(itemAddress.getId());
+//        }
+        itemAddress.setId(Long.parseLong(editText_address.getText().toString()));
         itemAddress.setDescription(editText_name.getText().toString());
-//        itemAddress.set(editText_comment.getText().toString());
         itemAddress.setAuto(checkBox_autodown.isChecked());
-        itemAddress.setFloor(Byte.parseByte(editText_floor.getText().toString()));
-
-        if(storage.getById(itemAddress.getId()).getId() == 0){
-            storage.addElevator(itemAddress);
-            storage.write();
-        } else {
-            Toast toast = Toast.makeText( this , "Wrong ID", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP, 10 , 20);
-            toast.show();
+        try {
+            cur_floor = Byte.parseByte(editText_floor.getText().toString());
+        } catch (Exception e){
+            Log.d(TAG, e.toString());
         }
+        if(cur_floor > itemAddress.getMaxFloor()){
+            itemAddress.setFloor(itemAddress.getMaxFloor());
+        } else {
+            itemAddress.setFloor(cur_floor);
+        }
+
+        if(!storage.setById(itemAddress)){
+            storage.addElevator(itemAddress);
+        }
+        storage.write();
 
         Log.d("MainLog", "Apply settings button!");
         finish();

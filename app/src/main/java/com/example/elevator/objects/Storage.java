@@ -167,6 +167,17 @@ public class Storage {
         return new Elevator();
     }
 
+    public boolean setById(Elevator n){
+        for(Elevator i : storage){
+            if(i.getId() == n.getId()){
+                storage.remove(i);
+                storage.add(n);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Elevator getByIndex(int pos){
         return storage.get(pos);
     }
