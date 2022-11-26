@@ -436,7 +436,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     private void Call(int pos){
         Log.d(TAG, String.format("Call(%d)", pos));
-        btConnection.connect_to_saved("" + pos);
+        if (btConnection.getConnectState() == 2){
+            for(Object dvc : btConnection.getConnectedDevices()){
+                String name = dvc.getClass().getName();
+                Log.d(TAG, String.format("Already connected to: "+ name));
+                dialog_history.append("Already connected to: "+ name);
+                if(name.equals("Cabine")){
+                    btConnection.SendMessage(String.format("lift_%d", pos), true);
+                }
+            }
+            return;
+        }
+        String floor_name = "Elevator_" + String.format("%d", pos);
+        String cabine_name = "Cabine";
+        for(Elevator elv : listSavedElevators){
+            for(Device dvc : elv.getFloors()){
+                btConnection.conn(dvc.getAddress());
+            }
+            for(Device dvc : elv.getCabins()){
+                btConnection.conn(dvc.getAddress());
+            }
+        }
+        Log.d(TAG, String.format("Connected state: %d", btConnection.getConnectState()));
+        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()));
+
 //        if(pos > -100) return;
 //        position = Byte.parseByte("" + pos);
 //        current_address.setText(String.format("Идет вызов на %d этаж...", pos));
@@ -791,7 +814,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void backgroundResponse(){
-        ////////// BACKGROUND /////////////////////
+        ////////// BACKGROUND RESPONSE /////////////////////
         Log.d("MainLog", "Start backgroundResponse");
         background_loop = true;
         Runnable bgRunnable = () -> {
@@ -830,7 +853,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Thread bgThread = new Thread(bgRunnable);
         bgThread.start();
 
-        //////////// BACKGROUND END /////////////////
+        //////////// BACKGROUND RESPONSE END /////////////////
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
