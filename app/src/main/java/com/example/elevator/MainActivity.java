@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView dialog_history; // поле для вывода информации(Отправленной и полученной, а так же debugs)
     private CheckBox end_of_send;
     private boolean bluetooth_status; // Power_button bluetooth
-    private boolean BLE_state; // status Bluetooth connecting button
+    private boolean connect_button_state; // status Bluetooth connecting button
     private SharedPreferences preferences; // value for save information in storage
     private BLEConnection btConnection;
 
@@ -170,9 +170,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             } else if (command.equals("connect")){
-                if(!BLE_state){
+                if(!connect_button_state){
 //                    btConnection.connect();
-//                    BLE_state = true;
+//                    connect_button_state = true;
                     startConnect();
 //                    menu_bt_connect.setIcon(R.drawable.ic_connected);
                 }
@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void init(){
-        BLE_state = false;
+        connect_button_state = false;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
         btn_send.setOnClickListener(this::onClick);
@@ -436,6 +436,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     private void Call(int pos){
         Log.d(TAG, String.format("Call(%d)", pos));
+
+        // if already connected
         if (btConnection.getConnectState() == 2){
             for(Object dvc : btConnection.getConnectedDevices()){
                 String name = dvc.getClass().getName();
@@ -447,18 +449,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return;
         }
-        String floor_name = "Elevator_" + String.format("%d", pos);
-        String cabine_name = "Cabine";
+
+        Log.d(TAG, "Checked for 'already connected'");
+
+        // check in saved elevators
         for(Elevator elv : listSavedElevators){
-            for(Device dvc : elv.getFloors()){
-                btConnection.conn(dvc.getAddress());
-            }
-            for(Device dvc : elv.getCabins()){
-                btConnection.conn(dvc.getAddress());
-            }
+            byte ct = 1;
+//            for(Device dvc : elv.getFloors()){
+//                // ADDRESS SHOULD BE WITH ':', need to fix in saving
+//                if(btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress()); //  && !btConnection.isConnecting() - there was in conditions
+//                Log.d(TAG, "ADDRESS: " + dvc.getAddress());
+//            }
+//            for(Device dvc : elv.getCabins()){
+//                if(btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress());
+//                Log.d(TAG, "ADDRESS: " + dvc.getAddress());
+//            }
         }
         Log.d(TAG, String.format("Connected state: %d", btConnection.getConnectState()));
         dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()));
+
+        // wait for connect
+        background_wait_for_disconnect = true;
+        position = Byte.parseByte(String.valueOf(pos));
+
+//        if (btConnection.getConnectState() == 2){
+//            for(Object dvc : btConnection.getConnectedDevices()){
+//                String name = dvc.getClass().getName();
+//                Log.d(TAG, String.format("Already connected to: "+ name));
+//                dialog_history.append("Already connected to: "+ name);
+//                if(name.equals("Cabine")){
+//                    btConnection.SendMessage(String.format("lift_%d", pos), true);
+//                }
+//            }
+//            return;
+//        }
 
 //        if(pos > -100) return;
 //        position = Byte.parseByte("" + pos);
@@ -673,13 +697,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             // кнопка connect
         } else if (item.getItemId() == R.id.id_bt_connect){
-            if(!BLE_state){
+            if(!connect_button_state){
                 btConnection.connect();
-                BLE_state = true;
+                connect_button_state = true;
                 menu_bt_connect.setIcon(R.drawable.ic_connected);
             } else {
                 btConnection.disconnect();
-                BLE_state = false;
+                connect_button_state = false;
                 menu_bt_connect.setIcon(R.drawable.ic_connection);
             }
         } else if (item.getItemId() == R.id.id_settings) {
@@ -716,7 +740,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(!test_state){
                 menu_test.setIcon(R.drawable.ic_test_on);
                 test_state = true;
-                if(!BLE_state) {
+                if(!connect_button_state) {
 //                    menu_bt_connect.setEnabled(false);
                     backgroundAuto();
                 }
@@ -959,7 +983,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(!wrong_address || true){
                         Log.d("MainLog", "true address");
-                        if(background_send_command){
+                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
+//                        if(background_send_command){
                             // send command (format: lift_<pos>)
                             Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
                             Message msg = autoHandler.obtainMessage();

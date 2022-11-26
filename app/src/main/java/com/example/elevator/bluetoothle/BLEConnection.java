@@ -277,6 +277,17 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean conn(String mac){
         Log.d(TAG, "conn(" + mac + ")");
+        isConnecting = true;
+        if(!btAdapter.isEnabled()) {
+            Log.d(TAG, "BT adapter is off!");
+            return false;
+        }
+        Log.d(TAG, "BT adapter is on");
+        if(mac.isEmpty()) {
+            Log.d(TAG, "MAC address is empty!");
+            return false;
+        }
+        Log.d(TAG, "MAC: " + mac);
         device = btAdapter.getRemoteDevice(mac);
         if(device == null) {
             Log.d(TAG, mac + " is null");
@@ -291,17 +302,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     // подключение к BlueTooth устройству
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void connect(){
-        isConnecting = true;
         // Достаем из памяти МАС адресс
         mac = preferences.getString(BtConsts.MAC_KEY, "");
-        if(!btAdapter.isEnabled()) {
-            Log.d(TAG, "BT adapter is off!");
-            return;
-        }
-        if(mac.isEmpty()) {
-            Log.d(TAG, "MAC address is empty!");
-            return;
-        }
         conn(mac);
     }
 
