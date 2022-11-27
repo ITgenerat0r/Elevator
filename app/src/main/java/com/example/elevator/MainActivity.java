@@ -1262,7 +1262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // connect
                 // set in preferences dvc.Address
-                if(address != "") {
+                if(!address.equals("")) {
                     wrong_address = false;
                     Log.d("MainLog", " -> set in preferences address: <" + address + ">");
                     SharedPreferences.Editor editor = preferences.edit();
