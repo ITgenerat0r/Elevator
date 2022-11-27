@@ -250,6 +250,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
         byte g = 0; // Глубина
         StringBuilder mac = new StringBuilder();
         String name = "Cabine";
+        byte mac_it = 1;
         for(char c : qr.toCharArray()){
             switch (c){
                 case '/':
@@ -277,13 +278,42 @@ public class ListElevatorsActivity extends AppCompatActivity {
                     name = "Elevator_f" + mac.toString();
                     mac = new StringBuilder();
                     g = 0;
+                    mac_it = 1;
                     break;
                 default:
                     g++;
+                    switch (c){
+                        case 'a':
+                            c = 'A';
+                            break;
+                        case 'b':
+                            c = 'B';
+                            break;
+                        case 'c':
+                            c = 'C';
+                            break;
+                        case 'd':
+                            c = 'D';
+                            break;
+                        case 'e':
+                            c = 'E';
+                            break;
+                        case 'f':
+                            c = 'F';
+                            break;
+                        default:
+                            break;
+                    }
                     mac.append(c);
+                    if(++mac_it > 2 && g < 12){
+                        mac.append(':');
+                        mac_it = 1;
+                    }
             }
             if(g == 12){
+                mac_it = 1;
                 g = 0;
+                Log.d("MainActivity", "Save MAC: " + mac.toString());
                 Device dvc = new Device(name, mac.toString());
                 elv.addDevice(dvc);
                 mac = new StringBuilder();

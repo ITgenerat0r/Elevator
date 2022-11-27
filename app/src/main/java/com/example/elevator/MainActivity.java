@@ -441,8 +441,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (btConnection.getConnectState() == 2){
             for(Object dvc : btConnection.getConnectedDevices()){
                 String name = dvc.getClass().getName();
-                Log.d(TAG, String.format("Already connected to: "+ name));
-                dialog_history.append("Already connected to: "+ name);
+                Log.d(TAG, String.format("Already connected to: " + name));
+                dialog_history.append("Already connected to: " + name + "\r\n");
                 if(name.equals("Cabine")){
                     btConnection.SendMessage(String.format("lift_%d", pos), true);
                 }
@@ -453,20 +453,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "Checked for 'already connected'");
 
         // check in saved elevators
+        String ename = "Elevator_f" + pos;
         for(Elevator elv : listSavedElevators){
-            byte ct = 1;
-//            for(Device dvc : elv.getFloors()){
-//                // ADDRESS SHOULD BE WITH ':', need to fix in saving
-//                if(btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress()); //  && !btConnection.isConnecting() - there was in conditions
-//                Log.d(TAG, "ADDRESS: " + dvc.getAddress());
-//            }
-//            for(Device dvc : elv.getCabins()){
-//                if(btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress());
-//                Log.d(TAG, "ADDRESS: " + dvc.getAddress());
-//            }
+            for(Device dvc : elv.getFloors()){
+                Log.d(TAG, "ADDRESS: " + dvc.getAddress() + ", NAME: " + dvc.getName());
+                if(dvc.getName().equals(ename) && btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress()); //  && !btConnection.isConnecting() - there was in conditions
+            }
+            for(Device dvc : elv.getCabins()){
+                Log.d(TAG, "ADDRESS: " + dvc.getAddress() + ", NAME: " + dvc.getName());
+                if(btConnection.getConnectState() == 0) btConnection.conn(dvc.getAddress());
+            }
         }
         Log.d(TAG, String.format("Connected state: %d", btConnection.getConnectState()));
-        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()));
+        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()) + "\r\n");
 
         // wait for connect
         background_wait_for_disconnect = true;
