@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elevator.adapter.Address_adapter;
@@ -25,12 +26,14 @@ import java.util.List;
 
 public class ListElevatorsActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
+    private final String version = "v1.2";
 //    String TAG = "Debug";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private ListView listView;
 //    private List<ListItemAddress> listAddresses;
     private List<Elevator> listElevators;
     private Address_adapter adapter;
+    private TextView versionTextViewObj;
     private boolean listen_response_adapter = true; // Для background response
 
 
@@ -84,6 +87,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
         adapter.setChanged(false);
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,8 @@ public class ListElevatorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_elevators);
 
         preferences = this.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
+        versionTextViewObj = findViewById(R.id.versionTextView);
+        versionTextViewObj.setText(R.string.version + version);
         init();
 
 //        adapter.notifyDataSetChanged();

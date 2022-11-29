@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean connect_button_state; // status Bluetooth connecting button
     private SharedPreferences preferences; // value for save information in storage
     private BLEConnection btConnection;
-
-    private String version = "v1.1";
+    
 
     private Handler handler;
     private List<String> log;
