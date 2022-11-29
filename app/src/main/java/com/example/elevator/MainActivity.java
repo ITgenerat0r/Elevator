@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // For auto discovering
     private boolean background_auto = true;
+    private boolean background_auto_connect = false;
     private boolean background_auto_discover = true;
     private byte position = 0; // Номер нажатой кнопки, хранится здесь для команды вызова и др.
     private boolean call_when_discover_end = false;
@@ -751,12 +752,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    menu_bt_connect.setEnabled(false);
 
                     background_auto_discover = true;
+                    backgroundAutoConnect();
 //                    backgroundAuto();
                 }
             } else {
                 menu_test.setIcon(R.drawable.ic_test_off);
                 test_state = false;
                 background_auto_discover = false;
+                background_auto_connect = false;
 //                background_auto = false;
 
             }
@@ -900,70 +903,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean background_auto_version_2 = false;
         background_auto_discover = true;
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
-            // Discover devices
             while (background_auto){
-//                Log.d("MainLog", "  Send msg for connect_to_saved('all')");
-//                Message msg = autoHandler.obtainMessage();
-//                Bundle bndl = new Bundle();
-//                bndl.putString("MSG_COMMAND", "connect_to_saved");
-//                msg.setData(bndl);
-//                autoHandler.sendMessage(msg);
                 if(!background_auto) return;
                 if(background_wait_for_disconnect){
-//                    {
-//                        Log.d("MainLog", " -> Connecting...");
-//                        Message msg = autoHandler.obtainMessage();
-//                        Bundle bndl = new Bundle();
-//                        bndl.putString("MSG_COMMAND", "connect");
-//                        msg.setData(bndl);
-//                        autoHandler.sendMessage(msg);
-//                        sleep(100);
-//                    }
                     Log.d("MainLog", " -> Wait for connect...");
                     while (!isBtConnected){
                         sleep(100);
                     }
                     Log.d("MainLog", "Waiting done.");
 
-                    if(!wrong_address || true){
-                        Log.d("MainLog", "true address");
-//                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
-////                        if(background_send_command){
-//                            // send command (format: lift_<pos>)
-//                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
-//                            Message msg = autoHandler.obtainMessage();
-//                            Bundle bndl = new Bundle();
-//                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
-//                            msg.setData(bndl);
-//                            autoHandler.sendMessage(msg);
-//                            sleep(100);
-//                        } else {
-//                            sleep(1000);
-//                        }
-//                        btConnection.SendMessage(String.format("lift_%d", position), true);
-//                        msg = new Message();
+                    if(connectedDevice.getName().equals("Cabine")){
+                        Log.d(TAG, "That's Cabine!!!");
+                        background_send_command = true;
+                    }
+                    background_send_command = true; // only for debug, delete for release!!!!!!!
+                    if(background_send_command){
                         Message msg = autoHandler.obtainMessage();
                         Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
                         msg.setData(bndl);
                         autoHandler.sendMessage(msg);
+                    } else {
                         sleep(900);
+                    }
+
+
                         // disconnect
                         Log.d("MainLog", " -> Disconnect");
-                        {
-//                            msg = new Message();
-                            msg = autoHandler.obtainMessage();
-                            bndl = new Bundle();
-                            bndl.putString("MSG_COMMAND", "disconnect");
-                            msg.setData(bndl);
-                            autoHandler.sendMessage(msg);
-                            sleep(100);
-                        }
-                    } else {
-                        Log.d("MainLog", "wrong_address");
-                    }
+                        Message msg = autoHandler.obtainMessage();
+                        Bundle bndl = new Bundle();
+                        bndl.putString("MSG_COMMAND", "disconnect");
+                        msg.setData(bndl);
+                        autoHandler.sendMessage(msg);
+                        sleep(100);
+
+                    background_wait_for_disconnect = false;
                 }
-                background_wait_for_disconnect = false;
 //                try{
 //                    Log.d(TAG, "background sleep");
 //                    Thread.sleep(90 * 1000);
@@ -1202,6 +1177,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         Thread autoThread = new Thread(autoRunnable);
         autoThread.start();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void backgroundAutoConnect(){
+        if(!btAdapter.isEnabled())return;
+        background_auto_connect = true;
+        Runnable autoConnectRunnable = () -> {
+            while (background_auto_connect){
+                for(Elevator elv : listSavedElevators){
+                    String flName = "Elevator_f" + elv.getFloor();
+                    for(Device dvc : elv.getFloors()){
+                        if(flName.equals(dvc.getName())){
+                            btConnection.conn(dvc.getAddress());
+                        }
+                    }
+                }
+                try{
+                    Log.d(TAG, "auto connect background sleep");
+                    Thread.sleep(10 * 1000);
+                } catch (Exception e){
+                    Log.d(TAG, e.toString());
+                }
+                if(isBtConnected){
+                    btConnection.disconnect();
+                    for(Elevator elv : listSavedElevators){
+                        for(Device fl : elv.getFloors()){
+                            if(fl.getAddress().equals(connectedDevice.getAddress())){
+                                if(fl.getName().equals("Elevator_1")){
+                                    position = elv.getFloor();
+                                } else {
+                                    position = 1;
+                                }
+                                for(byte i = 0; i < 5; i++){
+                                    for(Device cb : elv.getCabins()){
+                                        btConnection.conn(cb.getAddress());
+                                    }
+                                    try{
+                                        Log.d(TAG, "auto connect background sleep");
+                                        Thread.sleep(10 * 1000);
+                                    } catch (Exception e){
+                                        Log.d(TAG, e.toString());
+                                    }
+                                    if(isBtConnected){
+                                        background_wait_for_disconnect = true;
+                                        background_send_command = true;
+                                        return;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        Thread autoConnectThread = new Thread(autoConnectRunnable);
+        autoConnectThread.start();
     }
 
 
