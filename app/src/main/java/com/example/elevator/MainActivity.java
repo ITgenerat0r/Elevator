@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences preferences; // value for save information in storage
     private BLEConnection btConnection;
 
+    private String version = "v1.1";
+
     private Handler handler;
     private List<String> log;
 
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btConnection.disconnect();
             } else {
                 if(isBtConnected){
+                    Log.d(TAG, "Send message: " + command);
                     btConnection.SendMessage(command, true);
                 }
             }
@@ -429,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
         backgroundResponse();
-//        backgroundAuto();
+        backgroundAuto();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -439,18 +442,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // if already connected
         if (btConnection.getConnectState() == 2){
-            for(Object dvc : btConnection.getConnectedDevices()){
-                String name = dvc.getClass().getName();
-                Log.d(TAG, String.format("Already connected to: " + name));
-                dialog_history.append("Already connected to: " + name + "\r\n");
-                if(name.equals("Cabine")){
-                    btConnection.SendMessage(String.format("lift_%d", pos), true);
-                }
-            }
+            Log.d(TAG, "BT is already connected!");
+            btConnection.SendMessage(String.format("lift_%d", pos), true);
+//            for(Object dvc : btConnection.getConnectedDevices()){
+//                Log.d(TAG, "checkpoint");
+//                String name = dvc.getClass().getName();
+//                Log.d(TAG, String.format("Already connected to: " + name));
+//                dialog_history.append("Already connected to: " + name + "\r\n");
+//                if(name.equals("Cabine")){
+//                    btConnection.SendMessage(String.format("lift_%d", pos), true);
+//                }
+//            }
             return;
         }
 
-        Log.d(TAG, "Checked for 'already connected'");
+        Log.d(TAG, "BT isn't connected!");
 
         // check in saved elevators
         String ename = "Elevator_f" + pos;
@@ -741,13 +747,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 test_state = true;
                 if(!connect_button_state) {
 //                    menu_bt_connect.setEnabled(false);
-                    backgroundAuto();
+
+                    background_auto_discover = true;
+//                    backgroundAuto();
                 }
             } else {
                 menu_test.setIcon(R.drawable.ic_test_off);
                 test_state = false;
                 background_auto_discover = false;
-                background_auto = false;
+//                background_auto = false;
 
             }
         }
@@ -814,7 +822,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if(btConnection != null && btConnection.getConnectState() == 2){
-                    btConnection.SendMessage(text, !end_of_send.isChecked());
+                    if(text.equals("disconnect")){
+                        btConnection.disconnect();
+                    }else{
+                        btConnection.SendMessage(text, !end_of_send.isChecked());
+                    }
                 } else {
                     return;
                 }
@@ -895,12 +907,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 msg.setData(bndl);
                 autoHandler.sendMessage(msg);
                 if(!background_auto) return;
-                try{
-                    Log.d(TAG, "background sleep");
-                    Thread.sleep(90 * 1000);
-                } catch (Exception e){
-                    Log.d(TAG, e.toString());
+                if(background_wait_for_disconnect){
+//                    {
+//                        Log.d("MainLog", " -> Connecting...");
+//                        Message msg = autoHandler.obtainMessage();
+//                        Bundle bndl = new Bundle();
+//                        bndl.putString("MSG_COMMAND", "connect");
+//                        msg.setData(bndl);
+//                        autoHandler.sendMessage(msg);
+//                        sleep(100);
+//                    }
+                    Log.d("MainLog", " -> Wait for connect...");
+                    while (!isBtConnected){
+                        sleep(100);
+                    }
+                    Log.d("MainLog", "Waiting done.");
+
+                    if(!wrong_address || true){
+                        Log.d("MainLog", "true address");
+//                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
+////                        if(background_send_command){
+//                            // send command (format: lift_<pos>)
+//                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
+//                            Message msg = autoHandler.obtainMessage();
+//                            Bundle bndl = new Bundle();
+//                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
+//                            msg.setData(bndl);
+//                            autoHandler.sendMessage(msg);
+//                            sleep(100);
+//                        } else {
+//                            sleep(1000);
+//                        }
+//                        btConnection.SendMessage(String.format("lift_%d", position), true);
+//                        msg = new Message();
+                        msg = autoHandler.obtainMessage();
+                        bndl = new Bundle();
+                        bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
+                        msg.setData(bndl);
+                        autoHandler.sendMessage(msg);
+                        sleep(900);
+                        // disconnect
+                        Log.d("MainLog", " -> Disconnect");
+                        {
+//                            msg = new Message();
+                            msg = autoHandler.obtainMessage();
+                            bndl = new Bundle();
+                            bndl.putString("MSG_COMMAND", "disconnect");
+                            msg.setData(bndl);
+                            autoHandler.sendMessage(msg);
+                            sleep(100);
+                        }
+                    } else {
+                        Log.d("MainLog", "wrong_address");
+                    }
                 }
+                background_wait_for_disconnect = false;
+//                try{
+//                    Log.d(TAG, "background sleep");
+//                    Thread.sleep(90 * 1000);
+//                } catch (Exception e){
+//                    Log.d(TAG, e.toString());
+//                }
 
             }
             while (background_auto_version_2) {
@@ -982,19 +1049,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(!wrong_address || true){
                         Log.d("MainLog", "true address");
-                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
-//                        if(background_send_command){
-                            // send command (format: lift_<pos>)
-                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
-                            Message msg = autoHandler.obtainMessage();
-                            Bundle bndl = new Bundle();
-                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
-                            msg.setData(bndl);
-                            autoHandler.sendMessage(msg);
-                            sleep(100);
-                        } else {
-                            sleep(1000);
-                        }
+//                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
+////                        if(background_send_command){
+//                            // send command (format: lift_<pos>)
+//                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
+//                            Message msg = autoHandler.obtainMessage();
+//                            Bundle bndl = new Bundle();
+//                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
+//                            msg.setData(bndl);
+//                            autoHandler.sendMessage(msg);
+//                            sleep(100);
+//                        } else {
+//                            sleep(1000);
+//                        }
+                        btConnection.SendMessage(String.format("lift_%d", position), true);
+                        sleep(900);
                         // disconnect
                         Log.d("MainLog", " -> Disconnect");
                         {
