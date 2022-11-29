@@ -163,7 +163,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             Bundle bndl = msg.getData();
             String command = bndl.getString("MSG_COMMAND");
-            if(command.equals("discover")){
+            Log.d(TAG, "command: " + command);
+            if(command == null){
+                Log.d(TAG, "command is null");
+            } else if(command.equals("discover")){
                 // discover devices
                 if(isBtPermissionGranted && btAdapter.isEnabled()){
                     if(!isBtDiscovering){
@@ -357,6 +360,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void init(){
+        Log.d(TAG, String.format("%s %s",R.string.app_name, "version"));
         connect_button_state = false;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
@@ -821,14 +825,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String text = input_text.getText().toString();
                 if(text.equals("clear")){
                     dialog_history.setText("");
-
                     input_text.setText("");
                     return;
+                } else if (text.equals("help")){
+                    Log.d(TAG, "help");
+                    dialog_history.append("Commands\r\n");
+                    dialog_history.append(" lift_X (X >= 1)\r\n");
+                    dialog_history.append(" liftto_X_Y (X >= 1, Y >= 1)\r\n");
+                    dialog_history.append(" getAddress\r\n");
+                    dialog_history.append(" getMaxFloors\r\n");
+                    dialog_history.append(" speed\r\n");
+                    dialog_history.append(" gExtBtns\r\n");
+                    dialog_history.append(" pExtBtn_X (1 <= X <= 4)\r\n");
+                    input_text.setText("");
                 }
+
                 if(btConnection != null && btConnection.getConnectState() == 2){
                     if(text.equals("disconnect")){
                         btConnection.disconnect();
-                    }else{
+                    } else {
                         btConnection.SendMessage(text, !end_of_send.isChecked());
                     }
                 } else {

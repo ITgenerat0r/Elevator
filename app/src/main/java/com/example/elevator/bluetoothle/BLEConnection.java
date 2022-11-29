@@ -142,8 +142,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                         connect = STATE_CONNECTED;
                         connectedDevice.setAddress(gatt.getDevice().getAddress());
                         connectedDevice.setName(gatt.getDevice().getName());
-                        MsgBox("" + R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
-                        response.add("" + R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
+                        MsgBox("" + com.google.zxing.client.android.R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
+                        response.add("" + com.google.zxing.client.android.R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
 
                         // Мы подключились к устройству, вызываем discoverServices с задержкой
                         int delayWhenBonded = 0;
@@ -298,8 +298,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
             Log.d(TAG, mac + " is null");
             return false;
         }
-        MsgBox(R.string.try_connect + device.getAddress(), "all");
-        response.add(R.string.try_connect + device.getAddress());
+        MsgBox(com.google.zxing.client.android.R.string.try_connect + device.getAddress(), "all");
+        response.add(com.google.zxing.client.android.R.string.try_connect + device.getAddress());
         gatt = device.connectGatt(context, true, btGattCallBack, BluetoothDevice.TRANSPORT_LE);
         return true;
     }
@@ -434,8 +434,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         connect = STATE_DISCONNECTED;
         clearServiceCache();
         connectedDevice = new Device("", "");
-        MsgBox(R.string.disconnect + device.getAddress(), "all");
-        response.add(R.string.disconnect + device.getAddress());
+        MsgBox(com.google.zxing.client.android.R.string.disconnect + device.getAddress(), "all");
+        response.add(com.google.zxing.client.android.R.string.disconnect + device.getAddress());
     }
 
     // this function sending command and disconnecting after connect_to_saved()

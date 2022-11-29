@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ListElevatorsActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
-    private final String version = "v1.2";
+    private String version = "v1.2.3";
 //    String TAG = "Debug";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private ListView listView;
@@ -68,7 +68,7 @@ public class ListElevatorsActivity extends AppCompatActivity {
             super.handleMessage(msg);
             Bundle bndl = msg.getData();
             String command = bndl.getString("MSG_COMMAND");
-            if(command == "changed"){
+            if(command.equals("changed")){
                 Log.d(TAG, "changed");
                 change();
             }
@@ -97,7 +97,11 @@ public class ListElevatorsActivity extends AppCompatActivity {
 
         preferences = this.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
         versionTextViewObj = findViewById(R.id.versionTextView);
-        versionTextViewObj.setText(R.string.version + version);
+//        versionTextViewObj.setText("" + com.google.zxing.client.android.R.string.version + version);
+        Log.d("MainActivity", String.format("%s %s", com.google.zxing.client.android.R.string.version, version));
+        versionTextViewObj.setText(String.format("%s %s", com.google.zxing.client.android.R.string.version, version));
+
+
         init();
 
 //        adapter.notifyDataSetChanged();
@@ -128,7 +132,6 @@ public class ListElevatorsActivity extends AppCompatActivity {
 
         Log.d(TAG, String.format("list.size() in ListElevatorsActivity = %d", listElevators.size()));
         Log.d(TAG, String.format("listView.getChildCoutn() in ListElevatorsActivity = %d", listView.getChildCount()));
-
 
         responseThread.start();
 
