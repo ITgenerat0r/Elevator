@@ -149,4 +149,8 @@
   <string name="permission_denied">Permission denied</string>
   <string name="update_app">You need to update application</string>
   <string name="settings">Settings</string>
+  <string name="try_connect">Try connect to </string>
+  <string name="succesful_connect">Connected to </string>
+  <string name="disconnect">Disconnect from </string>
+  <string name="version">Version </string>
 </resources>

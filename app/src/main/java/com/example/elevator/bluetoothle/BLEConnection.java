@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.elevator.R;
 import com.example.elevator.adapter.BtConsts;
 import com.example.elevator.bluetooth.ConnectThread;
 import com.example.elevator.objects.Device;
@@ -68,6 +69,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
 
     private boolean isConnecting;
 
+    private Device connectedDevice = null;
     public List<String> getResponse() {
         return response;
     }
@@ -138,8 +140,11 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                     // Обрабатываем bondState
                     if (bondState == BOND_NONE || bondState == BOND_BONDED){
                         connect = STATE_CONNECTED;
-                        MsgBox("Connected successfully!", "log");
-                        response.add("Connected successfully!");
+                        connectedDevice.setAddress(gatt.getDevice().getAddress());
+                        connectedDevice.setName(gatt.getDevice().getName());
+                        MsgBox("" + R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
+                        response.add("" + R.string.succesful_connect+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
+
                         // Мы подключились к устройству, вызываем discoverServices с задержкой
                         int delayWhenBonded = 0;
                         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
@@ -293,8 +298,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
             Log.d(TAG, mac + " is null");
             return false;
         }
-        MsgBox("Try connect to " + device.getAddress(), "all");
-        response.add("Try connect to " + device.getAddress());
+        MsgBox(R.string.try_connect + device.getAddress(), "all");
+        response.add(R.string.try_connect + device.getAddress());
         gatt = device.connectGatt(context, true, btGattCallBack, BluetoothDevice.TRANSPORT_LE);
         return true;
     }
@@ -305,6 +310,10 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         // Достаем из памяти МАС адресс
         mac = preferences.getString(BtConsts.MAC_KEY, "");
         conn(mac);
+    }
+
+    public Device getConnectedDevice(){
+        return connectedDevice;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -424,8 +433,9 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         gatt = null;
         connect = STATE_DISCONNECTED;
         clearServiceCache();
-        MsgBox("Disconnect from " + device.getAddress(), "all");
-        response.add("Disconnect from " + device.getAddress());
+        connectedDevice = new Device("", "");
+        MsgBox(R.string.disconnect + device.getAddress(), "all");
+        response.add(R.string.disconnect + device.getAddress());
     }
 
     // this function sending command and disconnecting after connect_to_saved()

@@ -144,4 +144,7 @@
   <string name="wifi_changing_network">Запит підключення до мережі\u2026</string>
 
   <string name="empty">Пусто</string>
+  <string name="try_connect">Попытка соединения с </string>
+  <string name="succesful_connect">Подключено к </string>
+  <string name="disconnect">Отключено от </string>
 </resources>

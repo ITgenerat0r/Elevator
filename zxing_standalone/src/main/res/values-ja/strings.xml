@@ -149,4 +149,8 @@
   <string name="msg_already_have_qr">Storage already have Elevator with the same ID</string>
   <string name="update_app">You need to update application</string>
   <string name="settings">設定</string>
+  <string name="try_connect">Try connect to </string>
+  <string name="succesful_connect">Connected to </string>
+  <string name="disconnect">Disconnect from </string>
+  <string name="version">Version </string>
 </resources>

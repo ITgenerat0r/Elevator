@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ButtonAdapter btnAdapter; // Адаптер для кнопок лифта
     private LiftAdapter liftAdapter;
     private byte max_floors = 2; // количество этажей
+    private Device connectedDevice = null;
     private List<String> listFloors;
     private boolean background_loop = true;
 
@@ -276,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             isBtConnected = (btConnection.getConnectState() == 2);
+            connectedDevice = btConnection.getConnectedDevice();
             current_address.setText(String.format("isBtConnected = %b", isBtConnected));
             readResponse(btConnection);
             if(currentFloor > 0){
@@ -900,12 +902,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             // Discover devices
             while (background_auto){
-                Log.d("MainLog", "  Send msg for connect_to_saved('all')");
-                Message msg = autoHandler.obtainMessage();
-                Bundle bndl = new Bundle();
-                bndl.putString("MSG_COMMAND", "connect_to_saved");
-                msg.setData(bndl);
-                autoHandler.sendMessage(msg);
+//                Log.d("MainLog", "  Send msg for connect_to_saved('all')");
+//                Message msg = autoHandler.obtainMessage();
+//                Bundle bndl = new Bundle();
+//                bndl.putString("MSG_COMMAND", "connect_to_saved");
+//                msg.setData(bndl);
+//                autoHandler.sendMessage(msg);
                 if(!background_auto) return;
                 if(background_wait_for_disconnect){
 //                    {
@@ -940,8 +942,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        }
 //                        btConnection.SendMessage(String.format("lift_%d", position), true);
 //                        msg = new Message();
-                        msg = autoHandler.obtainMessage();
-                        bndl = new Bundle();
+                        Message msg = autoHandler.obtainMessage();
+                        Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
                         msg.setData(bndl);
                         autoHandler.sendMessage(msg);

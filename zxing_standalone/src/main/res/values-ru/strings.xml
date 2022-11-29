@@ -149,4 +149,9 @@
   <string name="permission_denied">Разрешение отказано</string>
   <string name="update_app">Необходимо обновить приложение</string>
   <string name="settings">Настройки</string>
+  <string name="try_connect">Попытка соединения с </string>
+  <string name="succesful_connect">Подключено к </string>
+  <string name="disconnect">Отключено от </string>
+  <string name="version">Версия </string>
+
 </resources>
