@@ -97,9 +97,10 @@ public class ListElevatorsActivity extends AppCompatActivity {
 
         preferences = this.getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
         versionTextViewObj = findViewById(R.id.versionTextView);
-//        versionTextViewObj.setText("" + com.google.zxing.client.android.R.string.version + version);
-        Log.d("MainActivity", String.format("%s %s", com.google.zxing.client.android.R.string.version, version));
-        versionTextViewObj.setText(String.format("%s %s", com.google.zxing.client.android.R.string.version, version));
+//        versionTextViewObj.setText("" + R.string.version + version);
+        Log.d("MainActivity", String.format("%s %s",  getString(R.string.version), version));
+        versionTextViewObj.setText(String.format("%s %s", getString(R.string.version), version));
+//        versionTextViewObj.setText(String.format("%s %s", "Version", version));
 
 
         init();
