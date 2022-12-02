@@ -142,14 +142,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler bgHandler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
-//            Log.d("MainLog", "bgHandler()");
+//            Log.d(TAG, "bgHandler()");
             super.handleMessage(msg);
             Bundle bndl = msg.getData();
             ArrayList<String> data_response = bndl.getStringArrayList("MSG_LIST_KEY");
             // Выполняем нужное действие если bgHandler отправил sendMessage()
-//            Log.d("MainLog", "Size data_response: " + data_response.size());
+//            Log.d(TAG, "Size data_response: " + data_response.size());
             for(String i : data_response){
-//                Log.d("MainLog", "Getting data: " + i);
+//                Log.d(TAG, "Getting data: " + i);
                 dialog_history.append(i + "\r\n");
             }
         }
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // discover devices
                 if(isBtPermissionGranted && btAdapter.isEnabled()){
                     if(!isBtDiscovering){
-                        Log.d("MainLog", "Start discovering...");
+                        Log.d(TAG, "Start discovering...");
                         isBtDiscovering = true;
                         btAdapter.startDiscovery();
                     }
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     btConnection.SendMessage(command, true);
                 }
             }
-            Log.d("MainLog", "end autoHandler (msg)");
+            Log.d(TAG, "end autoHandler (msg)");
         }
     };
 
@@ -210,24 +210,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // bring from autobackground
         // Get address and maxfloors from device
-        Log.d("MainLog", "Wait for connect...");
+        Log.d(TAG, "Wait for connect...");
         for (int over = 0; over < 600; over++){
             sleep(100);
             if(btCon.getConnectState() == 2){
-                Log.d("MainLog", "AutoConnected");
+                Log.d(TAG, "AutoConnected");
                 break;
             }
         }
-        Log.d("MainLog", "Reading...");
+        Log.d(TAG, "Reading...");
         currentAddress = "Reading...";
 //        if(true) return;
         sleep(2500);
         if(btCon.getConnectState() == 2){
-            Log.d("MainLog", "Connected (auto)");
-            Log.d("MainLog", "Send msg for address");
+            Log.d(TAG, "Connected (auto)");
+            Log.d(TAG, "Send msg for address");
             btCon.SendMessage("getAddress", true);
         } else {
-            Log.d("MainLog", "Connection failed");
+            Log.d(TAG, "Connection failed");
             return;
         }
         for(int over = 0; over < OVER; over++){
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleep(2500);
         max_floors = -1;
         if(isBtConnected){
-            Log.d("MainLog", "Send msg for max floors");
+            Log.d(TAG, "Send msg for max floors");
             btCon.SendMessage("getMaxFloors", true);
         }
         for(int over = 0; over < OVER; over++){
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (currentFloor == my_floor){
                 to = 1;
             }
-            Log.d("MainLog", "Send command");
+            Log.d(TAG, "Send command");
             btCon.SendMessage(String.format("liftto_%d_%d", from, to), true);
         }
         sleep(2500);
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(btCon.getConnectState() == 0)break;
         }
         btCon = null;
-        Log.d("MainLog", "End startConnect()");
+        Log.d(TAG, "End startConnect()");
 //        backgroundResponse();
         done = true;
     };
@@ -292,9 +292,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     private void readResponse(BLEConnection con){
-//        Log.d("MainLog", "readResponse()");
+//        Log.d(TAG, "readResponse()");
         if(con != null && con.isHaveData() > 0){
-//            Log.d("MainLog", "con.getResponse()");
+//            Log.d(TAG, "con.getResponse()");
 //            dialog_history.append("con.getResponse();\r\n");
             List<String> data_response = con.getResponse();
 //            btConnection.clearResponse();
@@ -308,12 +308,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "getMaxFloors received value == " + max_floors);
                             UpdateMaxFloors();
                         } catch (Exception e){
-                            Log.e("MainLog", "g is have wrong type (not byte)");
+                            Log.e(TAG, "g is have wrong type (not byte)");
                         }
                     } else if (i.substring(0,4).equals("addr")){
                         if(i.length() > 4){
                             String address = i.substring(4);
-                            Log.d("MainLog", "Elevator ID: " + address);
+                            Log.d(TAG, "Elevator ID: " + address);
                             Log.d(TAG, "getAddress received value == " + address);
                             currentAddress = address;
                             SharedPreferences.Editor editor = preferences.edit();
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else if (i.equals("speed")){
                         DateFormat tm = new SimpleDateFormat("KK:mm:ss", Locale.getDefault());
                         String time = tm.format(new Date());
-                        Log.d("MainLog", "Speed <- RX");
+                        Log.d(TAG, "Speed <- RX");
                         dialog_history.append("Speed <- RX   [" + time + "]\r\n");
                         dialog_history.append(" Executed for " + (System.currentTimeMillis() - start) + " milliseconds.\r\n");
                     }
@@ -350,8 +350,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MainLog", "\n\r.\n\r.\n\r.\n\r.\n\r.\n\r.\n\r");
-        Log.d("MainLog", "Start program...");
+        Log.d(TAG, "\n\r.\n\r.\n\r.\n\r.\n\r.\n\r.\n\r");
+        Log.d(TAG, "Start program...");
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog_history = findViewById(R.id.dialog_history);
         end_of_send = findViewById(R.id.checkBox_at);
         preferences = getSharedPreferences(BtConsts.MY_PREF, Context.MODE_PRIVATE);
-        Log.d("MainLog", "MAC in preferences: " + preferences.getString(BtConsts.MAC_KEY, "none"));
+        Log.d(TAG, "MAC in preferences: " + preferences.getString(BtConsts.MAC_KEY, "none"));
         homeAddress = preferences.getString(BtConsts.MY_ADDRESS, "none");
         my_floor = preferences.getInt(BtConsts.MY_FLOOR, 0);
         auto_move_me = preferences.getBoolean(BtConsts.LIFT_ME, false);
@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            if(btConnection != null && btConnection.getConnectState() == 2){
 //                DateFormat tm = new SimpleDateFormat("KK:mm:ss", Locale.getDefault());
 //                String time = tm.format(new Date());
-//                Log.d("MainLog", "Speed -> TX");
+//                Log.d(TAG, "Speed -> TX");
 //                dialog_history.append("Speed -> TX   [" + time + "]\r\n");
 //                start = System.currentTimeMillis();
 //                btConnection.SendMessage("speed", true);
@@ -500,7 +500,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        if(pos > -100) return;
 //        position = Byte.parseByte("" + pos);
 //        current_address.setText(String.format("Идет вызов на %d этаж...", pos));
-//        Log.d("MainLog", String.format("Идет вызов на %d этаж...", pos));
+//        Log.d(TAG, String.format("Идет вызов на %d этаж...", pos));
 //        if(btConnection.getConnectState()==2){
 //            Log.d(TAG, "BT is connected");
 //            background_wait_for_disconnect = true;
@@ -560,27 +560,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void Call_auto(int pos){
 
-        Log.d("MainLog", "      ->  Call_auto();");
+        Log.d(TAG, "      ->  Call_auto();");
         position = Byte.parseByte("" + pos);
         current_address.setText(String.format("Идет вызов на %d этаж...", pos));
-        Log.d("MainLog", String.format("Идет вызов на %d этаж...", pos));
+        Log.d(TAG, String.format("Идет вызов на %d этаж...", pos));
 
         if(isBtDiscovering){
             auto_call_when_discover_end = true;
             return;
         }
-        Log.d("MainLog", "      ->  step");
+        Log.d(TAG, "      ->  step");
         DiscoveredDevice call_dvc = new DiscoveredDevice();
-        Log.d("MainLog", "      ->  step1");
+        Log.d(TAG, "      ->  step1");
         call_dvc.Name = "Empty";
         call_dvc.Address = "None";
-        Log.d("MainLog", "      ->  step2");
+        Log.d(TAG, "      ->  step2");
         call_dvc.rssi = new ArrayList<Integer>();
-        Log.d("MainLog", "      ->  step3");
+        Log.d(TAG, "      ->  step3");
         call_dvc.rssi.add(1000);
-        Log.d("MainLog", "      ->  step4");
+        Log.d(TAG, "      ->  step4");
         boolean isCabine = false;
-        Log.d("MainLog", "      ->  step5");
+        Log.d(TAG, "      ->  step5");
         String nm = "Elevator_f";
         if(pos < 10){
             nm += "0";
@@ -590,32 +590,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!access_to_list_discovered_devices) {
             access_to_list_discovered_devices = true;
             for (DiscoveredDevice dvc : listDiscoveredDevices) {
-                Log.d("MainLog", "      ->  ->  step - " + dvc.Name);
+                Log.d(TAG, "      ->  ->  step - " + dvc.Name);
                 if (dvc.Name.equals(nm)) {
-                    Log.d("MainLog", "      ->  ->  step1true");
+                    Log.d(TAG, "      ->  ->  step1true");
                     if (call_dvc.Name.equals("Cabine")) {
-                        Log.d("MainLog", "      ->  ->  step2true");
+                        Log.d(TAG, "      ->  ->  step2true");
                         if (dvc.rssi.get(0) < call_dvc.rssi.get(0)) {
-                            Log.d("MainLog", "      ->  ->  step3true");
+                            Log.d(TAG, "      ->  ->  step3true");
                             call_dvc = dvc;
                             isCabine = false;
                             break;
                         }
                     } else {
-                        Log.d("MainLog", "      ->  ->  step2false");
+                        Log.d(TAG, "      ->  ->  step2false");
                         call_dvc = dvc;
                         isCabine = false;
                     }
                 } else if (dvc.Name.equals("Cabine")) {
-                    Log.d("MainLog", "      ->  ->  step1false");
+                    Log.d(TAG, "      ->  ->  step1false");
                     if (call_dvc.Name.equals("Empty")) {
-                        Log.d("MainLog", "      ->  ->  step2true");
+                        Log.d(TAG, "      ->  ->  step2true");
                         call_dvc = dvc;
                         isCabine = true;
                     } else {
-                        Log.d("MainLog", "      ->  ->  step2false");
+                        Log.d(TAG, "      ->  ->  step2false");
                         if (call_dvc.rssi.get(0) >= dvc.rssi.get(0)) {
-                            Log.d("MainLog", "      ->  ->  step3true");
+                            Log.d(TAG, "      ->  ->  step3true");
                             call_dvc = dvc;
                             isCabine = true;
                         }
@@ -629,16 +629,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        Log.d("MainLog", "      ->  step6");
+        Log.d(TAG, "      ->  step6");
             if (!call_dvc.Name.equals("Empty")) {
                 // set in preferences dvc.Address
-                Log.d("MainLog", " -> set in preferences dvc.Address " + call_dvc.Address + " from Name: " + call_dvc.Name);
+                Log.d(TAG, " -> set in preferences dvc.Address " + call_dvc.Address + " from Name: " + call_dvc.Name);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(BtConsts.MAC_KEY, call_dvc.Address);
                 editor.putString(BtConsts.LAST_NAME, call_dvc.Name);
                 editor.apply();
                 // connect
-                Log.d("MainLog", " -> Connect");
+                Log.d(TAG, " -> Connect");
                 if(btConnection.getConnectState() == 0 && !btConnection.isConnecting()) btConnection.connect();
                 // wait and disconnect moved on background auto
                 background_wait_for_disconnect = true;
@@ -650,7 +650,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 position = Byte.parseByte("" + pos);
             }
 
-        Log.d("MainLog", "      ->  step7");
+        Log.d(TAG, "      ->  step7");
     }
 
 
@@ -785,7 +785,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d("MainLog", "onActivityResult()");
+        Log.d(TAG, "onActivityResult()");
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ENABLE_REQUEST){
             if(resultCode == RESULT_OK){
@@ -871,19 +871,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void backgroundResponse(){
         ////////// BACKGROUND RESPONSE /////////////////////
-        Log.d("MainLog", "Start backgroundResponse");
+        Log.d(TAG, "Start backgroundResponse");
         background_loop = true;
         Runnable bgRunnable = () -> {
             List<String> response_data = new ArrayList<>();
 //            response_data.add("Test background");
             while(background_loop){
-//                        Log.d("MainLog", "Loop in background");
+//                        Log.d(TAG, "Loop in background");
                 if(response_data.size() > 0){
-                    Log.d("MainLog", "We have data!");
+                    Log.d(TAG, "We have data!");
                     ArrayList<String> msg_data = new ArrayList<>();
                     for(String i : response_data){
                         msg_data.add(i);
-                        Log.d("MainLog", "Added data: " + i);
+                        Log.d(TAG, "Added data: " + i);
                     }
                     Message msg = bgHandler.obtainMessage();
                     Bundle bndl = new Bundle();
@@ -922,14 +922,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             while (background_auto){
 //                if(!background_auto) return;
                 if(background_wait_for_disconnect){
-                    Log.d("MainLog", " -> Wait for connect...");
+                    Log.d(TAG, " -> Wait for connect...");
                     while (!isBtConnected){
                         sleep(100);
                     }
-                    Log.d("MainLog", "Waiting done.");
+                    Log.d(TAG, "Waiting done.");
 
                     if(connectedDevice.getName().equals("Cabine")){
-                        Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
+                        Log.d(TAG, " -> Send command " + String.format("lift_%d", position));
                         Message msg = autoHandler.obtainMessage();
                         Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
@@ -942,7 +942,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     // disconnect
-                    Log.d("MainLog", " -> Disconnect");
+                    Log.d(TAG, " -> Disconnect");
                     Message msg = autoHandler.obtainMessage();
                     Bundle bndl = new Bundle();
                     bndl.putString("MSG_COMMAND", "disconnect");
@@ -961,7 +961,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             while (background_auto_version_2) {
-                Log.d("MainLog", "Next in backgroundAuto");
+                Log.d(TAG, "Next in backgroundAuto");
                 countDiscover = 0;
                 // Очистка массива listDiscoveredDevices для обновления данных
                 if(count_for_update_list >= UPDATE_LIST_AFTER){
@@ -969,7 +969,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 while ((countDiscover < COUNT_DISCOVERS) && background_auto_discover) {
                     if (!isBtDiscovering) {
-                        Log.d("MainLog", "  Send msg for discovering");
+                        Log.d(TAG, "  Send msg for discovering");
                         Message msg = autoHandler.obtainMessage();
                         Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", "discover");
@@ -982,17 +982,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         Thread.sleep(100);
                     } catch (Exception e) {
-                        Log.d("MainLog", "  not sleep");
+                        Log.d(TAG, "  not sleep");
                     }
                 }
                 count_for_update_list++;
-                Log.d("MainLog", "  All discovers vere done!");
+                Log.d(TAG, "  All discovers vere done!");
                 // Print list of discovered devices
                 String currentAddress = "";
                 String currentName = "";
                 // Определение близжайшего устройсва по данным сканирвания
                 int currentRSSI = 1000;
-                Log.d("MainLog", "Loop in discovered devices");
+                Log.d(TAG, "Loop in discovered devices");
 
                 // Ждем пока список устройств освободится от других процессов
                 while (access_to_list_discovered_devices){
@@ -1009,21 +1009,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tmp += a;
                     }
 //                    float middle = tmp / count; // среднее арифметическое
-                    Log.d("MainLog", "Name " + dvc.Name + " (" + dvc.Address + "):" + RSSIs);
-                    Log.d("MainLog", String.format("count: %d", count));
+                    Log.d(TAG, "Name " + dvc.Name + " (" + dvc.Address + "):" + RSSIs);
+                    Log.d(TAG, String.format("count: %d", count));
                     if (tmp < currentRSSI && count == COUNT_DISCOVERS && dvc.Name != null && dvc.Name.length() > 8 && dvc.Name.substring(0, 8).equals("Elevator")) {
-                        Log.d("MainLog", "Set this device\r\n");
+                        Log.d(TAG, "Set this device\r\n");
                         currentAddress = dvc.Address;
                         currentName = dvc.Name;
                     }
                 }
                 access_to_list_discovered_devices = false;
 
-                Log.d("MainLog", "End loop");
+                Log.d(TAG, "End loop");
 
                 if(background_wait_for_disconnect){
 //                    {
-//                        Log.d("MainLog", " -> Connecting...");
+//                        Log.d(TAG, " -> Connecting...");
 //                        Message msg = autoHandler.obtainMessage();
 //                        Bundle bndl = new Bundle();
 //                        bndl.putString("MSG_COMMAND", "connect");
@@ -1031,18 +1031,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        autoHandler.sendMessage(msg);
 //                        sleep(100);
 //                    }
-                    Log.d("MainLog", " -> Wait for connect...");
+                    Log.d(TAG, " -> Wait for connect...");
                     while (!isBtConnected){
                         sleep(100);
                     }
-                    Log.d("MainLog", "Waiting done.");
+                    Log.d(TAG, "Waiting done.");
 
                     if(!wrong_address || true){
-                        Log.d("MainLog", "true address");
+                        Log.d(TAG, "true address");
                         if(connectedDevice.getName().equals("Cabine")){
 //                        if(background_send_command){
                             // send command (format: lift_<pos>)
-                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
+                            Log.d(TAG, " -> Send command " + String.format("lift_%d", position));
                             Message msg = autoHandler.obtainMessage();
                             Bundle bndl = new Bundle();
                             bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
@@ -1055,7 +1055,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        btConnection.SendMessage(String.format("lift_%d", position), true);
 //                        sleep(900);
                         // disconnect
-                        Log.d("MainLog", " -> Disconnect");
+                        Log.d(TAG, " -> Disconnect");
                         {
                             Message msg = autoHandler.obtainMessage();
                             Bundle bndl = new Bundle();
@@ -1065,13 +1065,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             sleep(100);
                         }
                     } else {
-                        Log.d("MainLog", "wrong_address");
+                        Log.d(TAG, "wrong_address");
                     }
                 }
                 background_wait_for_disconnect = false;
 
                 // Connect to near device
-                Log.d("MainLog", String.format("Selected device with name: %s (%s)", currentName, currentAddress));
+                Log.d(TAG, String.format("Selected device with name: %s (%s)", currentName, currentAddress));
                 try {
                     currentFloor = Byte.parseByte(currentName.substring(10));
                 } catch (Exception e) {
@@ -1079,9 +1079,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d(TAG, "Maybe string have not int type");
                     currentFloor = 0;
                 }
-                Log.d("MainLog", String.format("Current floor: %d", currentFloor));
+                Log.d(TAG, String.format("Current floor: %d", currentFloor));
 //                if (currentAddress.equals("")) continue;
-//                Log.d("MainLog", "Test\r\n");
+//                Log.d(TAG, "Test\r\n");
 //                {
 //                    // save in pref
 //                    SharedPreferences.Editor editor = preferences.edit();
@@ -1089,7 +1089,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                editor.putString(BtConsts.LAST_NAME, currentName);
 //                    editor.apply();
 //                    // send command for connect
-////                    Log.d("MainLog", "Send msg for connect");
+////                    Log.d(TAG, "Send msg for connect");
 ////                    Message msg = autoHandler.obtainMessage();
 ////                    Bundle bndl = new Bundle();
 ////                    bndl.putString("MSG_COMMAND", "connect");
@@ -1098,7 +1098,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                }
 //                while (!done){
-//                    Log.d("MainLog", "Wait for done");
+//                    Log.d(TAG, "Wait for done");
 //                    sleep(10000);
 //                }
 
@@ -1114,7 +1114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            startConnect();
 
                 // Get address and maxfloors from device
-//            Log.d("MainLog", "Wait for connect...");
+//            Log.d(TAG, "Wait for connect...");
 //            for (int over = 0; over < OVER; over++){
 //                try{
 //                    Thread.sleep(100);
@@ -1122,25 +1122,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    //
 //                }
 //                if(isBtConnected){
-//                    Log.d("MainLog", "AutoConnected");
+//                    Log.d(TAG, "AutoConnected");
 //                    break;
 //                }
 //            }
-//            Log.d("MainLog", "Reading...");
+//            Log.d(TAG, "Reading...");
 //            currentAddress = "Reading...";
 //            if(currentAddress.equals("Reading...")){
 //                return;
 //            }
 //            if(isBtConnected){
-//                Log.d("MainLog", "Connected (auto)");
-//                Log.d("MainLog", "Send msg for address");
+//                Log.d(TAG, "Connected (auto)");
+//                Log.d(TAG, "Send msg for address");
 //                Message msg = autoHandler.obtainMessage();
 //                Bundle bndl = new Bundle();
 //                bndl.putString("MSG_COMMAND", "getAddress");
 //                msg.setData(bndl);
 //                autoHandler.sendMessage(msg);
 //            } else {
-//                Log.d("MainLog", "Connection failed");
+//                Log.d(TAG, "Connection failed");
 //                return;
 //            }
 //            for(int over = 0; over < OVER; over++){
@@ -1154,7 +1154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //            max_floors = -1;
 //            if(isBtConnected){
-//                Log.d("MainLog", "Send msg for max floors");
+//                Log.d(TAG, "Send msg for max floors");
 //                Message msg = autoHandler.obtainMessage();
 //                Bundle bndl = new Bundle();
 //                bndl.putString("MSG_COMMAND", "getMaxFloors");
@@ -1177,7 +1177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                if (currentFloor == my_floor){
 //                    to = 1;
 //                }
-//                Log.d("MainLog", "Send msg for address");
+//                Log.d(TAG, "Send msg for address");
 //                Message msg = autoHandler.obtainMessage();
 //                Bundle bndl = new Bundle();
 //                bndl.putString("MSG_COMMAND", String.format("liftto_%d_%d", from, to));
@@ -1185,7 +1185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                autoHandler.sendMessage(msg);
 //            }
             }
-            Log.d("MainLog", "End background_auto!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Log.d(TAG, "End background_auto!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         };
         Thread autoThread = new Thread(autoRunnable);
@@ -1198,13 +1198,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         background_auto_connect = true;
         Runnable autoConnectRunnable = () -> {
             while (background_auto_connect){
+//                List<Elevator> elevators = listSavedElevators;
+//                Log.d(TAG, "for elevators");
                 for(Elevator elv : listSavedElevators){
                     String flName = "Elevator_f" + elv.getFloor();
+//                    Log.d(TAG, "for floors)");
                     for(Device dvc : elv.getFloors()){
+//                        Log.d(TAG, "   - " + dvc.getName());
                         if(flName.equals(dvc.getName())){
-                            btConnection.conn(dvc.getAddress());
+//                            btConnection.conn(dvc.getAddress());
                             // conn
-                            Log.d("MainLog", " -> Conn("+dvc.getAddress()+")");
+                            Log.d(TAG, " -> Conn("+dvc.getAddress()+")");
                             Message msg = autoHandler.obtainMessage();
                             Bundle bndl = new Bundle();
                             bndl.putString("MSG_COMMAND", "conn_"+dvc.getAddress());
@@ -1216,13 +1220,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 try{
                     Log.d(TAG, "auto connect background sleep");
-                    Thread.sleep(10 * 1000);
+                    Thread.sleep(20 * 1000);
                 } catch (Exception e){
                     Log.d(TAG, e.toString());
                 }
-                if(isBtConnected){
+                if(isBtConnected && connectedDevice.getName().substring(0, 10).equals("Elevator_f")){
                     // disconnect
-                    Log.d("MainLog", " -> Disconnect");
+                    Log.d(TAG, " -> Disconnect");
                     Message msg = autoHandler.obtainMessage();
                     Bundle bndl = new Bundle();
                     bndl.putString("MSG_COMMAND", "disconnect");
@@ -1240,7 +1244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 for(byte i = 0; i < 5; i++){
                                     for(Device cb : elv.getCabins()){
                                         // conn
-                                        Log.d("MainLog", " -> Conn("+cb.getAddress()+")");
+                                        Log.d(TAG, " -> Conn("+cb.getAddress()+")");
                                         msg = autoHandler.obtainMessage();
                                         bndl = new Bundle();
                                         bndl.putString("MSG_COMMAND", "conn_"+cb.getAddress());
@@ -1266,6 +1270,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             }
+            Log.d(TAG, "backgroundAutoConnect() - END");
         };
         Thread autoConnectThread = new Thread(autoConnectRunnable);
         autoConnectThread.start();
@@ -1316,7 +1321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        Log.d("MainLog", "onResume()");
+        Log.d(TAG, "onResume()");
         super.onResume();
         // Фильтра для получения только нужного ответа от системы (bluetooth.discover)
         IntentFilter f1 = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -1330,7 +1335,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onPause() {
-        Log.d("MainLog", "onPause()");
+        Log.d(TAG, "onPause()");
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
@@ -1340,11 +1345,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MainLog", "onReceive()");
+            Log.d(TAG, "onReceive()");
             if(BluetoothDevice.ACTION_FOUND.equals(intent.getAction())){
                 int rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE);
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Log.d("MainLog", String.format("%s (%s): RSSI=%d", device.getName(), device.getAddress(), rssi));
+                Log.d(TAG, String.format("%s (%s): RSSI=%d", device.getName(), device.getAddress(), rssi));
                 boolean hasAddress = false;
 
                 // Ждем пока не освободится массив от других процессов
@@ -1402,13 +1407,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // set in preferences dvc.Address
                 if(!address.equals("")) {
                     wrong_address = false;
-                    Log.d("MainLog", " -> set in preferences address: <" + address + ">");
+                    Log.d(TAG, " -> set in preferences address: <" + address + ">");
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(BtConsts.MAC_KEY, address);
                     editor.putString(BtConsts.LAST_NAME, name);
                     editor.apply();
                     // connect
-                    Log.d("MainLog", " -> Connect");
+                    Log.d(TAG, " -> Connect");
                     if (btConnection.getConnectState() == 0 && !btConnection.isConnecting())
                         btConnection.connect();
                     // wait and disconnect moved on background auto
@@ -1421,10 +1426,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //Toast.makeText(context, "Discovered device with name: " + device.getName(), Toast.LENGTH_SHORT);
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(intent.getAction())) {
-                Log.d("MainLog", " Discover ended!");
+                Log.d(TAG, " Discover ended!");
                 isBtDiscovering = false;
                 countDiscover++;
-                Log.d("MainLog", String.format("Discover count %d", countDiscover));
+                Log.d(TAG, String.format("Discover count %d", countDiscover));
                 if(call_when_discover_end){
                     call_when_discover_end = false;
                     Call(position);
@@ -1435,7 +1440,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(intent.getAction())){
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Log.d("MainLog", "ACTION_BOND_STATE_CHANGED");
+                Log.d(TAG, "ACTION_BOND_STATE_CHANGED");
             }
         }
     };
@@ -1444,7 +1449,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try{
             Thread.sleep(ms);
         } catch (Exception e){
-            Log.d("MainLog", "" + e);
-        }
+            Log.d(TAG, "" + e);
+         }
     }
 }
