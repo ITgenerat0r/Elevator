@@ -918,7 +918,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         background_auto_discover = true;
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             while (background_auto){
-                if(!background_auto) return;
+//                if(!background_auto) return;
                 if(background_wait_for_disconnect){
                     Log.d("MainLog", " -> Wait for connect...");
                     while (!isBtConnected){
@@ -927,29 +927,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("MainLog", "Waiting done.");
 
                     if(connectedDevice.getName().equals("Cabine")){
-                        Log.d(TAG, "That's Cabine!!!");
-                        background_send_command = true;
-                    }
-                    background_send_command = true; // only for debug, delete for release!!!!!!!
-                    if(background_send_command){
+                        Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
                         Message msg = autoHandler.obtainMessage();
                         Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
                         msg.setData(bndl);
                         autoHandler.sendMessage(msg);
+                        sleep(100);
                     } else {
-                        sleep(900);
+                        sleep(1000);
                     }
 
 
-                        // disconnect
-                        Log.d("MainLog", " -> Disconnect");
-                        Message msg = autoHandler.obtainMessage();
-                        Bundle bndl = new Bundle();
-                        bndl.putString("MSG_COMMAND", "disconnect");
-                        msg.setData(bndl);
-                        autoHandler.sendMessage(msg);
-                        sleep(100);
+                    // disconnect
+                    Log.d("MainLog", " -> Disconnect");
+                    Message msg = autoHandler.obtainMessage();
+                    Bundle bndl = new Bundle();
+                    bndl.putString("MSG_COMMAND", "disconnect");
+                    msg.setData(bndl);
+                    autoHandler.sendMessage(msg);
+                    sleep(100);
 
                     background_wait_for_disconnect = false;
                 }
@@ -1040,21 +1037,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(!wrong_address || true){
                         Log.d("MainLog", "true address");
-//                        if(btConnection.getConnectedDevices().get(0).getClass().getName().equals("Cabine")){
-////                        if(background_send_command){
-//                            // send command (format: lift_<pos>)
-//                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
-//                            Message msg = autoHandler.obtainMessage();
-//                            Bundle bndl = new Bundle();
-//                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
-//                            msg.setData(bndl);
-//                            autoHandler.sendMessage(msg);
-//                            sleep(100);
-//                        } else {
-//                            sleep(1000);
-//                        }
-                        btConnection.SendMessage(String.format("lift_%d", position), true);
-                        sleep(900);
+                        if(connectedDevice.getName().equals("Cabine")){
+//                        if(background_send_command){
+                            // send command (format: lift_<pos>)
+                            Log.d("MainLog", " -> Send command " + String.format("lift_%d", position));
+                            Message msg = autoHandler.obtainMessage();
+                            Bundle bndl = new Bundle();
+                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
+                            msg.setData(bndl);
+                            autoHandler.sendMessage(msg);
+                            sleep(100);
+                        } else {
+                            sleep(1000);
+                        }
+//                        btConnection.SendMessage(String.format("lift_%d", position), true);
+//                        sleep(900);
                         // disconnect
                         Log.d("MainLog", " -> Disconnect");
                         {
