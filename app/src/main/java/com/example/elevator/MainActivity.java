@@ -182,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startConnect();
 //                    menu_bt_connect.setIcon(R.drawable.ic_connected);
                 }
+            } else if (command.substring(0, 5).equals("conn_")){
+                btConnection.conn(command.substring(5));
             } else if (command.equals("connect_to_saved")) {
                 btConnection.connect_to_saved("all");
             } else if (command.equals("disconnect")){
@@ -1201,6 +1203,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for(Device dvc : elv.getFloors()){
                         if(flName.equals(dvc.getName())){
                             btConnection.conn(dvc.getAddress());
+                            // conn
+                            Log.d("MainLog", " -> Conn("+dvc.getAddress()+")");
+                            Message msg = autoHandler.obtainMessage();
+                            Bundle bndl = new Bundle();
+                            bndl.putString("MSG_COMMAND", "conn_"+dvc.getAddress());
+                            msg.setData(bndl);
+                            autoHandler.sendMessage(msg);
+                            sleep(100);
                         }
                     }
                 }
@@ -1211,7 +1221,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d(TAG, e.toString());
                 }
                 if(isBtConnected){
-                    btConnection.disconnect();
+                    // disconnect
+                    Log.d("MainLog", " -> Disconnect");
+                    Message msg = autoHandler.obtainMessage();
+                    Bundle bndl = new Bundle();
+                    bndl.putString("MSG_COMMAND", "disconnect");
+                    msg.setData(bndl);
+                    autoHandler.sendMessage(msg);
+                    sleep(100);
                     for(Elevator elv : listSavedElevators){
                         for(Device fl : elv.getFloors()){
                             if(fl.getAddress().equals(connectedDevice.getAddress())){
@@ -1222,7 +1239,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                                 for(byte i = 0; i < 5; i++){
                                     for(Device cb : elv.getCabins()){
-                                        btConnection.conn(cb.getAddress());
+                                        // conn
+                                        Log.d("MainLog", " -> Conn("+cb.getAddress()+")");
+                                        msg = autoHandler.obtainMessage();
+                                        bndl = new Bundle();
+                                        bndl.putString("MSG_COMMAND", "conn_"+cb.getAddress());
+                                        msg.setData(bndl);
+                                        autoHandler.sendMessage(msg);
+                                        sleep(100);
                                     }
                                     try{
                                         Log.d(TAG, "auto connect background sleep");
