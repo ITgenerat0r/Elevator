@@ -19,7 +19,7 @@ public class LiftAdapter extends BaseAdapter {
     final String TAG = "Address_adapter() -> Lift_Adapter()";
     private Context context;
     private LayoutInflater inflater;
-    private List<String > numberFloor;
+    private List<String> numberFloor;
 
     @SuppressLint("LongLogTag")
     public LiftAdapter(Context c, List<String> floors) {

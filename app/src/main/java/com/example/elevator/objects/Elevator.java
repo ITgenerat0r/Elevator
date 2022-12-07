@@ -11,6 +11,7 @@ public class Elevator {
     private byte floor;
     private byte maxFloor;
     private boolean auto;
+    private int update_code;
 
     public Elevator() {
         this.id = 0;
@@ -20,6 +21,7 @@ public class Elevator {
         this.floor = 0;
         this.maxFloor = 2;
         this.auto = false;
+        evaluateUpdateCode();
     }
 
     public byte getMaxFloor() {
@@ -93,5 +95,11 @@ public class Elevator {
         } else {
             this.addFloor(d);
         }
+    }
+
+    public int getUpdateCode(){return update_code;}
+    private void evaluateUpdateCode(){
+        int res = 0;
+        this.update_code = res;
     }
 }

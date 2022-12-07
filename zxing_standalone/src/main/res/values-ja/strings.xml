@@ -153,4 +153,6 @@
   <string name="succesful_connect">Connected to </string>
   <string name="disconnect">Disconnect from </string>
   <string name="version">Version </string>
+  <string name="enable_BT">Enable Bluetooth</string>
+  <string name="disable_BT">Disable Bluetooth</string>
 </resources>

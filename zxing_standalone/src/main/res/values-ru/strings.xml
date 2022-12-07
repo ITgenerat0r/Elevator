@@ -153,5 +153,7 @@
   <string name="succesful_connect">Подключено к </string>
   <string name="disconnect">Отключено от </string>
   <string name="version">Версия </string>
+  <string name="enable_BT">Включить Bluetooth</string>
+  <string name="disable_BT">Выключить Bluetooth</string>
 
 </resources>

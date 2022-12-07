@@ -54,6 +54,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    boolean developer_mode = false;
     private MenuItem menuItem;
     private MenuItem menu_list_devices;
     private MenuItem menu_bt_connect;
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isBtDiscovering = false; // State discovering
     private byte countDiscover = 0; // Количество обнаружений
     private boolean background_wait_for_disconnect = false;
+    private boolean delay_for_disconnect = false;
     private boolean background_send_command = false;
     private List<DiscoveredDevice> listDiscoveredDevices = new ArrayList<>(); // Хранит информацию об обнаруженных устройствах
     private boolean access_to_list_discovered_devices = false; // true если идет цикл по listDiscoveredDevices,
@@ -127,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean wrong_address = false; // если при автоматическом режиме не нашлось адресов сохраненных в памяти, то будет равно true
     //
     private List<Elevator> listSavedElevators;
+
+    private int debug_int = 200; // for change int parameters from app
 
 
     static class DiscoveredDevice {
@@ -186,7 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btConnection.conn(command.substring(5));
             } else if (command.equals("connect_to_saved")) {
                 btConnection.connect_to_saved("all");
-            } else if (command.equals("disconnect")){
+            } else if (command.substring(0, 4).equals("gUpd")){
+                btConnection.disconnect(); // for debug, chande for release
+            }else if (command.equals("disconnect")){
                 btConnection.disconnect();
             } else {
                 if(isBtConnected){
@@ -282,8 +289,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             isBtConnected = (btConnection.getConnectState() == 2);
+            if(isBtConnected){
+//                menuItem.setIcon(R.drawable.ic_bt_connected);
+            } else {
+//                setBtIcon();
+            }
             connectedDevice = btConnection.getConnectedDevice();
-            current_address.setText(String.format("isBtConnected = %b", isBtConnected));
+            current_address.setText("");
             readResponse(btConnection);
             if(currentFloor > 0){
 //                current_floor.setText("" + currentFloor);
@@ -362,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void init(){
-        Log.d(TAG, String.format("%s %s",R.string.app_name, "version"));
+        Log.d(TAG, String.format("%s", getString(R.string.app_name)));
         connect_button_state = false;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
@@ -439,6 +451,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //            }
 //        });
+        setDeveloperMode();
         backgroundResponse();
         backgroundAuto();
     }
@@ -694,7 +707,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 btAdapter.disable();
                 menuItem.setIcon(R.drawable.ic_bt_disabled);
-                menuItem.setTitle("Enable Bluetooth");
+                menuItem.setTitle(getString(R.string.enable_BT));
                 menu_list_devices.setEnabled(false);
                 menu_bt_connect.setEnabled(false);
                 bluetooth_status = false;
@@ -798,19 +811,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setBtIcon(){
         if(btAdapter.isEnabled()){
             menuItem.setIcon(R.drawable.ic_bt_enabled);
-            menuItem.setTitle("Disable Bluetooth");
+            menuItem.setTitle(getString(R.string.disable_BT));
             menu_list_devices.setEnabled(true);
             menu_bt_connect.setEnabled(true);
             bluetooth_status = true;
         } else {
             menuItem.setIcon(R.drawable.ic_bt_disabled);
-            menuItem.setTitle("Enable Bluetooth");
+            menuItem.setTitle(getString(R.string.enable_BT));
             menu_list_devices.setEnabled(false);
             menu_bt_connect.setEnabled(false);
             bluetooth_status = false;
         }
     }
 
+    private void setDeveloperMode(){
+        Log.d(TAG, String.format("setDeveloperMode - %b", developer_mode));
+//        menu_test.setVisible(developer_mode);
+//        menu_list_devices.setVisible(developer_mode);
+//        menu_bt_connect.setVisible(developer_mode);
+//        input_text.setText("");
+//        input_text.setEnabled(developer_mode);
+//        if(developer_mode){
+//            btn_clear.setText(String.format("%s", "Clear"));
+//            btn_send.setVisibility(View.VISIBLE);
+//        } else {
+//            btn_clear.setText(String.format("%s", "DEV"));
+//            btn_send.setVisibility(View.INVISIBLE);
+//        }
+        Log.d(TAG, "done!");
+    }
 
 
     private void enableBt(){
@@ -829,6 +858,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog_history.setText("");
                     input_text.setText("");
                     return;
+                } else if (text.equals("exit DEV")){
+                    developer_mode = false;
+                    setDeveloperMode();
+                }else if (text.length() > 9){
+                    if(text.substring(0, 9).equals("debug_int")){
+                        debug_int = Integer.parseInt(text.substring(10));
+                    }
                 } else if (text.equals("help")){
                     Log.d(TAG, "help");
                     dialog_history.append("Commands\r\n");
@@ -837,8 +873,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog_history.append(" getAddress\r\n");
                     dialog_history.append(" getMaxFloors\r\n");
                     dialog_history.append(" speed\r\n");
-                    dialog_history.append(" gExtBtns\r\n");
-                    dialog_history.append(" pExtBtn_X (1 <= X <= 4)\r\n");
+                    dialog_history.append(" gExtBtns  // get extra buttons\r\n");
+                    dialog_history.append(" gUpd  // get update code\r\n");
+                    dialog_history.append(" pExtBtn_X (1 <= X <= 4)  // press extra button\r\n");
                     input_text.setText("");
                 }
 
@@ -860,6 +897,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_clear:
                 dialog_history.setText("");
+                developer_mode = true;
+                setDeveloperMode();
             default:
                 break;
         }
@@ -914,13 +953,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void backgroundAuto(){
+        Log.d(TAG, "start backgroundAuto()");
         if(!btAdapter.isEnabled())return;
         background_auto = true;
         boolean background_auto_version_2 = false;
-        background_auto_discover = true;
+        background_auto_discover = false;
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             while (background_auto){
-//                if(!background_auto) return;
                 if(background_wait_for_disconnect){
                     Log.d(TAG, " -> Wait for connect...");
                     while (!isBtConnected){
@@ -929,25 +968,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d(TAG, "Waiting done.");
 
                     if(connectedDevice.getName().equals("Cabine")){
-                        Log.d(TAG, " -> Send command " + String.format("lift_%d", position));
+                        // Отправляем лифт на нужный этаж
+                        Log.d(TAG, " -> autoHandler command " + String.format("lift_%d", position));
                         Message msg = autoHandler.obtainMessage();
                         Bundle bndl = new Bundle();
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
                         msg.setData(bndl);
                         autoHandler.sendMessage(msg);
                         sleep(100);
+
+                        sleep(debug_int); // only for debug, delete or change to static value for release
+                        // Проверяем наличие изменений
+                        Log.d(TAG, " -> autoHandler command gUpd");
+                        msg = autoHandler.obtainMessage();
+                        bndl = new Bundle();
+                        bndl.putString("MSG_COMMAND", "gUpd");
+                        msg.setData(bndl);
+                        autoHandler.sendMessage(msg);
+                        sleep(100);
+
+                        delay_for_disconnect = true;
+                        while (isBtConnected && delay_for_disconnect){
+                            sleep(100);
+                            // disconnect
+                            Log.d(TAG, " -> Disconnect");
+                            msg = autoHandler.obtainMessage();
+                            bndl = new Bundle();
+                            bndl.putString("MSG_COMMAND", "disconnect");
+                            msg.setData(bndl);
+                            autoHandler.sendMessage(msg);
+                        }
+
+//                        sleep(debug_int); // only for debug, change to static value for release
                     } else {
                         sleep(1000);
+                        // disconnect
+                        Log.d(TAG, " -> Disconnect");
+                        Message msg = autoHandler.obtainMessage();
+                        Bundle bndl = new Bundle();
+                        bndl.putString("MSG_COMMAND", "disconnect");
+                        msg.setData(bndl);
+                        autoHandler.sendMessage(msg);
                     }
-
-
-                    // disconnect
-                    Log.d(TAG, " -> Disconnect");
-                    Message msg = autoHandler.obtainMessage();
-                    Bundle bndl = new Bundle();
-                    bndl.putString("MSG_COMMAND", "disconnect");
-                    msg.setData(bndl);
-                    autoHandler.sendMessage(msg);
                     sleep(100);
 
                     background_wait_for_disconnect = false;
