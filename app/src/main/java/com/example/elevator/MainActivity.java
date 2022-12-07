@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             isBtConnected = (btConnection.getConnectState() == 2);
             if(isBtConnected){
-//                menuItem.setIcon(R.drawable.ic_bt_connected);
+                menuItem.setIcon(R.drawable.ic_bt_connected);
             } else {
 //                setBtIcon();
             }
@@ -734,32 +734,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else if (item.getItemId() == R.id.id_settings) {
             getCameraPermission();
+            setBtIcon();
             if(isCameraPermissionGranted) {
-                setBtIcon();
-                if (!bluetooth_status) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Bluetooth выключен");
-                    builder.setMessage("Вклчить bluetooth?");
-                    builder.setPositiveButton("Включить", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ((MainActivity) getActivity()).enableBt();
-                        }
-                    });
-                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Do something if pressed button "Cancel"
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                if (bluetooth_status) {
+//                if (!bluetooth_status) {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    builder.setTitle("Bluetooth выключен");
+//                    builder.setMessage("Вклчить bluetooth?");
+//                    builder.setPositiveButton("Включить", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            ((MainActivity) getActivity()).enableBt();
+//                        }
+//                    });
+//                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // Do something if pressed button "Cancel"
+//                        }
+//                    });
+//
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
+//                if (bluetooth_status) {
                     Intent settings_activity = new Intent(MainActivity.this, ListElevatorsActivity.class);
                     startActivity(settings_activity);
-                }
+//                }
             }
 
         } else if (item.getItemId() == R.id.id_bt_test){

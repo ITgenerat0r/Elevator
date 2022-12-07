@@ -50,9 +50,12 @@ _ - отделяет номер этажа от его MAC адресов
 
 
 Arduino
-BLE в кабине должен называтся "Cabine"
+BLE в кабине должен называтся "Cabin"
 BLE на этажах должны называться "Elevator_f*", где * это номер этажа
 все BLE должны быть в режиме slave (AT+ROLE0)
 
 
-
+Доработать:
+setDevelopMode();
+responseHandler();
+gUpd for android and arduino
