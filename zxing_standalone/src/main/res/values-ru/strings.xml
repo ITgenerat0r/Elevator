@@ -157,6 +157,7 @@
   <string name="disable_BT">Выключить Bluetooth</string>
 
   <string name="name">Имя</string>
+  <string name="elevator_id">ID лифта</string>
   <string name="your_floor">Ваш этаж</string>
   <string name="auto_mode">Автоматический режим</string>
   <string name="apply">Применить</string>

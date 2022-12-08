@@ -157,6 +157,7 @@
   <string name="disable_BT">Disable Bluetooth</string>
 
   <string name="name">Name</string>
+  <string name="elevator_id">Elevator ID</string>
   <string name="your_floor">Your floor</string>
   <string name="auto_mode">Automatic mode</string>
   <string name="apply">Apply</string>

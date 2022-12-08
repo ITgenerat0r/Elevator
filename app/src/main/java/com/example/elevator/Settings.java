@@ -70,6 +70,16 @@ public class Settings extends AppCompatActivity {
         editText_floor.setText("" + itemAddress.getFloor());
         cur_floor = itemAddress.getFloor();
         checkBox_autodown.setChecked(itemAddress.isAuto());
+        checkBox_autodown.setText(getApplicationContext().getString(R.string.auto_mode));
+
+        TextView tv = findViewById(R.id.text_floor);
+        tv.setText(getApplicationContext().getString(R.string.your_floor));
+        tv = findViewById(R.id.textView_name);
+        tv.setText(getApplicationContext().getString(R.string.name));
+        tv = findViewById(R.id.text_home_address);
+        tv.setText(getApplicationContext().getString(R.string.elevator_id));
+        tv = findViewById(R.id.btn_set);
+        tv.setText(getApplicationContext().getString(R.string.apply));
 
 
         editText_address.addTextChangedListener(new TextWatcher() {
