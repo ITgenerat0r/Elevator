@@ -404,7 +404,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gridView.setOnItemClickListener((parent, view, position, id) -> {
 //            Toast.makeText(getApplicationContext(), "Clicked " + (position + 1), Toast.LENGTH_SHORT).show();
             Call(position + 1);
-            dialog_history.append(String.format("Call(%d)\r\n", position + 1));
             // Test for speed
 //            if(btConnection != null && btConnection.getConnectState() == 2){
 //                DateFormat tm = new SimpleDateFormat("KK:mm:ss", Locale.getDefault());
@@ -417,7 +416,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
         });
 
-        
+
         btn_clear.setText(String.format("%s", "DEV"));
         btn_send.setVisibility(View.GONE);
         end_of_send.setVisibility(View.GONE);
@@ -439,7 +438,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     private void Call(int pos){
         Log.d(TAG, String.format("Call(%d)", pos));
-
+        dialog_history.append(String.format("Call(%d)\r\n", position + 1));
+        if (!btAdapter.isEnabled()){
+            Log.d(TAG,"BT is off, Call() aborted");
+            dialog_history.append("BT is off, Call() aborted\r\n");
+            return;
+        }
         // if already connected
         if (btConnection.getConnectState() == 2){
             Log.d(TAG, "BT is already connected!");
@@ -471,7 +475,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Log.d(TAG, String.format("Connected state: %d", btConnection.getConnectState()));
-        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()) + "\r\n");
+//        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()) + "\r\n");
 
         // wait for connect
         background_wait_for_disconnect = true;
