@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(isBtConnected){
                 menuItem.setIcon(R.drawable.ic_bt_connected);
             } else {
-//                setBtIcon();
+                setBtIcon();
             }
             connectedDevice = btConnection.getConnectedDevice();
             current_address.setText("");
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "\n\r.\n\r.\n\r.\n\r.\n\r.\n\r.\n\r");
-        Log.d(TAG, "Start program...");
+        Log.d(TAG, "Start program... (onCreate)");
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void init(){
-        Log.d(TAG, String.format("%s", getString(R.string.app_name)));
+        Log.d(TAG, String.format("init %s", getString(R.string.app_name)));
         connect_button_state = false;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
@@ -417,6 +417,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
         });
 
+        
+        btn_clear.setText(String.format("%s", "DEV"));
+        btn_send.setVisibility(View.GONE);
+        end_of_send.setVisibility(View.GONE);
+        input_text.setVisibility(View.GONE);
 
         listFloors = new ArrayList<String>();
         for(int i = 0; i < max_floors; i++){
@@ -427,8 +432,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         liftAdapter = new LiftAdapter(MainActivity.this, listFloors);
         gridView.setAdapter(liftAdapter);
 
-//        setDeveloperMode();
-        backgroundResponse();
         backgroundAuto();
     }
 
@@ -657,12 +660,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setBtIcon();
         setDeveloperMode();
 
+        backgroundResponse();
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStart() {
+        Log.d(TAG, "onStart()");
         homeAddress = preferences.getString(BtConsts.MY_ADDRESS, "none");
         my_floor = preferences.getInt(BtConsts.MY_FLOOR, 0);
         auto_move_me = preferences.getBoolean(BtConsts.LIFT_ME, false);
@@ -840,7 +846,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog_history.setText("");
                     input_text.setText("");
                     return;
-                } else if (text.equals("exit DEV")){
+                } else if (text.equals("exit DEV") || text.equals("qdev")){
                     developer_mode = false;
                     setDeveloperMode();
                 }else if (text.length() > 9){
