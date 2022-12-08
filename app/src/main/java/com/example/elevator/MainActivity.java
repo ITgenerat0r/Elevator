@@ -427,31 +427,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         liftAdapter = new LiftAdapter(MainActivity.this, listFloors);
         gridView.setAdapter(liftAdapter);
 
-
-
-//        liftAdapter.notifyAll();
-//        btnAdapter = new ButtonAdapter(this, R.layout.button_item, list_btn);
-//        gridView.setAdapter(btnAdapter);
-
-
-//        BtnItem bt = new BtnItem(1);
-//        list_btn.add(bt);
-//        bt = new BtnItem(2);
-//        list_btn.add(bt);
-//        btnAdapter.notifyDataSetChanged();
-
-//        View tmp = LayoutInflater.from(getParent().getApplicationContext()).inflate(R.layout.button_item, null, false);
-
-
-//        handler = new Handler();
-//        handler.post(() -> {
-//            BLEConnection bt;
-//            bt = new BLEConnection(this);
-//            while (true) {
-//
-//            }
-//        });
-        setDeveloperMode();
+//        setDeveloperMode();
         backgroundResponse();
         backgroundAuto();
     }
@@ -568,6 +544,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // not use
 //   Вызов лифта с автоматическим поиском и определением блютуз модуля
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -669,6 +646,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu()");
         getMenuInflater().inflate(R.menu.main_menu, menu);
         menuItem = menu.findItem(R.id.id_bt_button);
         menu_list_devices = menu.findItem(R.id.id_menu);
@@ -677,6 +655,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu_settings = menu.findItem(R.id.id_settings);
 
         setBtIcon();
+        setDeveloperMode();
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -825,20 +804,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setDeveloperMode(){
-        Log.d(TAG, String.format("setDeveloperMode - %b", developer_mode));
-//        menu_test.setVisible(developer_mode);
-//        menu_list_devices.setVisible(developer_mode);
-//        menu_bt_connect.setVisible(developer_mode);
-//        input_text.setText("");
-//        input_text.setEnabled(developer_mode);
-//        if(developer_mode){
-//            btn_clear.setText(String.format("%s", "Clear"));
-//            btn_send.setVisibility(View.VISIBLE);
-//        } else {
-//            btn_clear.setText(String.format("%s", "DEV"));
-//            btn_send.setVisibility(View.INVISIBLE);
-//        }
-        Log.d(TAG, "done!");
+        Log.d(TAG, String.format("setDeveloperMode to: %b", developer_mode));
+        menu_test.setVisible(developer_mode);
+        menu_list_devices.setVisible(developer_mode);
+        menu_bt_connect.setVisible(developer_mode);
+        input_text.setText("");
+        if(developer_mode){
+            btn_clear.setText(String.format("%s", "Clear"));
+            btn_send.setVisibility(View.VISIBLE);
+            end_of_send.setVisibility(View.VISIBLE);
+            input_text.setVisibility(View.VISIBLE);
+        } else {
+            btn_clear.setText(String.format("%s", "DEV"));
+            btn_send.setVisibility(View.GONE);
+            end_of_send.setVisibility(View.GONE);
+            input_text.setVisibility(View.GONE);
+        }
+//        Log.d(TAG, "done!");
     }
 
 

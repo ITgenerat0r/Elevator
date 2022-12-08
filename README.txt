@@ -1,4 +1,4 @@
-Elevator_mobile v1.2.1
+Elevator_mobile v1.2.8
 
 
 
@@ -56,6 +56,5 @@ BLE на этажах должны называться "Elevator_f*", где * это номер этажа
 
 
 Доработать:
-setDevelopMode();
 responseHandler();
 gUpd for android and arduino
