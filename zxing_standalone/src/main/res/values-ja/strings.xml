@@ -155,4 +155,10 @@
   <string name="version">Version </string>
   <string name="enable_BT">Enable Bluetooth</string>
   <string name="disable_BT">Disable Bluetooth</string>
+
+  <string name="name">名前</string>
+  <string name="your_floor">あなたの床</string>
+  <string name="auto_mode">自動</string>
+  <string name="apply">適用する</string>
+  <string name="add_an_elevator">エレベーターを追加する</string>
 </resources>

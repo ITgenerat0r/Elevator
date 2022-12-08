@@ -155,4 +155,10 @@
   <string name="version">Version </string>
   <string name="enable_BT">Enable Bluetooth</string>
   <string name="disable_BT">Disable Bluetooth</string>
+
+  <string name="name">Name</string>
+  <string name="your_floor">Your floor</string>
+  <string name="auto_mode">Automatic mode</string>
+  <string name="apply">Apply</string>
+  <string name="add_an_elevator">Add an elevator</string>
 </resources>
