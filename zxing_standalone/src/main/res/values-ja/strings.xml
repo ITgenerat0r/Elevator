@@ -155,7 +155,7 @@
   <string name="version">Version </string>
   <string name="enable_BT">Enable Bluetooth</string>
   <string name="disable_BT">Disable Bluetooth</string>
-
+  <string name="use_another_name">Use another 名前</string>
   <string name="name">名前</string>
   <string name="elevator_id">エレベーターのID</string>
   <string name="your_floor">あなたの床</string>

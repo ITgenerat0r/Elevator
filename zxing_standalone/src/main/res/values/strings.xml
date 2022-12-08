@@ -155,7 +155,7 @@
   <string name="version">Version </string>
   <string name="enable_BT">Enable Bluetooth</string>
   <string name="disable_BT">Disable Bluetooth</string>
-
+  <string name="use_another_name">Use another name</string>
   <string name="name">Name</string>
   <string name="elevator_id">Elevator ID</string>
   <string name="your_floor">Your floor</string>

@@ -155,7 +155,7 @@
   <string name="version">Версия </string>
   <string name="enable_BT">Включить Bluetooth</string>
   <string name="disable_BT">Выключить Bluetooth</string>
-
+  <string name="use_another_name">Используйте другое имя</string>
   <string name="name">Имя</string>
   <string name="elevator_id">ID лифта</string>
   <string name="your_floor">Ваш этаж</string>

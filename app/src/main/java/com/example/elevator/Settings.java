@@ -168,6 +168,10 @@ public class Settings extends AppCompatActivity {
 ////            storage.deleteElevatorByID(itemAddress.getId());
 //            Elevator i = storage.getById(itemAddress.getId());
 //        }
+        if(editText_name.getText().toString().equals(getApplicationContext().getString(R.string.add_an_elevator))){
+            Toast.makeText(this, getApplicationContext().getString(R.string.use_another_name), Toast.LENGTH_SHORT).show();
+            return;
+        }
         itemAddress.setId(Long.parseLong(editText_address.getText().toString()));
         itemAddress.setDescription(editText_name.getText().toString());
         itemAddress.setAuto(checkBox_autodown.isChecked());
