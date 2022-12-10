@@ -54,7 +54,7 @@ public class LiftAdapter extends BaseAdapter {
         }
 
         TextView textView = convertView.findViewById(R.id.number);
-        textView.setText("" + (position + 1));
+        textView.setText(String.format("%d", position + 1));
 
 //        Log.d("MainLog", "End getView()");
         return convertView;

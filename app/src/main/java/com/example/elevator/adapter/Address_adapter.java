@@ -47,7 +47,7 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
 
 
     final String TAG = this.getClass().getSimpleName();
-    final static String string_address = "Добавить адрес";
+//    final static String string_address = "Добавить адрес";
 
     private Context contextG;
     private List<Elevator> mainList;
@@ -74,7 +74,7 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
         Elevator elem = new Elevator();
         elem.setDescription("");
         try {
-            elem.setDescription(string_address);
+            elem.setDescription(context.getString(R.string.add_an_elevator));
         } catch (Exception e){
             Log.d(TAG, "elem.setId() failed. " + e.toString());
         }
@@ -117,12 +117,12 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String fill = mainList.get(position).getDescription();
-        if(fill != string_address){
+        if(fill != contextG.getString(R.string.add_an_elevator)){
 //            fill = fill + " (" + mainList.get(position).getId() + ")";
             Log.d(TAG, "fill = " + fill);
         }
         viewHolder.Address_field.setText(fill);
-        if(mainList.get(position).getDescription().equals(string_address)) {
+        if(position + 1 == mainList.size()) {
             viewHolder.delete_field.setBackground(null);
             viewHolder.comment_field.setText("");
         } else {
@@ -131,7 +131,7 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
 
 
         viewHolder.delete_field.setOnClickListener(v -> {
-            if(mainList.get(position).getDescription().equals(string_address)){
+            if(position + 1 == mainList.size()){
                 return;
             }
             Log.d(TAG, "Pressed 'Delete' button on position " + position);
@@ -150,7 +150,8 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(BtConsts.MY_ADDRESS, "" + mainList.get(position).getId());
             editor.apply();
-            if(mainList.get(position).getDescription().equals(string_address)){
+            Log.d(TAG, String.format("Pressed %d/%d", position, mainList.size()));
+            if(position + 1 == mainList.size()){
                 Log.d(TAG, "Pressed 'Add' button");
 //                Intent settings_activity = new Intent(contextG, Settings.class);
 //                contextG.startActivity(settings_activity);
