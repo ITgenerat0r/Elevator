@@ -1,6 +1,7 @@
 Elevator_mobile v1.3.2
 apk лежит в ..\Elevator\app\build\outputs\apk\debug
-
+или  ../Elevator/release
+alisA8
 
 
 QR code:
