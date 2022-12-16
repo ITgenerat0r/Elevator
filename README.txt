@@ -1,4 +1,5 @@
-Elevator_mobile v1.3
+Elevator_mobile v1.3.2
+apk лежит в ..\Elevator\app\build\outputs\apk\debug
 
 
 
