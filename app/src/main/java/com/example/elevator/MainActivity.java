@@ -971,15 +971,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         sleep(debug_int); // only for debug, delete or change to static value for release
                         // Проверяем наличие изменений
-                        Log.d(TAG, " -> autoHandler command gUpd");
-                        msg = autoHandler.obtainMessage();
-                        bndl = new Bundle();
-                        bndl.putString("MSG_COMMAND", "gUpd");
-                        msg.setData(bndl);
-                        autoHandler.sendMessage(msg);
-                        sleep(100);
+//                        Log.d(TAG, " -> autoHandler command gUpd");
+//                        msg = autoHandler.obtainMessage();
+//                        bndl = new Bundle();
+//                        bndl.putString("MSG_COMMAND", "gUpd");
+//                        msg.setData(bndl);
+//                        autoHandler.sendMessage(msg);
+//                        sleep(100);
 
-                        delay_for_disconnect = true;
+                        delay_for_disconnect = true; // this for debug
                         while (isBtConnected && delay_for_disconnect){
                             sleep(100);
                             // disconnect
