@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ListElevatorsActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
-    private String version = "1.3.4";
+    private String version = "1.3.5";
 //    String TAG = "Debug";
     private SharedPreferences preferences; // Объявляем переменную (класс) для хранения простых типов данных в памяти
     private ListView listView;
