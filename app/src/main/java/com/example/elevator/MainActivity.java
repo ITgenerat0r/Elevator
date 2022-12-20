@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static String TAG = "MainActivity";
     private Button btn_send; // Button for send message to HMSoft
     private Button btn_clear; // Button for clear log (dialog_history)
+    private long dev_switch_delay = 0;
+    private int dev_switch_count = 0;
     private EditText input_text; // Field for input commands
     private TextView current_address;
     private TextView current_floor;
@@ -397,6 +399,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toast.show();
         btConnection = new BLEConnection(this);
 
+        dev_switch_delay = System.currentTimeMillis();
+        dev_switch_count = 0;
 
         list_btn = new ArrayList<BtnItem>();
         gridView = findViewById(R.id.list_buttons);
@@ -438,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("DefaultLocale")
     private void Call(int pos){
         Log.d(TAG, String.format("Call(%d)", pos));
-        dialog_history.append(String.format("Call(%d)\r\n", position + 1));
+        dialog_history.append(String.format("Call(%d)\r\n", pos));
         if (!btAdapter.isEnabled()){
             Log.d(TAG,"BT is off, Call() aborted");
             dialog_history.append("BT is off, Call() aborted\r\n");
@@ -889,7 +893,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_clear:
                 dialog_history.setText("");
-                developer_mode = true;
+                Log.d(TAG, String.format("time between press button Clear: %d - %d = %d", System.currentTimeMillis(), dev_switch_delay, System.currentTimeMillis() - dev_switch_delay));
+                if(System.currentTimeMillis() - dev_switch_delay > 500){
+                    dev_switch_delay = System.currentTimeMillis();
+                    dev_switch_count = 0;
+                    break;
+                }
+                dev_switch_delay = System.currentTimeMillis();
+                dev_switch_count += 1;
+                if(dev_switch_count < 2) break;
+                developer_mode = !developer_mode;
                 setDeveloperMode();
             default:
                 break;
@@ -967,9 +980,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
                         msg.setData(bndl);
                         autoHandler.sendMessage(msg);
-                        sleep(100);
+                        sleep(250);
 
-                        sleep(debug_int); // only for debug, delete or change to static value for release
+//                        sleep(debug_int); // only for debug, delete or change to static value for release
                         // Проверяем наличие изменений
 //                        Log.d(TAG, " -> autoHandler command gUpd");
 //                        msg = autoHandler.obtainMessage();
@@ -980,7 +993,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        sleep(100);
 
                         delay_for_disconnect = true; // this for debug
-                        while (isBtConnected && delay_for_disconnect){
+                        while (delay_for_disconnect){
                             sleep(100);
                             // disconnect
                             Log.d(TAG, " -> Disconnect");
