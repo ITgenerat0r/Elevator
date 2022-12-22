@@ -162,4 +162,6 @@
   <string name="auto_mode">Automatic mode</string>
   <string name="apply">Apply</string>
   <string name="add_an_elevator">Add an elevator</string>
+  <string name="camera_permission_granted">camera permission granted</string>
+  <string name="camera_permission_denied">camera permission denied</string>
 </resources>

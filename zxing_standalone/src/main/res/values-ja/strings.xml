@@ -162,4 +162,6 @@
   <string name="auto_mode">自動</string>
   <string name="apply">適用する</string>
   <string name="add_an_elevator">エレベーターを追加する</string>
+  <string name="camera_permission_granted">camera permission granted</string>
+  <string name="camera_permission_denied">camera permission denied</string>
 </resources>

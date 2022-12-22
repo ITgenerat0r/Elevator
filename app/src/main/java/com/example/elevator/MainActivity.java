@@ -972,6 +972,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     Log.d(TAG, "Waiting done.");
 
+                    Log.d(TAG, String.format("name: %s, MAC: %s", connectedDevice.getName(), connectedDevice.getAddress()));
                     if(connectedDevice.getName().equals("Cabine")){
                         // Отправляем лифт на нужный этаж
                         Log.d(TAG, " -> autoHandler command " + String.format("lift_%d", position));
@@ -995,26 +996,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         delay_for_disconnect = true; // this for debug
                         while (delay_for_disconnect){
                             sleep(100);
-                            // disconnect
-                            Log.d(TAG, " -> Disconnect");
-                            msg = autoHandler.obtainMessage();
-                            bndl = new Bundle();
-                            bndl.putString("MSG_COMMAND", "disconnect");
-                            msg.setData(bndl);
-                            autoHandler.sendMessage(msg);
                         }
 
 //                        sleep(debug_int); // only for debug, change to static value for release
                     } else {
                         sleep(1000);
-                        // disconnect
-                        Log.d(TAG, " -> Disconnect");
-                        Message msg = autoHandler.obtainMessage();
-                        Bundle bndl = new Bundle();
-                        bndl.putString("MSG_COMMAND", "disconnect");
-                        msg.setData(bndl);
-                        autoHandler.sendMessage(msg);
                     }
+                    // disconnect
+                    Log.d(TAG, " -> Disconnect");
+                    Message msg = autoHandler.obtainMessage();
+                    Bundle bndl = new Bundle();
+                    bndl.putString("MSG_COMMAND", "disconnect");
+                    msg.setData(bndl);
+                    autoHandler.sendMessage(msg);
                     sleep(100);
 
                     background_wait_for_disconnect = false;
@@ -1027,231 +1021,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                }
 
             }
-            while (background_auto_version_2) {
-                Log.d(TAG, "Next in backgroundAuto");
-                countDiscover = 0;
-                // Очистка массива listDiscoveredDevices для обновления данных
-                if(count_for_update_list >= UPDATE_LIST_AFTER){
-                    listDiscoveredDevices.clear();
-                }
-                while ((countDiscover < COUNT_DISCOVERS) && background_auto_discover) {
-                    if (!isBtDiscovering) {
-                        Log.d(TAG, "  Send msg for discovering");
-                        Message msg = autoHandler.obtainMessage();
-                        Bundle bndl = new Bundle();
-                        bndl.putString("MSG_COMMAND", "discover");
-                        msg.setData(bndl);
-                        autoHandler.sendMessage(msg);
-                        while (!isBtDiscovering){
-                            sleep(200);
-                        }
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e) {
-                        Log.d(TAG, "  not sleep");
-                    }
-                }
-                count_for_update_list++;
-                Log.d(TAG, "  All discovers vere done!");
-                // Print list of discovered devices
-                String currentAddress = "";
-                String currentName = "";
-                // Определение близжайшего устройсва по данным сканирвания
-                int currentRSSI = 1000;
-                Log.d(TAG, "Loop in discovered devices");
 
-                // Ждем пока список устройств освободится от других процессов
-                while (access_to_list_discovered_devices){
-                    sleep(200);
-                }
-                access_to_list_discovered_devices = true;
-                for (DiscoveredDevice dvc : listDiscoveredDevices) {
-                    String RSSIs = "   ";
-                    int tmp = 0;
-                    int count = 0;
-                    for (int a : dvc.rssi) {
-                        RSSIs += a + "   ";
-                        count++;
-                        tmp += a;
-                    }
-//                    float middle = tmp / count; // среднее арифметическое
-                    Log.d(TAG, "Name " + dvc.Name + " (" + dvc.Address + "):" + RSSIs);
-                    Log.d(TAG, String.format("count: %d", count));
-                    if (tmp < currentRSSI && count == COUNT_DISCOVERS && dvc.Name != null && dvc.Name.length() > 8 && dvc.Name.substring(0, 8).equals("Elevator")) {
-                        Log.d(TAG, "Set this device\r\n");
-                        currentAddress = dvc.Address;
-                        currentName = dvc.Name;
-                    }
-                }
-                access_to_list_discovered_devices = false;
-
-                Log.d(TAG, "End loop");
-
-                if(background_wait_for_disconnect){
-//                    {
-//                        Log.d(TAG, " -> Connecting...");
-//                        Message msg = autoHandler.obtainMessage();
-//                        Bundle bndl = new Bundle();
-//                        bndl.putString("MSG_COMMAND", "connect");
-//                        msg.setData(bndl);
-//                        autoHandler.sendMessage(msg);
-//                        sleep(100);
-//                    }
-                    Log.d(TAG, " -> Wait for connect...");
-                    while (!isBtConnected){
-                        sleep(100);
-                    }
-                    Log.d(TAG, "Waiting done.");
-
-                    if(!wrong_address || true){
-                        Log.d(TAG, "true address");
-                        if(connectedDevice.getName().equals("Cabine")){
-//                        if(background_send_command){
-                            // send command (format: lift_<pos>)
-                            Log.d(TAG, " -> Send command " + String.format("lift_%d", position));
-                            Message msg = autoHandler.obtainMessage();
-                            Bundle bndl = new Bundle();
-                            bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
-                            msg.setData(bndl);
-                            autoHandler.sendMessage(msg);
-                            sleep(100);
-                        } else {
-                            sleep(1000);
-                        }
-//                        btConnection.SendMessage(String.format("lift_%d", position), true);
-//                        sleep(900);
-                        // disconnect
-                        Log.d(TAG, " -> Disconnect");
-                        {
-                            Message msg = autoHandler.obtainMessage();
-                            Bundle bndl = new Bundle();
-                            bndl.putString("MSG_COMMAND", "disconnect");
-                            msg.setData(bndl);
-                            autoHandler.sendMessage(msg);
-                            sleep(100);
-                        }
-                    } else {
-                        Log.d(TAG, "wrong_address");
-                    }
-                }
-                background_wait_for_disconnect = false;
-
-                // Connect to near device
-                Log.d(TAG, String.format("Selected device with name: %s (%s)", currentName, currentAddress));
-                try {
-                    currentFloor = Byte.parseByte(currentName.substring(10));
-                } catch (Exception e) {
-                    // Maybe string have not int type
-                    Log.d(TAG, "Maybe string have not int type");
-                    currentFloor = 0;
-                }
-                Log.d(TAG, String.format("Current floor: %d", currentFloor));
-//                if (currentAddress.equals("")) continue;
-//                Log.d(TAG, "Test\r\n");
-//                {
-//                    // save in pref
-//                    SharedPreferences.Editor editor = preferences.edit();
-//                    editor.putString(BtConsts.MAC_KEY, currentAddress);
-//                editor.putString(BtConsts.LAST_NAME, currentName);
-//                    editor.apply();
-//                    // send command for connect
-////                    Log.d(TAG, "Send msg for connect");
-////                    Message msg = autoHandler.obtainMessage();
-////                    Bundle bndl = new Bundle();
-////                    bndl.putString("MSG_COMMAND", "connect");
-////                    msg.setData(bndl);
-////                    autoHandler.sendMessage(msg);
-//
-//                }
-//                while (!done){
-//                    Log.d(TAG, "Wait for done");
-//                    sleep(10000);
-//                }
-
-                ///////// AFTER NEW //////////////////////////////////////////////////////
-
-            if(!background_auto_version_2) return;
-            try{
-                Log.d(TAG, "background sleep");
-                Thread.sleep(30000);
-            } catch (Exception e){
-                Log.d(TAG, e.toString());
-            }
-//            startConnect();
-
-                // Get address and maxfloors from device
-//            Log.d(TAG, "Wait for connect...");
-//            for (int over = 0; over < OVER; over++){
-//                try{
-//                    Thread.sleep(100);
-//                } catch (Exception e){
-//                    //
-//                }
-//                if(isBtConnected){
-//                    Log.d(TAG, "AutoConnected");
-//                    break;
-//                }
-//            }
-//            Log.d(TAG, "Reading...");
-//            currentAddress = "Reading...";
-//            if(currentAddress.equals("Reading...")){
-//                return;
-//            }
-//            if(isBtConnected){
-//                Log.d(TAG, "Connected (auto)");
-//                Log.d(TAG, "Send msg for address");
-//                Message msg = autoHandler.obtainMessage();
-//                Bundle bndl = new Bundle();
-//                bndl.putString("MSG_COMMAND", "getAddress");
-//                msg.setData(bndl);
-//                autoHandler.sendMessage(msg);
-//            } else {
-//                Log.d(TAG, "Connection failed");
-//                return;
-//            }
-//            for(int over = 0; over < OVER; over++){
-//                if(!currentAddress.equals("Reading...")){
-//                    break;
-//                }
-//                try{
-//                    Thread.sleep(100);
-//                } catch (Exception e){}
-//            }
-//
-//            max_floors = -1;
-//            if(isBtConnected){
-//                Log.d(TAG, "Send msg for max floors");
-//                Message msg = autoHandler.obtainMessage();
-//                Bundle bndl = new Bundle();
-//                bndl.putString("MSG_COMMAND", "getMaxFloors");
-//                msg.setData(bndl);
-//                autoHandler.sendMessage(msg);
-//            }
-//            for(int over = 0; over < OVER; over++){
-//                if(max_floors != -1){
-//                    break;
-//                }
-//                try{
-//                    Thread.sleep(100);
-//                } catch (Exception e){}
-//            }
-//
-//            // Send command to device
-//            if(auto_move_me && homeAddress.equals(currentAddress) && (currentFloor == 1 || currentFloor == my_floor)){
-//                int from = currentFloor;
-//                int to = my_floor;
-//                if (currentFloor == my_floor){
-//                    to = 1;
-//                }
-//                Log.d(TAG, "Send msg for address");
-//                Message msg = autoHandler.obtainMessage();
-//                Bundle bndl = new Bundle();
-//                bndl.putString("MSG_COMMAND", String.format("liftto_%d_%d", from, to));
-//                msg.setData(bndl);
-//                autoHandler.sendMessage(msg);
-//            }
-            }
             Log.d(TAG, "End background_auto!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         };
@@ -1376,9 +1146,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (requestCode == MY_CAMERA_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 isCameraPermissionGranted = true;
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.camera_permission_granted), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.camera_permission_denied), Toast.LENGTH_LONG).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
