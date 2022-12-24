@@ -77,10 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean connect_button_state; // status Bluetooth connecting button
     private SharedPreferences preferences; // value for save information in storage
     private BLEConnection btConnection;
-    
 
-    private Handler handler;
-    private List<String> log;
 
     private GridView gridView;
     private List<BtnItem> list_btn; // Список объектов кнопок лифта
@@ -125,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private byte countDiscover = 0; // Количество обнаружений
     private boolean background_wait_for_disconnect = false;
     private boolean delay_for_disconnect = false;
+    private boolean wait_for_connect = false; // is wait_for_connect running
+    private boolean wait_for_disconnect = false; // is wait_for_disconnect running
     private boolean background_send_command = false;
     private List<DiscoveredDevice> listDiscoveredDevices = new ArrayList<>(); // Хранит информацию об обнаруженных устройствах
     private boolean access_to_list_discovered_devices = false; // true если идет цикл по listDiscoveredDevices,
@@ -164,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint("HandlerLeak")
     private Handler autoHandler = new Handler(){
+        @SuppressLint("DefaultLocale")
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -188,6 +188,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    connect_button_state = true;
                     startConnect();
 //                    menu_bt_connect.setIcon(R.drawable.ic_connected);
+                }
+            } else if (command.equals("check_connect")){
+                Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
+                if(connectedDevice.getName().equals("Cabine")){
+                    btConnection.SendMessage(String.format("lift_%d", position), true);
+                    backgroundWaitForDisconnect(250);
+                } else {
+                    backgroundWaitForDisconnect(1000);
                 }
             } else if (command.substring(0, 5).equals("conn_")){
                 btConnection.conn(command.substring(5));
@@ -297,7 +305,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setBtIcon();
             }
             connectedDevice = btConnection.getConnectedDevice();
-            current_address.setText("");
+//            String nm_dvc = btConnection.getConnectedDeviceName();
+//            Log.d(TAG, "connectedDevice = " + connectedDevice.getName());
+            current_address.setText(connectedDevice.getName());
             readResponse(btConnection);
             if(currentFloor > 0){
 //                current_floor.setText("" + currentFloor);
@@ -378,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init(){
         Log.d(TAG, String.format("init %s", getString(R.string.app_name)));
         connect_button_state = false;
+        connectedDevice = new Device("Disconnected", "none");
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         btn_send = findViewById(R.id.bt_send);
         btn_send.setOnClickListener(this::onClick);
@@ -435,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         liftAdapter = new LiftAdapter(MainActivity.this, listFloors);
         gridView.setAdapter(liftAdapter);
 
-        backgroundAuto();
+//        backgroundAuto();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -482,77 +493,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        dialog_history.append(String.format("Connected state: %d", btConnection.getConnectState()) + "\r\n");
 
         // wait for connect
-        background_wait_for_disconnect = true;
         position = Byte.parseByte(String.valueOf(pos));
-
-//        if (btConnection.getConnectState() == 2){
-//            for(Object dvc : btConnection.getConnectedDevices()){
-//                String name = dvc.getClass().getName();
-//                Log.d(TAG, String.format("Already connected to: "+ name));
-//                dialog_history.append("Already connected to: "+ name);
-//                if(name.equals("Cabine")){
-//                    btConnection.SendMessage(String.format("lift_%d", pos), true);
-//                }
-//            }
-//            return;
-//        }
-
-//        if(pos > -100) return;
-//        position = Byte.parseByte("" + pos);
-//        current_address.setText(String.format("Идет вызов на %d этаж...", pos));
-//        Log.d(TAG, String.format("Идет вызов на %d этаж...", pos));
-//        if(btConnection.getConnectState()==2){
-//            Log.d(TAG, "BT is connected");
-//            background_wait_for_disconnect = true;
-////            List<BluetoothDevice> t = btConnection.getConnectedDevices();
-////            Log.d(TAG, "Connected devices was received.");
-////            for(BluetoothDevice i : t){
-////                Log.d(TAG,"Name: "+i.getName());
-////            }
-////            Log.d(TAG, "_|");
-////            BluetoothDevice d = t.get(0);
-////            Log.d(TAG, "First connected device is received");
-//            if(true){ // d.getName().equals("Cabine")
-//                Log.d(TAG, "BT is Cabine");
-//                background_send_command = true;
-//            } else {
-//                Log.d(TAG, "BT is Floor");
-//                background_send_command = false;
-//            }
-//            return;
-//        }
-//        if(isBtDiscovering){
-//            Log.d(TAG, "BT is discovering");
-//            call_when_discover_end = true;
-//            return;
-//        }
-//        String fl = "Elevator_f";
-//        if(pos < 10) fl += "0";
-//        fl += pos;
-//        Log.d(TAG, "fl = " + fl);
-//        if(!access_to_list_discovered_devices){
-//            Log.d(TAG, "We have access to list of discovered devices");
-//            access_to_list_discovered_devices = true;
-//            for (DiscoveredDevice dvc : listDiscoveredDevices) {
-//                Log.d(TAG, "-> " + dvc.Name + " " + dvc.Address);
-//                if(dvc.Name.equals("Cabine")){
-//                    Log.d(TAG, "find 'Cabine'");
-//                    if(btConnection.getConnectState() == 0 && !btConnection.isConnecting()) btConnection.connect();
-//                    background_wait_for_disconnect = true;
-//                    background_send_command = true;
-//                    break;
-//                } else if(dvc.Name.equals(fl)){
-//                    Log.d(TAG, "find '" + fl + "'");
-//                    background_wait_for_disconnect = true;
-//                    background_send_command = false;
-//                    break;
-//                }
-//            }
-//            Log.d(TAG, "find None");
-//            access_to_list_discovered_devices = false;
-//        }
-
-
+        backgroundWaitForConnect();
     }
 
     // not use
@@ -965,54 +907,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         background_auto_discover = false;
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             while (background_auto){
-                if(background_wait_for_disconnect){
-                    Log.d(TAG, " -> Wait for connect...");
-                    while (!isBtConnected){
-                        sleep(100);
-                    }
-                    Log.d(TAG, "Waiting done.");
 
-                    Log.d(TAG, String.format("name: %s, MAC: %s", connectedDevice.getName(), connectedDevice.getAddress()));
-                    if(connectedDevice.getName().equals("Cabine")){
-                        // Отправляем лифт на нужный этаж
-                        Log.d(TAG, " -> autoHandler command " + String.format("lift_%d", position));
-                        Message msg = autoHandler.obtainMessage();
-                        Bundle bndl = new Bundle();
-                        bndl.putString("MSG_COMMAND", String.format("lift_%d", position));
-                        msg.setData(bndl);
-                        autoHandler.sendMessage(msg);
-                        sleep(250);
-
-//                        sleep(debug_int); // only for debug, delete or change to static value for release
-                        // Проверяем наличие изменений
-//                        Log.d(TAG, " -> autoHandler command gUpd");
-//                        msg = autoHandler.obtainMessage();
-//                        bndl = new Bundle();
-//                        bndl.putString("MSG_COMMAND", "gUpd");
-//                        msg.setData(bndl);
-//                        autoHandler.sendMessage(msg);
-//                        sleep(100);
-
-                        delay_for_disconnect = true; // this for debug
-                        while (delay_for_disconnect){
-                            sleep(100);
-                        }
-
-//                        sleep(debug_int); // only for debug, change to static value for release
-                    } else {
-                        sleep(1000);
-                    }
-                    // disconnect
-                    Log.d(TAG, " -> Disconnect");
-                    Message msg = autoHandler.obtainMessage();
-                    Bundle bndl = new Bundle();
-                    bndl.putString("MSG_COMMAND", "disconnect");
-                    msg.setData(bndl);
-                    autoHandler.sendMessage(msg);
-                    sleep(100);
-
-                    background_wait_for_disconnect = false;
-                }
 //                try{
 //                    Log.d(TAG, "background sleep");
 //                    Thread.sleep(90 * 1000);
@@ -1027,6 +922,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         Thread autoThread = new Thread(autoRunnable);
         autoThread.start();
+    }
+
+    private void backgroundWaitForConnect(){
+        if(wait_for_connect) return;
+        Runnable waitForConect = () -> {
+            wait_for_connect = true;
+            Log.d(TAG, " -> Wait for connect...");
+            while (!isBtConnected){
+                sleep(100);
+            }
+            Log.d(TAG, "Waiting done.");
+
+            Log.d(TAG, " -> autoHandler command 'check_connect'");
+            Message msg = autoHandler.obtainMessage();
+            Bundle bndl = new Bundle();
+            bndl.putString("MSG_COMMAND", "check_connect");
+            msg.setData(bndl);
+            autoHandler.sendMessage(msg);
+
+            wait_for_connect = false;
+            Log.d(TAG, "backgroundWaitForConnect()  WHILE END");
+        };
+        Thread waitConnectThread = new Thread(waitForConect);
+        waitConnectThread.start();
+    }
+
+    private void backgroundWaitForDisconnect(int dly){
+        if(wait_for_disconnect) return;
+        Runnable waitForDisconnect = () -> {
+            wait_for_disconnect = true;
+            Log.d(TAG, "Wait for disconnect");
+            // disconnect
+            sleep(dly);
+            Log.d(TAG, " -> Disconnect");
+            Message msg = autoHandler.obtainMessage();
+            Bundle bndl = new Bundle();
+            bndl.putString("MSG_COMMAND", "disconnect");
+            msg.setData(bndl);
+            autoHandler.sendMessage(msg);
+            sleep(100);
+            wait_for_disconnect = false;
+        };
+        Thread waitDisconnectThread = new Thread(waitForDisconnect);
+        waitDisconnectThread.start();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

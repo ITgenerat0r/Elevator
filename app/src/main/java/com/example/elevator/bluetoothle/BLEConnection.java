@@ -313,6 +313,15 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     }
 
     public Device getConnectedDevice(){
+        if(connectedDevice == null){
+            return new Device("Disconnected", "none");
+        }
+        if(connectedDevice.getName() == null){
+            connectedDevice.setName("Disconnected");
+        }
+        if(connectedDevice.getAddress() == null){
+            connectedDevice.setAddress("none");
+        }
         return connectedDevice;
     }
 
@@ -433,7 +442,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         gatt = null;
         connect = STATE_DISCONNECTED;
         clearServiceCache();
-        connectedDevice = new Device("", "");
+        connectedDevice = new Device("Disconnected", "none");
         MsgBox(context.getString(R.string.disconnect) + " " + device.getAddress(), "all");
         response.add(context.getString(R.string.disconnect) + " " + device.getAddress());
     }
