@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -446,6 +447,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         liftAdapter = new LiftAdapter(MainActivity.this, listFloors);
         gridView.setAdapter(liftAdapter);
 
+        // разминка для BT, почему то так работает лучше
+        btConnection.conn("00:00:00:00:00:00");
+        backgroundWaitForDisconnect(1000);
+
+        dialog_history.setMovementMethod(new ScrollingMovementMethod());
+//        dialog_history.setHorizontallyScrolling(true);
 //        backgroundAuto();
     }
 

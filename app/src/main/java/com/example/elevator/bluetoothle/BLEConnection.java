@@ -443,8 +443,8 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         connect = STATE_DISCONNECTED;
         clearServiceCache();
         connectedDevice = new Device("Disconnected", "none");
-        MsgBox(context.getString(R.string.disconnect) + " " + device.getAddress(), "all");
-        response.add(context.getString(R.string.disconnect) + " " + device.getAddress());
+        MsgBox(context.getString(R.string.disconnect), "all");
+        response.add(context.getString(R.string.disconnect));
     }
 
     // this function sending command and disconnecting after connect_to_saved()

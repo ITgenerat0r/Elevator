@@ -151,7 +151,7 @@
   <string name="settings">Настройки</string>
   <string name="try_connect">Попытка соединения с </string>
   <string name="succesful_connect">Подключено к </string>
-  <string name="disconnect">Отключено от </string>
+  <string name="disconnect">Отключено</string>
   <string name="version">Версия </string>
   <string name="enable_BT">Включить Bluetooth</string>
   <string name="disable_BT">Выключить Bluetooth</string>
