@@ -118,7 +118,7 @@ public class Address_adapter extends ArrayAdapter<Elevator> {
         }
 
         String fill = mainList.get(position).getDescription();
-        Log.d("MainActivity", "fill = " + fill);
+        Log.d(TAG, "fill = " + fill);
         viewHolder.Address_field.setText(fill);
         if(position + 1 == mainList.size()) {
             viewHolder.delete_field.setBackground(null);

@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean delay_for_disconnect = false;
     private boolean wait_for_connect = false; // is wait_for_connect running
     private boolean wait_for_disconnect = false; // is wait_for_disconnect running
+    private boolean background_auto_connect_running = false; // is backgroundAutoConnect() running
     private boolean background_send_command = false;
     private List<DiscoveredDevice> listDiscoveredDevices = new ArrayList<>(); // Хранит информацию об обнаруженных устройствах
     private boolean access_to_list_discovered_devices = false; // true если идет цикл по listDiscoveredDevices,
@@ -711,7 +712,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!connect_button_state) {
 //                    menu_bt_connect.setEnabled(false);
 
-                    background_auto_discover = true;
+                    background_auto_discover = true; // это больше не нужно (но это не точно)
                     backgroundAutoConnect();
 //                    backgroundAuto();
                 }
@@ -915,12 +916,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @SuppressLint("DefaultLocale") Runnable autoRunnable = () -> {
             while (background_auto){
 
-//                try{
-//                    Log.d(TAG, "background sleep");
-//                    Thread.sleep(90 * 1000);
-//                } catch (Exception e){
-//                    Log.d(TAG, e.toString());
-//                }
+
+                try{
+                    Log.d(TAG, "background sleep");
+                    Thread.sleep(20 * 1000);
+                } catch (Exception e){
+                    Log.d(TAG, e.toString());
+                }
 
             }
 
@@ -932,6 +934,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void backgroundWaitForConnect(){
+        // position - должен быть указан
         if(wait_for_connect) return;
         Runnable waitForConect = () -> {
             wait_for_connect = true;
@@ -977,9 +980,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void backgroundAutoConnect(){
-        if(!btAdapter.isEnabled())return;
-        background_auto_connect = true;
+        if(!btAdapter.isEnabled()) return;
+        if(background_auto_connect_running) return;
         Runnable autoConnectRunnable = () -> {
+            Log.d(TAG, "backgroundAutoConnect()");
+            background_auto_connect_running = true;
+            background_auto_connect = true;
             while (background_auto_connect){
 //                List<Elevator> elevators = listSavedElevators;
 //                Log.d(TAG, "for elevators");
@@ -987,8 +993,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String flName = "Elevator_f" + elv.getFloor();
 //                    Log.d(TAG, "for floors)");
                     for(Device dvc : elv.getFloors()){
-//                        Log.d(TAG, "   - " + dvc.getName());
-                        if(flName.equals(dvc.getName())){
+                        Log.d(TAG, "   - " + dvc.getName());
+                        if(dvc.getName().equals(flName) || dvc.getName().equals("Elevator_f1")){
 //                            btConnection.conn(dvc.getAddress());
                             // conn
                             Log.d(TAG, " -> Conn("+dvc.getAddress()+")");
@@ -1001,14 +1007,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }
-                try{
-                    Log.d(TAG, "auto connect background sleep");
-                    Thread.sleep(20 * 1000);
-                } catch (Exception e){
-                    Log.d(TAG, e.toString());
+
+//                try{
+//                    Log.d(TAG, "auto connect background sleep");
+//                    Thread.sleep(2 * 1000);
+//                } catch (Exception e){
+//                    Log.d(TAG, e.toString());
+//                }
+                int time_out = 60 * 10;
+                while (!isBtConnected){
+                    sleep(100);
+                    if(time_out-- < 1)break;
                 }
                 if(isBtConnected && connectedDevice.getName().substring(0, 10).equals("Elevator_f")){
                     // disconnect
+                    sleep(1000);
                     Log.d(TAG, " -> Disconnect");
                     Message msg = autoHandler.obtainMessage();
                     Bundle bndl = new Bundle();
@@ -1016,6 +1029,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     msg.setData(bndl);
                     autoHandler.sendMessage(msg);
                     sleep(100);
+                    boolean abort = false;
                     for(Elevator elv : listSavedElevators){
                         for(Device fl : elv.getFloors()){
                             if(fl.getAddress().equals(connectedDevice.getAddress())){
@@ -1024,35 +1038,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 } else {
                                     position = 1;
                                 }
-                                for(byte i = 0; i < 5; i++){
-                                    for(Device cb : elv.getCabins()){
-                                        // conn
-                                        Log.d(TAG, " -> Conn("+cb.getAddress()+")");
-                                        msg = autoHandler.obtainMessage();
-                                        bndl = new Bundle();
-                                        bndl.putString("MSG_COMMAND", "conn_"+cb.getAddress());
-                                        msg.setData(bndl);
-                                        autoHandler.sendMessage(msg);
-                                        sleep(100);
-                                    }
-                                    try{
-                                        Log.d(TAG, "auto connect background sleep");
-                                        Thread.sleep(10 * 1000);
-                                    } catch (Exception e){
-                                        Log.d(TAG, e.toString());
-                                    }
-                                    if(isBtConnected){
-                                        background_wait_for_disconnect = true;
-                                        background_send_command = true;
-                                        return;
-                                    }
+                                boolean k = false;
+                                for(Device cb : elv.getCabins()){
+                                    k = true;
+                                    // conn
+                                    Log.d(TAG, " -> Conn("+cb.getAddress()+")");
+                                    msg = autoHandler.obtainMessage();
+                                    bndl = new Bundle();
+                                    bndl.putString("MSG_COMMAND", "conn_"+cb.getAddress());
+                                    msg.setData(bndl);
+                                    autoHandler.sendMessage(msg);
+                                    sleep(100);
                                 }
+                                if(k) backgroundWaitForConnect();
+//                                    try{
+//                                        Log.d(TAG, "auto connect background sleep");
+//                                        Thread.sleep(10 * 1000);
+//                                    } catch (Exception e){
+//                                        Log.d(TAG, e.toString());
+//                                    }
+//                                    if(isBtConnected){
+//                                        background_wait_for_disconnect = true;
+//                                        background_send_command = true;
+//                                        return;
+//                                    }
+                                abort = true;
                                 break;
                             }
                         }
+                        if (abort) break;
                     }
                 }
+                sleep(10 * 1000);
             }
+            background_auto_connect_running = false;
             Log.d(TAG, "backgroundAutoConnect() - END");
         };
         Thread autoConnectThread = new Thread(autoConnectRunnable);

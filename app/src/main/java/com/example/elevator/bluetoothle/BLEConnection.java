@@ -140,6 +140,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                     // Обрабатываем bondState
                     if (bondState == BOND_NONE || bondState == BOND_BONDED){
                         connect = STATE_CONNECTED;
+                        isConnecting = false;
                         connectedDevice.setAddress(gatt.getDevice().getAddress());
                         connectedDevice.setName(gatt.getDevice().getName());
                         MsgBox(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
@@ -430,6 +431,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void disconnect(){
         isConnecting = false;
+        if (!btAdapter.isEnabled()) return;
         if (state_notify) {
             gatt.setCharacteristicNotification(services.get(2).getCharacteristics().get(0), false);
             boolean res = gatt.setCharacteristicNotification(character, false);

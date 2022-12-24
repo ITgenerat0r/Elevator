@@ -1,4 +1,5 @@
-Elevator_mobile v1.3.4
+Elevator_mobile v1.4
+Compile APK: Build -> Build Bundle(s)/APK(s) -> Build APK(s)
 apk лежит в ..\Elevator\app\build\outputs\apk\debug
 или  ../Elevator/app/release
 alisA8
@@ -49,7 +50,7 @@ _ - отделяет номер этажа от его MAC адресов
 
 
 Автоматическое управление:
-   в разработке
+   в тестировании
 
 
 
