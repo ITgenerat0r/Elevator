@@ -143,6 +143,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                         isConnecting = false;
                         connectedDevice.setAddress(gatt.getDevice().getAddress());
                         connectedDevice.setName(gatt.getDevice().getName());
+                        Log.d("MainActivity", String.format("connectedDevice.Name = %s", connectedDevice.getName()));
                         MsgBox(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
                         response.add(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
 
@@ -432,21 +433,26 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     public void disconnect(){
         isConnecting = false;
         if (!btAdapter.isEnabled()) return;
-        if (state_notify) {
-            gatt.setCharacteristicNotification(services.get(2).getCharacteristics().get(0), false);
-            boolean res = gatt.setCharacteristicNotification(character, false);
-            Log.d(TAG, String.format(" Set notification disabled: %s", res));
-            state_notify = false;
+        try {
+            if (state_notify) {
+                gatt.setCharacteristicNotification(services.get(2).getCharacteristics().get(0), false);
+                boolean res = gatt.setCharacteristicNotification(character, false);
+                Log.d(TAG, String.format(" Set notification disabled: %s", res));
+                state_notify = false;
+            }
+            gatt.close();
+            gatt.disconnect();
+            gatt.close();
+            gatt = null;
+            connect = STATE_DISCONNECTED;
+            clearServiceCache();
+            connectedDevice = new Device("Disconnected", "none");
+            MsgBox(context.getString(R.string.disconnect), "all");
+            response.add(context.getString(R.string.disconnect));
+        } catch (Exception e){
+            Log.d(TAG, e.toString());
         }
-        gatt.close();
-        gatt.disconnect();
-        gatt.close();
-        gatt = null;
-        connect = STATE_DISCONNECTED;
-        clearServiceCache();
-        connectedDevice = new Device("Disconnected", "none");
-        MsgBox(context.getString(R.string.disconnect), "all");
-        response.add(context.getString(R.string.disconnect));
+
     }
 
     // this function sending command and disconnecting after connect_to_saved()

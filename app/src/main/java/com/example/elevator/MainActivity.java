@@ -131,10 +131,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean access_to_list_discovered_devices = false; // true если идет цикл по listDiscoveredDevices,
                                                                 // нужен что бы не произошло одновременного обращения к списку
     private boolean wrong_address = false; // если при автоматическом режиме не нашлось адресов сохраненных в памяти, то будет равно true
+
     //
     private List<Elevator> listSavedElevators;
 
-    private int debug_int = 200; // for change int parameters from app
+    // DEBUG VARIABLES
+    private int debug_int = 500; // for change int parameters from app
 
 
     static class DiscoveredDevice {
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
                 if(connectedDevice.getName().equals("Cabine")){
                     btConnection.SendMessage(String.format("lift_%d", position), true);
-                    backgroundWaitForDisconnect(250);
+                    backgroundWaitForDisconnect(debug_int);
                 } else {
                     backgroundWaitForDisconnect(1000);
                 }
