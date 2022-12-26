@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (command.equals("check_connect")){
                 Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
-                if(connectedDevice.getName().equals("Cabine")){
+                if(connectedDevice.getName().equals("Cabine") || connectedDevice.getName().equals("HC-08")){
                     btConnection.SendMessage(String.format("lift_%d", position), true);
                     backgroundWaitForDisconnect(debug_int);
                 } else {
@@ -812,6 +812,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else if (text.length() > 9){
                     if(text.substring(0, 9).equals("debug_int")){
                         debug_int = Integer.parseInt(text.substring(10));
+                        dialog_history.append("debug_int changed to " + text.substring(10) + "\r\n");
                     }
                 } else if (text.equals("help")){
                     Log.d(TAG, "help");

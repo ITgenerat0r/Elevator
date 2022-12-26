@@ -143,7 +143,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                         isConnecting = false;
                         connectedDevice.setAddress(gatt.getDevice().getAddress());
                         connectedDevice.setName(gatt.getDevice().getName());
-                        Log.d("MainActivity", String.format("connectedDevice.Name = %s", connectedDevice.getName()));
+                        Log.d(TAG, String.format("connectedDevice.Name = %s", connectedDevice.getName()));
                         MsgBox(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
                         response.add(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
 
