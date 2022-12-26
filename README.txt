@@ -1,4 +1,4 @@
-Elevator_mobile v1.4
+Elevator_mobile v1.4.3
 Compile APK: Build -> Build Bundle(s)/APK(s) -> Build APK(s)
 apk лежит в ..\Elevator\app\build\outputs\apk\debug
 или  ../Elevator/app/release

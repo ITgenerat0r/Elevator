@@ -68,6 +68,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
     private static final int MAX_TRIES = 5;
 
     private boolean isConnecting;
+    private boolean isSending; // true - while sending message
 
     private Device connectedDevice = null;
     public List<String> getResponse() {
@@ -278,6 +279,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         response = new ArrayList<>();
         isConnecting = false;
+        isSending = false;
     }
 
     // подключение к BlueTooth устройству
@@ -518,14 +520,15 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
         }
     }
 
-private int is = 0;
+
 //    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void SendMessage(String message, boolean end_of_string){
-        Log.d(TAG, "SendMessage(" + message + ")");
-        response.add("SendMessage(" + message + ")");
         if(connect == STATE_CONNECTED) { // ==2
             if(character != null) {
+                isSending = true;
+                Log.d(TAG, "SendMessage(" + message + ")");
+                response.add("SendMessage(" + message + ")");
 //            if(ch.getProperties() == PROPERTY_READ) {
 //                gatt.readCharacteristic(ch);
 //            } else if(ch.getProperties() == PROPERTY_WRITE) {
@@ -554,6 +557,7 @@ private int is = 0;
                     Log.d(TAG, String.format(" Set notification enabled: %s", res));
                     state_notify = true;
                 }
+                isSending = false;
 //            List<BluetoothGattDescriptor> descriptors = ch.getDescriptors();
 //            for(BluetoothGattDescriptor descriptor : descriptors){
 //                gatt.readDescriptor(descriptor);
@@ -561,12 +565,6 @@ private int is = 0;
             }
         }
 
-
-        if(is < 3){
-            is++;
-        } else {
-            is = 0;
-        }
         Log.d(TAG, "");
     }
 
@@ -611,6 +609,8 @@ private int is = 0;
     public int getConnectState(){
         return connect;
     }
+
+    public boolean isSendingMessage(){ return isSending; }
 
     public int isHaveData(){
         if(response != null) return response.size();

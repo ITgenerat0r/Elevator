@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Elevator> listSavedElevators;
 
     // DEBUG VARIABLES
-    private int debug_int = 500; // for change int parameters from app
+    private int debug_int = 0; // for change int parameters from app
 
 
     static class DiscoveredDevice {
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (command.equals("check_connect")){
                 Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
-                if(connectedDevice.getName().equals("Cabine") || connectedDevice.getName().equals("HC-08")){
+                if(connectedDevice.getName().equals("Cabine") || connectedDevice.getName().equals("null")){
                     btConnection.SendMessage(String.format("lift_%d", position), true);
                     backgroundWaitForDisconnect(debug_int);
                 } else {
@@ -965,9 +965,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(wait_for_disconnect) return;
         Runnable waitForDisconnect = () -> {
             wait_for_disconnect = true;
+            int dly_inside = dly;
+            while (btConnection.isSendingMessage()){
+                sleep(100);
+                dly_inside -= 100;
+            }
             Log.d(TAG, "Wait for disconnect");
+            if(dly_inside > 0) sleep(dly_inside);
+
             // disconnect
-            sleep(dly);
             Log.d(TAG, " -> Disconnect");
             Message msg = autoHandler.obtainMessage();
             Bundle bndl = new Bundle();
