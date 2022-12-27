@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean delay_for_disconnect = false;
     private boolean wait_for_connect = false; // is wait_for_connect running
     private boolean wait_for_disconnect = false; // is wait_for_disconnect running
+    private  int countdown_for_wait_response = 100;
     private boolean background_auto_connect_running = false; // is backgroundAutoConnect() running
     private boolean background_send_command = false;
     private List<DiscoveredDevice> listDiscoveredDevices = new ArrayList<>(); // Хранит информацию об обнаруженных устройствах
@@ -197,7 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
                 if(connectedDevice.getName().equals("Cabine") || connectedDevice.getName().equals("null")){
                     btConnection.SendMessage(String.format("lift_%d", position), true);
-                    backgroundWaitForDisconnect(debug_int);
+                    btConnection.SendMessage("getMaxFloors", true);
+                    btConnection.SendMessage("getAddress", true);
+                    backgroundWaitForResponse();
                 } else {
                     backgroundWaitForDisconnect(1000);
                 }
@@ -331,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(i.length() > 3){
                     if(i.substring(0,3).equals("flr")){
 //                        String  g = i.substring(3);
+                        countdown_for_wait_response = -1; // Для того что бы waitForResponse() понял что ответ получен
                         try {
                             max_floors = Byte.parseByte(i.substring(3));
                             Log.d(TAG, "getMaxFloors received value == " + max_floors);
@@ -802,10 +806,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.bt_send:
                 String text = input_text.getText().toString();
+                Log.d(TAG, "input_text.text = " + text);
                 if(text.equals("clear")){
                     dialog_history.setText("");
                     input_text.setText("");
                     return;
+                } else if (text.equals("disconnect")) {
+                    if(btConnection != null && btConnection.getConnectState() == 2){
+                        btConnection.disconnect();
+                    }
                 } else if (text.equals("exit DEV") || text.equals("qdev")){
                     developer_mode = false;
                     setDeveloperMode();
@@ -827,26 +836,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog_history.append(" pExtBtn_X (1 <= X <= 4)  // press extra button\r\n");
                     input_text.setText("");
                 }
-
-                if(btConnection != null && btConnection.getConnectState() == 2){
-                    if(text.equals("disconnect")){
-                        btConnection.disconnect();
-                    } else {
-                        btConnection.SendMessage(text, !end_of_send.isChecked());
+                // else if - does not work here! (idk why)
+                if (text.substring(0, 4).equals("conn")) {
+                    Log.d(TAG, "conn");
+                    try {
+                        if (btConnection != null && btConnection.getConnectState() != 2) {
+                            dialog_history.append(text + "\r\n");
+                            Log.d(TAG, text);
+                            btConnection.conn(text.substring(5));
+                        }
+                    } catch (Exception e) {
+                        Log.d(TAG, e.toString());
+                        dialog_history.append(e.toString() + "\r\n");
                     }
                 } else {
-                    return;
+                    btConnection.SendMessage(text, !end_of_send.isChecked());
+                    Toast toast = Toast.makeText(this, "Send text: " + input_text.getText(), Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP, 10, 20);
+                    toast.show();
                 }
+
                 dialog_history.append(input_text.getText() + "\r\n");
                 //input_text.notify();
-                Toast toast = Toast.makeText(this, "Send text: " + input_text.getText(), Toast.LENGTH_LONG);
                 input_text.setText("");
-                toast.setGravity(Gravity.TOP, 10, 20);
-                toast.show();
                 break;
             case R.id.button_clear:
                 dialog_history.setText("");
-                Log.d(TAG, String.format("time between press button Clear: %d - %d = %d", System.currentTimeMillis(), dev_switch_delay, System.currentTimeMillis() - dev_switch_delay));
+//                Log.d(TAG, String.format("time between press button Clear: %d - %d = %d", System.currentTimeMillis(), dev_switch_delay, System.currentTimeMillis() - dev_switch_delay));
                 if(System.currentTimeMillis() - dev_switch_delay > 500){
                     dev_switch_delay = System.currentTimeMillis();
                     dev_switch_count = 0;
@@ -934,6 +950,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         Thread autoThread = new Thread(autoRunnable);
         autoThread.start();
+    }
+
+
+    private void backgroundWaitForResponse(){
+        if(countdown_for_wait_response == -1){
+            Log.d(TAG, "Ответ получен (flr)");
+        }
+        if(countdown_for_wait_response-- > 0) {
+            Runnable waitForResponse = () -> {
+                sleep(250);
+                Log.d(TAG, " -> autoHandler command 'check_connect'");
+                Message msg = autoHandler.obtainMessage();
+                Bundle bndl = new Bundle();
+                bndl.putString("MSG_COMMAND", "check_connect");
+                msg.setData(bndl);
+                autoHandler.sendMessage(msg);
+            };
+            Thread waitResponseThread = new Thread(waitForResponse);
+            waitResponseThread.start();
+        } else {
+            backgroundWaitForDisconnect(debug_int);
+        }
     }
 
     private void backgroundWaitForConnect(){
