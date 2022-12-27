@@ -1,4 +1,4 @@
-Elevator_mobile v1.4.4
+Elevator_mobile v1.4.5
 Compile APK: Build -> Build Bundle(s)/APK(s) -> Build APK(s)
 apk лежит в ..\Elevator\app\build\outputs\apk\debug
 или  ../Elevator/app/release
@@ -63,4 +63,5 @@ BLE на этажах должны называться "Elevator_f*", где * это номер этажа
 
 
 Доработать:
+maxFloors always is 2, need to fix
 gUpd for android and arduino

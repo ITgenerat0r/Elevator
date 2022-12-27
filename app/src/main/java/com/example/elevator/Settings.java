@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elevator.adapter.BtConsts;
+import com.example.elevator.objects.Device;
 import com.example.elevator.objects.Elevator;
 import com.example.elevator.objects.Storage;
 
@@ -33,6 +35,7 @@ public class Settings extends AppCompatActivity {
     private EditText editText_floor;
     private TextView editText_address;
     private EditText editText_name;
+    private TextView elv_info;
     final static String string_address = "Добавить адрес";
     private Elevator itemAddress;
     private CharSequence buffer; // для editText_address, хранит предыдущее значение
@@ -44,7 +47,7 @@ public class Settings extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate()");
@@ -59,6 +62,8 @@ public class Settings extends AppCompatActivity {
 //        current_address = findViewById(R.id.current_address);
         editText_address = findViewById(R.id.home_address);
         editText_name = findViewById(R.id.editText_name);
+        elv_info = findViewById(R.id.elevator_info);
+        elv_info.setMovementMethod(new ScrollingMovementMethod());
 
 //        cur_addr = preferences.getString(BtConsts.MAC_KEY, "none");
         cur_name = preferences.getString(BtConsts.LAST_NAME, "last_name");
@@ -80,6 +85,16 @@ public class Settings extends AppCompatActivity {
         tv.setText(getApplicationContext().getString(R.string.elevator_id));
         tv = findViewById(R.id.btn_set);
         tv.setText(getApplicationContext().getString(R.string.apply));
+
+        elv_info.append(String.format("Max floors: %d\r\n", itemAddress.getMaxFloor()));
+        elv_info.append("\r\nCabins:\r\n");
+        for(Device dvc : itemAddress.getCabins()){
+            elv_info.append("   " + dvc.getAddress() + "\r\n");
+        }
+        elv_info.append("\r\nFloors:\r\n");
+        for(Device dvc : itemAddress.getFloors()){
+            elv_info.append("   " + dvc.getName() + " : " + dvc.getAddress() + "\r\n");
+        }
 
 
         editText_address.addTextChangedListener(new TextWatcher() {

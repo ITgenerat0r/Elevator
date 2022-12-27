@@ -93,4 +93,17 @@
         android:layout_marginTop="8dp"
         android:layout_below="@+id/textView_name"/>
 
+    <TextView
+        android:id="@+id/elevator_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_set"
+        android:layout_below="@+id/autodown"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp"
+
+        android:clickable="false"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical" />
 </RelativeLayout>
