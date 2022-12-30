@@ -144,6 +144,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                         isConnecting = false;
                         connectedDevice.setAddress(gatt.getDevice().getAddress());
                         connectedDevice.setName(gatt.getDevice().getName());
+                        if(connectedDevice.getName() == null) Log.d(TAG, "connectedDevice.Name is null");
                         Log.d(TAG, String.format("connectedDevice.Name = %s", connectedDevice.getName()));
                         MsgBox(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")", "log");
                         response.add(context.getString(R.string.succesful_connect)+" "+connectedDevice.getName()+" ("+connectedDevice.getAddress()+")");
@@ -524,11 +525,14 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
 //    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void SendMessage(String message, boolean end_of_string){
+        Log.d(TAG, "SendMessage(" + message + ")");
+        response.add("SendMessage(" + message + ")");
         if(connect == STATE_CONNECTED) { // ==2
             if(character != null) {
+                String l = String.format("ch.getProperties() = %d", character.getProperties());
+                Log.d(TAG, l);
+                response.add(l);
                 isSending = true;
-                Log.d(TAG, "SendMessage(" + message + ")");
-                response.add("SendMessage(" + message + ")");
 //            if(ch.getProperties() == PROPERTY_READ) {
 //                gatt.readCharacteristic(ch);
 //            } else if(ch.getProperties() == PROPERTY_WRITE) {
@@ -552,6 +556,7 @@ public class BLEConnection<IBluetoothGatt> implements BluetoothProfile {
                 character.setWriteType(WRITE_TYPE_DEFAULT);
                 gatt.writeCharacteristic(character);
                 Log.d(TAG, "Sended!");
+                response.add("Sended!");
                 if (!state_notify) {
                     boolean res = gatt.setCharacteristicNotification(character, true);
                     Log.d(TAG, String.format(" Set notification enabled: %s", res));

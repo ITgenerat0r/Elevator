@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Elevator> listSavedElevators;
 
     // DEBUG VARIABLES
-    private int debug_int = 0; // for change int parameters from app
+    private int debug_int = 100; // for change int parameters from app
 
 
     static class DiscoveredDevice {
@@ -196,10 +196,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (command.equals("check_connect")){
                 Log.d(TAG, "名前: " + connectedDevice.getName() + ", MAC: " + connectedDevice.getAddress());
-                if(connectedDevice.getName().equals("Cabine") || connectedDevice.getName().equals("null")){
+                if(connectedDevice == null) dialog_history.append("connectedDevice is null\r\n");
+                if(connectedDevice.getName() == null) dialog_history.append("device name is null\r\n");
+                if(connectedDevice.getAddress() == null) dialog_history.append("device address is null\r\n");
+
+                boolean k = true; // debug
+                if(connectedDevice.getName().substring(0, 8).equals("Elevator")) k = false;
+                if(connectedDevice.getName().equals("HC-08")) k = true; // debug
+                if(connectedDevice.getName().equals("null")) k = true; // debug
+                if(connectedDevice.getName().equals("Cabine") || k){
                     btConnection.SendMessage(String.format("lift_%d", position), true);
+                    sleep(100);
                     btConnection.SendMessage("getMaxFloors", true);
-                    btConnection.SendMessage("getAddress", true);
+//                    btConnection.SendMessage("getAddress", true);
+                    sleep(100);
                     backgroundWaitForResponse();
                 } else {
                     backgroundWaitForDisconnect(1000);
@@ -818,12 +828,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (text.equals("exit DEV") || text.equals("qdev")){
                     developer_mode = false;
                     setDeveloperMode();
-                }else if (text.length() > 9){
-                    if(text.substring(0, 9).equals("debug_int")){
-                        debug_int = Integer.parseInt(text.substring(10));
-                        dialog_history.append("debug_int changed to " + text.substring(10) + "\r\n");
-                    }
-                } else if (text.equals("help")){
+                }
+                if(text.substring(0, 2).equals("di")){
+                    debug_int = Integer.parseInt(text.substring(10));
+                    dialog_history.append("debug_int changed to " + text.substring(10) + "\r\n");
+                }
+                if (text.equals("help")){
                     Log.d(TAG, "help");
                     dialog_history.append("Commands\r\n");
                     dialog_history.append(" lift_X (X >= 1)\r\n");
@@ -959,7 +969,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(countdown_for_wait_response-- > 0) {
             Runnable waitForResponse = () -> {
-                sleep(250);
+                sleep(debug_int);
                 Log.d(TAG, " -> autoHandler command 'check_connect'");
                 Message msg = autoHandler.obtainMessage();
                 Bundle bndl = new Bundle();
@@ -970,11 +980,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Thread waitResponseThread = new Thread(waitForResponse);
             waitResponseThread.start();
         } else {
-            backgroundWaitForDisconnect(debug_int);
+            backgroundWaitForDisconnect(100);
         }
     }
 
     private void backgroundWaitForConnect(){
+        countdown_for_wait_response = 100;
         // position - должен быть указан
         if(wait_for_connect) return;
         Runnable waitForConect = () -> {
